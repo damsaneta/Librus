@@ -33,9 +33,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,11 +61,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Grafika\Grafika.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Grafika.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Rola.cs" />
+    <Compile Include="Model\TypRoli.cs" />
+    <Compile Include="Model\Walidator.cs" />
     <Compile Include="Widoki\Administracja\DodawanieUzytkownika.xaml.cs">
       <DependentUpon>DodawanieUzytkownika.xaml</DependentUpon>
     </Compile>
     <Compile Include="Widoki\Administracja\Uzytkownicy.xaml.cs">
       <DependentUpon>Uzytkownicy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widoki\OknoGlowne.xaml.cs">
+      <DependentUpon>OknoGlowne.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widoki\PanelLogowania.xaml.cs">
+      <DependentUpon>PanelLogowania.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +101,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widoki\OknoGlowne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\PanelLogowania.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -94,6 +124,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Grafika\Grafika.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Grafika.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -109,8 +143,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logika\" />
-    <Folder Include="Model\" />
     <Folder Include="Repozytoria\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Grafika\profile.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

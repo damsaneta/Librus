@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Librus.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,5 +24,59 @@ namespace Librus.Widoki.Administracja
         {
             InitializeComponent();
         }
+
+        private void Dodaj_Click(object sender, RoutedEventArgs e)
+        {
+            bool result = true;
+            result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtImie, this.errImie);
+            result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtNazwisko, this.errNazwisko);
+            result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtEmail, this.errEmail);
+            if( Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtImie, this.errImie))
+            {
+               result&= Walidator.WalidacjaPolaNazwy(txtImie, this.errImie);
+            }
+            if(Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtNazwisko,this.errNazwisko))
+            {
+               result&= Walidator.WalidacjaPolaNazwy(this.txtNazwisko, this.errNazwisko);
+            }
+            if( Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtEmail,this.errEmail))
+            {
+                result &= Walidator.WalidacjaPolaEmail(this.txtEmail, this.errEmail);
+            }
+            if(result == true)
+            {
+                TypRoli typ = (TypRoli)this.comboRola.SelectedIndex;
+            }           
+        }
+        private void TextBoxImie_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           if( Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtImie, this.errImie))
+           {
+               Walidator.WalidacjaPolaNazwy(this.txtImie, this.errImie);
+           }
+        }
+
+        private void TextBoxNazwisko_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtNazwisko,this.errNazwisko))
+            {
+                Walidator.WalidacjaPolaNazwy(this.txtNazwisko, this.errNazwisko);
+            }
+        }
+
+        private void TextBoxEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtEmail,this.errEmail))
+            {
+                Walidator.WalidacjaPolaEmail(this.txtEmail, this.errEmail);
+            }
+        }
+
+        private void Anuluj_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+         
     }
 }
