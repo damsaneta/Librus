@@ -1,0 +1,12 @@
+1. sprawdziæ po adresie email czy istnieje taki uzytkownik i jesli istnieje wyswitlic komunikat bledu w labelce"email zajety"
+2. na widoku uzytkownicy dodac przycisk "dodaj uzytkownika", uruchamia okno dodawania jako modal i nie mozna przejsc pod spod.
+anuluj -zamyka okno;
+3. rozpoznac kontrolke data grid
+3,5. na starcie aplikacji dodac metodê któr doda 2 testowych uzytkownikow do listy repozytorium
+4. podpiac liste uzytkownikow pod kontrolke;
+5. nag³owki w gridzie
+6. ostylowaæ
+7. po dodaniu uzytkownika odswiezyc data grid "uzytkownicy";
+8. rozpoznac sortowanie data grida
+9. wyszukiwanie w gridzie po imieniu nazwisku i mailu w jednym polu
+10. filtrowanie po roli

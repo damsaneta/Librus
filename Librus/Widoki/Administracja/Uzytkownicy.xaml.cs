@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Librus.DostepDoDanych.Pamiec;
+using Librus.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,13 @@ namespace Librus.Widoki.Administracja
     /// </summary>
     public partial class Uzytkownicy : Window
     {
+        private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
         public Uzytkownicy()
         {
             InitializeComponent();
+           this.repozytorium.Dodaj(new Uzytkownik("Aneta", "Dams", "das@dads.pl", TypRoli.Rodzic));
+           this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
         }
+
     }
 }

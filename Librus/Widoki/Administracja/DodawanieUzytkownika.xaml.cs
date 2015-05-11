@@ -1,4 +1,5 @@
-﻿using Librus.Model;
+﻿using Librus.DostepDoDanych.Pamiec;
+using Librus.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Librus.Widoki.Administracja
     /// </summary>
     public partial class DodawanieUzytkownika : Window
     {
+        private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
         public DodawanieUzytkownika()
         {
             InitializeComponent();
@@ -46,7 +48,11 @@ namespace Librus.Widoki.Administracja
             if(result == true)
             {
                 TypRoli typ = (TypRoli)this.comboRola.SelectedIndex;
-            }           
+                Uzytkownik uzytkownik = new Uzytkownik(this.txtImie.Text, this.txtNazwisko.Text,
+                    this.txtEmail.Text, typ);
+                this.repozytorium.Dodaj(uzytkownik);
+            }  
+         
         }
         private void TextBoxImie_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -75,8 +81,6 @@ namespace Librus.Widoki.Administracja
         private void Anuluj_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-         
+        }        
     }
 }

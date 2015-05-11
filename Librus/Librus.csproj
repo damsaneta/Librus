@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumUzytkownikowWPamieci.cs" />
     <Compile Include="Grafika\Grafika.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,6 +69,7 @@
     </Compile>
     <Compile Include="Model\Rola.cs" />
     <Compile Include="Model\TypRoli.cs" />
+    <Compile Include="Model\Uzytkownik.cs" />
     <Compile Include="Model\Walidator.cs" />
     <Compile Include="Widoki\Administracja\DodawanieUzytkownika.xaml.cs">
       <DependentUpon>DodawanieUzytkownika.xaml</DependentUpon>
@@ -141,10 +143,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logika\" />
-    <Folder Include="Repozytoria\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Grafika\profile.jpg" />
   </ItemGroup>
