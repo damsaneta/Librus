@@ -29,28 +29,42 @@ namespace Librus.Widoki.Administracja
 
         private void Dodaj_Click(object sender, RoutedEventArgs e)
         {
+           
             bool result = true;
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtImie, this.errImie);
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtNazwisko, this.errNazwisko);
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtEmail, this.errEmail);
             if( Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtImie, this.errImie))
             {
-               result&= Walidator.WalidacjaPolaNazwy(txtImie, this.errImie);
+               result &= Walidator.WalidacjaPolaNazwy(txtImie, this.errImie);
             }
             if(Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtNazwisko,this.errNazwisko))
             {
-               result&= Walidator.WalidacjaPolaNazwy(this.txtNazwisko, this.errNazwisko);
+               result &= Walidator.WalidacjaPolaNazwy(this.txtNazwisko, this.errNazwisko);
             }
             if( Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtEmail,this.errEmail))
             {
                 result &= Walidator.WalidacjaPolaEmail(this.txtEmail, this.errEmail);
             }
+            result &= Walidator.WalidacjaComboBox(this.comboRola, this.errRola);
+            Uzytkownik u = repozytorium.PobierzPoEmailu(this.txtEmail.Text);
+            
             if(result == true)
             {
-                TypRoli typ = (TypRoli)this.comboRola.SelectedIndex;
-                Uzytkownik uzytkownik = new Uzytkownik(this.txtImie.Text, this.txtNazwisko.Text,
-                    this.txtEmail.Text, typ);
-                this.repozytorium.Dodaj(uzytkownik);
+                if (u == null)
+                {
+                    Walidator.UsunBlad(this.txtEmail,this.errEmail);
+                    TypRoli typ = (TypRoli)this.comboRola.SelectedIndex;
+                    Uzytkownik uzytkownik = new Uzytkownik(this.txtImie.Text, this.txtNazwisko.Text,
+                        this.txtEmail.Text, typ);
+                    this.repozytorium.Dodaj(uzytkownik);
+                    this.Close();
+                }
+                else
+                {
+                    Walidator.WyswietlBlad(this.txtEmail,this.errEmail, "Uzytkownik juz istnieje!");
+                }
+               
             }  
          
         }

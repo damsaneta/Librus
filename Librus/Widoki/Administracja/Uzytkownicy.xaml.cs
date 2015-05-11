@@ -25,8 +25,19 @@ namespace Librus.Widoki.Administracja
         public Uzytkownicy()
         {
             InitializeComponent();
-           this.repozytorium.Dodaj(new Uzytkownik("Aneta", "Dams", "das@dads.pl", TypRoli.Rodzic));
+            this.repozytorium.Dodaj(new Uzytkownik("Aneta", "Dams", "damsA@gmail.com", TypRoli.Rodzic));
+            this.repozytorium.Dodaj(new Uzytkownik("Łukasz", "Dams", "ldams@gmail.com", TypRoli.Administrator));
+            this.repozytorium.Dodaj(new Uzytkownik("Anna", "Kowlska", "das@gmail.com", TypRoli.Rodzic));
+            this.repozytorium.Dodaj(new Uzytkownik("Mateusz", "Brzeziński", "brzeziu@wp.pl", TypRoli.Nauczyciel));
            this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+        }
+
+        private void Dodaj_Click(object sender, RoutedEventArgs e)
+        {
+            var view = new DodawanieUzytkownika();
+            view.ShowDialog();
+            this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+            this.grid.Items.Refresh();
         }
 
     }

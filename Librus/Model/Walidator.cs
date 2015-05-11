@@ -25,6 +25,18 @@ namespace Librus.Model
             UsunBlad(txt, lbl);
             return true;
         }
+
+        public static bool WalidacjaComboBox(ComboBox box, Label lbl)
+        {
+            TypRoli typ = (TypRoli)box.SelectedIndex;
+            if (typ == TypRoli.Nieznany)
+            {
+                WyswietlBlad(box, lbl, "Proszę wybrać.");
+                return false;
+            }
+            UsunBlad(box, lbl);
+            return true;
+        }
         public static bool WalidacjaPolaEmail(TextBox txt,Label lbl)
         {
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"); 
