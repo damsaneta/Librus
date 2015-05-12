@@ -17,5 +17,10 @@ namespace Librus.Model
 
         public string Nazwa { get; private set; }
 
+        public override string ToString()
+        {
+            return this.Nazwa;
+        }
+    
     }
 }

@@ -29,6 +29,7 @@ namespace Librus.Widoki.Administracja
             this.repozytorium.Dodaj(new Uzytkownik("Łukasz", "Dams", "ldams@gmail.com", TypRoli.Administrator));
             this.repozytorium.Dodaj(new Uzytkownik("Anna", "Kowlska", "das@gmail.com", TypRoli.Rodzic));
             this.repozytorium.Dodaj(new Uzytkownik("Mateusz", "Brzeziński", "brzeziu@wp.pl", TypRoli.Nauczyciel));
+         
            this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
         }
 
@@ -38,6 +39,11 @@ namespace Librus.Widoki.Administracja
             view.ShowDialog();
             this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
             this.grid.Items.Refresh();
+        }
+
+        private void Szukaj_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.txtSzukaj.Text = null;
         }
 
     }
