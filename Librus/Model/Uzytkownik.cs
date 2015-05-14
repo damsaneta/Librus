@@ -15,12 +15,13 @@ namespace Librus.Model
             this.Email = email;
             this.Rola =  new Rola(rola);
         }
-        public string Imie { get; private set; }
-        public string Nazwisko { get;private set; }
+        public string PelnaNazwa { get { return this.Imie + " " + this.Nazwisko; } }
         public string Email { get; private set; }
         public Rola Rola { get; private set; }
+        public string Imie { get; private set; }
+        public string Nazwisko { get;private set; }
         public int Id { get; set; }
-        public string PelnaNazwa { get { return this.Imie + " " + this.Nazwisko; } }
+      
 
     }
 }

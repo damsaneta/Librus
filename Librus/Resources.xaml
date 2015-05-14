@@ -8,7 +8,21 @@
         <Setter Property="Control.BorderBrush" Value="#1ba1e2"/>
 
     </Style>
- 
+    <Style x:Key="DataGridStyle" TargetType="{x:Type DataGrid}">
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource ColumnHeaderStyle}"/>
+    </Style>
+    <!-- DataGridColumnHeader style -->
+    <Style x:Key="ColumnHeaderStyle" TargetType="DataGridColumnHeader">
+        <!--<Setter Property="Height" Value="30"/>-->
+        <Setter Property="Background" Value="#1d1d1d"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14" />  
+        <!--<Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="ToolTip" Value="Click to sort."/>
+            </Trigger>
+        </Style.Triggers>-->
+    </Style>
 
     <Style x:Key="labelStyle">
         <Setter Property="Control.FontFamily" Value="Segoe Ui Light" />
