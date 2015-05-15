@@ -77,6 +77,10 @@
     <Compile Include="Widoki\Administracja\Uzytkownicy.xaml.cs">
       <DependentUpon>Uzytkownicy.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widoki\DodawanieUzytkownika\DodawanieUzytkownikaView.xaml.cs">
+      <DependentUpon>DodawanieUzytkownikaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widoki\DodawanieUzytkownika\DodawanieUzytkownikaViewModel.cs" />
     <Compile Include="Widoki\OknoGlowne.xaml.cs">
       <DependentUpon>OknoGlowne.xaml</DependentUpon>
     </Compile>
@@ -104,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\Administracja\Uzytkownicy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\DodawanieUzytkownika\DodawanieUzytkownikaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
