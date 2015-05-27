@@ -53,6 +53,7 @@
                 </StackPanel>
             </ComboBoxItem>
         </ComboBox>
+        
         <Button x:Name="btnDodaj" IsDefault="True"  Content="DODAJ" Height="40" Style="{StaticResource buttonStyle }"  
                 VerticalAlignment="Bottom"  Padding="0" Margin="223,0,30,26" Grid.Row="4" Grid.Column="1" Click="Dodaj_Click"/>
         <Button x:Name="btnAnuluj" IsCancel="True" Content="ANULUJ" Height="40" Style="{StaticResource buttonStyle }"  
