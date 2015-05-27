@@ -28,5 +28,7 @@ namespace Librus.Widoki.DodawanieUzytkownika
         {
             this.Close();
         }
+
+      
     }
 }

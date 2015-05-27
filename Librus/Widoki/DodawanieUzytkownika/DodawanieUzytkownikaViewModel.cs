@@ -48,6 +48,34 @@ namespace Librus.Widoki.DodawanieUzytkownika
                 model.Email = value;
             }
         }
+        //public string TxtComboBox
+        //{
+        //    //get { return this.model.Rola.ToString(); }
+        //    set
+        //    {
+        //        this.WyczyscBlad("TxtComboBox");
+        //        TypRoli typ = TypRoli.Nieznany;
+        //        if (value == "Nauczyciel") typ = TypRoli.Nauczyciel;
+        //        else if (value == "Rodzic") typ = TypRoli.Rodzic;
+        //        else if (value == "Administrator") typ = TypRoli.Administrator;
+        //        Rola rola = new Rola(typ);
+        //        WalidujComboBox("TxtComboBox", value);
+        //        this.model.Rola = rola;
+        //    }
+        //}
+        public int TxtComboBox
+        {
+            //get { return this.model.Rola.ToString(); }
+            set
+            {
+                this.WyczyscBlad("TxtComboBox");
+                TypRoli typ = (TypRoli)value;
+                Rola rola = new Rola(typ);
+                WalidujComboBox("TxtComboBox", value);
+                this.model.Rola = rola;
+            }
+        }
+       
       
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -94,6 +122,15 @@ namespace Librus.Widoki.DodawanieUzytkownika
                     this.DodajBlad(nazwa, "Podaj poprawną wartość");
                 }
             }      
+        }
+        protected void  WalidujComboBox(string nazwa, int wartosc)
+        {
+            TypRoli typ = (TypRoli)wartosc;
+
+            if (typ == TypRoli.Nieznany)
+            {
+                this.DodajBlad(nazwa, "Wybierz Rolę");
+            }
         }
         protected void WalidujPoleEmail(string nazwa, string wartosc)
         {

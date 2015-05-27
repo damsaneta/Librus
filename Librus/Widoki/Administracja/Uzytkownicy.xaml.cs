@@ -22,23 +22,19 @@ namespace Librus.Widoki.Administracja
     public partial class Uzytkownicy : Window
     {
         private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
+        protected IList<Uzytkownik> uzytkownicy = new List<Uzytkownik>();
         public Uzytkownicy()
         {
             InitializeComponent();
-            this.repozytorium.Dodaj(new Uzytkownik("Aneta", "Brzezińska", "damsA@gmail.com", TypRoli.Rodzic));
-            this.repozytorium.Dodaj(new Uzytkownik("Łukasz", "Dams", "ldams@gmail.com", TypRoli.Administrator));
-            this.repozytorium.Dodaj(new Uzytkownik("Anna", "Kowlska", "das@gmail.com", TypRoli.Rodzic));
-            this.repozytorium.Dodaj(new Uzytkownik("Damian", "Brzeziński", "brzeziu@wp.pl", TypRoli.Nauczyciel));
-         
-            this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+           
+            
         }
 
         private void Dodaj_Click(object sender, RoutedEventArgs e)
         {
             var view = new DodawanieUzytkownika();
             view.ShowDialog();
-            this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
-            this.grid.Items.Refresh();
+            uzytkownicy= this.repozytorium.PobierzWszystkich();
         }
 
         private void Szukaj_MouseEnter(object sender, MouseEventArgs e)
@@ -50,12 +46,12 @@ namespace Librus.Widoki.Administracja
         {
             if(this.txtSzukaj.Text==null)
             {
-                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+                uzytkownicy = this.repozytorium.PobierzWszystkich();
                 this.grid.Items.Refresh();
             }
             else
             {
-                this.grid.ItemsSource = this.repozytorium.WyszukajUzytkownikow(this.txtSzukaj.Text);
+                uzytkownicy = this.repozytorium.WyszukajUzytkownikow(this.txtSzukaj.Text);
             }
 
         }
@@ -65,12 +61,12 @@ namespace Librus.Widoki.Administracja
             TypRoli typ = (TypRoli)this.comboBox.SelectedIndex;
             if (typ.ToString() != "Nieznany")
             {
-                this.grid.ItemsSource = this.repozytorium.WyszukajPoRoli(typ.ToString());
+                this.uzytkownicy = this.repozytorium.WyszukajPoRoli(typ.ToString());
                 this.grid.Items.Refresh();
             }
             else
             {
-                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+                this.uzytkownicy= this.repozytorium.PobierzWszystkich();
                 this.grid.Items.Refresh();
             }
             

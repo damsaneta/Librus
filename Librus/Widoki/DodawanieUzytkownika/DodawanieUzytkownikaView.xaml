@@ -19,6 +19,8 @@
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
+        <Button x:Name="btnDodaj"  Content="DODAJ" Height="40" Style="{StaticResource buttonStyle }"  
+                VerticalAlignment="Bottom"  Padding="0" Margin="223,0,30,26" Grid.Row="4" Grid.Column="1" />
         <Button x:Name="btnAnuluj" Content="ANULUJ" Height="40" Style="{StaticResource buttonStyle }"  
                 VerticalAlignment="Bottom"  Padding="0" Margin="10,0,238,26" Grid.Row="4" Grid.Column="1" Click="Anuluj_Click"/>
 
@@ -86,5 +88,46 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </TextBox>
+
+        <ComboBox Name="comboRola" SelectedIndex="{Binding TxtComboBox,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnValidationError=True}" Style="{StaticResource txtStyle}" HorizontalAlignment="Stretch" Margin="0,0,30,0" VerticalAlignment="Center" Grid.Row="3" Height="30"  Width="Auto" Grid.Column="1" >
+            <ComboBoxItem IsSelected="True">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="C:/Users/aneta/Desktop/profile.jpg" />
+                    <TextBlock  Margin="5,0,0,0">Wybierz...</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="C:/Users/aneta/Desktop/profile.jpg" />
+                    <TextBlock  Margin="5,0,0,0">Administrator</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="C:/Users/aneta/Desktop/profile.jpg" />
+                    <TextBlock  Margin="5,0,0,0">Nauczyciel</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="C:/Users/aneta/Desktop/profile.jpg" />
+                    <TextBlock  Margin="5,0,0,0">Rodzic</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <DockPanel LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Bottom" 
+                        Foreground="Yellow"
+                        FontSize="12pt" Text="{Binding Path=ErrorContent}">
+                        </TextBlock>
+                        <Border BorderBrush="Blue" BorderThickness="1">
+                            <AdornedElementPlaceholder />
+                        </Border>
+                    </DockPanel>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </ComboBox>
     </Grid>
 </Window>
