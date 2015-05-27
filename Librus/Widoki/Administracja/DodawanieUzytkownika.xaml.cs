@@ -58,6 +58,7 @@ namespace Librus.Widoki.Administracja
                     Uzytkownik uzytkownik = new Uzytkownik(this.txtImie.Text, this.txtNazwisko.Text,
                         this.txtEmail.Text, typ);
                     this.repozytorium.Dodaj(uzytkownik);
+                    this.DialogResult = true;
                     this.Close();
                 }
                 else

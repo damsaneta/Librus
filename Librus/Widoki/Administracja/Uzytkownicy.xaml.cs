@@ -22,19 +22,22 @@ namespace Librus.Widoki.Administracja
     public partial class Uzytkownicy : Window
     {
         private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
-        protected IList<Uzytkownik> uzytkownicy = new List<Uzytkownik>();
         public Uzytkownicy()
         {
             InitializeComponent();
-           
-            
+
+            this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
         }
 
         private void Dodaj_Click(object sender, RoutedEventArgs e)
         {
             var view = new DodawanieUzytkownika();
-            view.ShowDialog();
-            uzytkownicy= this.repozytorium.PobierzWszystkich();
+            bool? wynik =view.ShowDialog();
+            if(wynik.HasValue && wynik.Value)
+            {
+                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+            }
+            
         }
 
         private void Szukaj_MouseEnter(object sender, MouseEventArgs e)
@@ -46,12 +49,13 @@ namespace Librus.Widoki.Administracja
         {
             if(this.txtSzukaj.Text==null)
             {
-                uzytkownicy = this.repozytorium.PobierzWszystkich();
-                this.grid.Items.Refresh();
+                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+               // this.grid.Items.Refresh();
             }
             else
             {
-                uzytkownicy = this.repozytorium.WyszukajUzytkownikow(this.txtSzukaj.Text);
+                this.grid.ItemsSource  = this.repozytorium.WyszukajUzytkownikow(this.txtSzukaj.Text);
+                //this.grid.ItemsSource = this.Lista;
             }
 
         }
@@ -61,13 +65,14 @@ namespace Librus.Widoki.Administracja
             TypRoli typ = (TypRoli)this.comboBox.SelectedIndex;
             if (typ.ToString() != "Nieznany")
             {
-                this.uzytkownicy = this.repozytorium.WyszukajPoRoli(typ.ToString());
-                this.grid.Items.Refresh();
+                this.grid.ItemsSource = this.repozytorium.WyszukajPoRoli(typ.ToString());
+                //this.grid.Items.Refresh();
             }
             else
             {
-                this.uzytkownicy= this.repozytorium.PobierzWszystkich();
-                this.grid.Items.Refresh();
+                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+                //this.grid.ItemsSource = this.Lista;
+                //this.grid.Items.Refresh();
             }
             
         }
