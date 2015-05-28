@@ -40,41 +40,88 @@ namespace Librus.Widoki.Administracja
             
         }
 
-        private void Szukaj_MouseEnter(object sender, MouseEventArgs e)
-        {
-            this.txtSzukaj.Text = null;
-        }
-
         private void Szukaj_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(this.txtSzukaj.Text==null)
+         string  typ = "";
+            TypRoli typ1 = TypRoli.Nieznany;
+            try
+            {
+                 typ1 = (TypRoli)this.comboBox.SelectedIndex;
+            }
+            catch
+            {
+                 typ = "Szukaj po roli...";
+            
+            }
+            if (typ != "Szukaj po roli...") typ = typ1.ToString();
+             if ((string.IsNullOrEmpty(this.txtSzukaj.Text) || this.txtSzukaj.Text=="Szukaj...")&& (typ== "Szukaj po roli..." || typ=="Nieznany"))
             {
                 this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
                // this.grid.Items.Refresh();
             }
-            else
+             else if ((!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj...") && (typ == "Szukaj po roli..." || typ == "Nieznany"))
             {
                 this.grid.ItemsSource  = this.repozytorium.WyszukajUzytkownikow(this.txtSzukaj.Text);
                 //this.grid.ItemsSource = this.Lista;
             }
+             else if ((!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj...") && (typ != "Szukaj po roli..." &&  typ!="Nieznany" ))
+             {
+                 this.grid.ItemsSource = this.repozytorium.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ);
+             }
 
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TypRoli typ = (TypRoli)this.comboBox.SelectedIndex;
-            if (typ.ToString() != "Nieznany")
+            if (typ.ToString() != "Nieznany" && (string.IsNullOrEmpty(this.txtSzukaj.Text) || this.txtSzukaj.Text=="Szukaj..." ))
             {
                 this.grid.ItemsSource = this.repozytorium.WyszukajPoRoli(typ.ToString());
                 //this.grid.Items.Refresh();
             }
-            else
+            else if(typ.ToString() != "Nieznany" && (!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text!="Szukaj..." ) )
+                {
+                    this.grid.ItemsSource = this.repozytorium.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ.ToString());
+            }
+            else if (typ.ToString() == "Nieznany" && (!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj..."))
+            {
+                this.grid.ItemsSource = this.repozytorium.WyszukajUzytkownikow(this.txtSzukaj.Text);
+            }
+            else 
             {
                 this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
                 //this.grid.ItemsSource = this.Lista;
                 //this.grid.Items.Refresh();
             }
             
+        }
+
+        private void txtSzukaj_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string  typ = "";
+            TypRoli typ1 = TypRoli.Nieznany;
+            try
+            {
+                 typ1 = (TypRoli)this.comboBox.SelectedIndex;
+            }
+            catch
+            {
+                 typ = "Szukaj po roli...";
+            
+            }
+            if (typ1.ToString()=="Nieznany") typ = "a";
+            if(string.IsNullOrEmpty(txtSzukaj.Text) && typ=="Szukaj po roli...")
+            {
+                
+                txtSzukaj.Text = "Szukaj...";
+                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+            }
+            if (string.IsNullOrEmpty(txtSzukaj.Text) && typ == "a")
+            {
+
+                txtSzukaj.Text = "Szukaj...";
+                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+            }
         }
 
     }

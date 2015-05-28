@@ -11,6 +11,7 @@ namespace Librus.Model
         Nieznany = 0,
         Administrator = 1,
         Nauczyciel = 2,
-        Rodzic = 3
+        Rodzic = 3,
+        Uczen = 4
     }
 }

@@ -33,6 +33,18 @@ namespace Librus.DostepDoDanych.Pamiec
                || (x.Email.StartsWith(wzorzec,StringComparison.CurrentCultureIgnoreCase))
                ).ToList();
         }
+        public IList<Uzytkownik> WyszukajPoRoli(string wzorzec)
+        {
+            return uzytkownicy.Values.Where(x => x.Rola.ToString().StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        }
+        public IList<Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola)
+        {
+            return uzytkownicy.Values.Where(x => ((x.Imie.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))
+               || (x.Nazwisko.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))
+               || (x.Email.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase)))
+               && (x.Rola.ToString().StartsWith(rola, StringComparison.CurrentCultureIgnoreCase))
+               ).ToList();
+        }
         public Uzytkownik PobierzPoEmailu(string email)
         {
            if(emaileUzytkownika.ContainsKey(email))
@@ -43,9 +55,6 @@ namespace Librus.DostepDoDanych.Pamiec
             return null;
         }
 
-        public IList<Uzytkownik> WyszukajPoRoli(string wzorzec)
-        {
-            return uzytkownicy.Values.Where(x => x.Rola.ToString().StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase)).ToList();
-        }
+      
     }
 }

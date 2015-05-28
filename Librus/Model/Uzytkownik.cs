@@ -12,12 +12,13 @@ namespace Librus.Model
         {
                 
         }
-        public Uzytkownik(string imie, string nazwisko,string email, TypRoli rola)
+        public Uzytkownik(string imie, string nazwisko,string email, TypRoli rola, string haslo)
         {
             this.Imie = imie;
             this.Nazwisko = nazwisko;
             this.Email = email;
             this.Rola =  new Rola(rola);
+            this.Haslo = haslo;
         }
         public string PelnaNazwa { get { return this.Imie + " " + this.Nazwisko; } }
         public string Email { get; set; }
@@ -25,6 +26,8 @@ namespace Librus.Model
         public string Imie { get;  set; }
         public string Nazwisko { get; set; }
         public int Id { get; set; }
+
+        public string Haslo { get; set; }
       
 
     }

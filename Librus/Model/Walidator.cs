@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Librus.DostepDoDanych.Pamiec;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Librus.Model
 {
     public static class Walidator
     {
+        private static readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
         public static bool WalidacjaPolaNazwy(TextBox txt, Label lbl)
         {
             foreach (char c in txt.Text)
@@ -62,6 +64,19 @@ namespace Librus.Model
                 return true;
             }
         }
+        //public static bool WalidacjaIstnieniaUzytkownika(TextBox textBox, Label label)
+        //{
+        //    if(repozytorium.PobierzPoEmailu(textBox.Text)!=null)
+        //    {
+        //        WyswietlBlad(textBox, label, "Użytkownik o takim e-mailu istnieje.");
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        UsunBlad(textBox, label);
+        //        return true;
+        //    }
+        //}
         public static void WyswietlBlad(Control kontrolka, Label lbl, string komunikat)
         {
             kontrolka.Background = Brushes.Yellow;
@@ -72,6 +87,22 @@ namespace Librus.Model
         {
             kontrolka.Background = Brushes.White;
             lbl.Visibility = Visibility.Hidden;
+        }
+
+
+
+        public static bool WalidacjaHasla(PasswordBox passwordBox, Label label)
+        {
+            if (string.IsNullOrEmpty(passwordBox.Password))
+            {
+                WyswietlBlad(passwordBox, label, "Pole jest wymagane.");
+                return false;
+            }
+            else
+            {
+                UsunBlad(passwordBox, label);
+                return true;
+            }
         }
     }
 }

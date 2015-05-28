@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Panel logowania" Height="320" Width="500" Background="#1d1d1d">
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"/>
@@ -17,13 +17,13 @@
         <Label x:Name="lblHaslo" Style="{StaticResource labelStyle}" Content="Hasło:" HorizontalAlignment="Right" Margin="0,32,10,30" Grid.Row="1" VerticalAlignment="Center" Height="28" Width="46"/>
         <TextBox x:Name="txtLogin" Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,30,30,30" TextWrapping="NoWrap" 
                  VerticalAlignment="Center" Width="Auto" TextChanged="TextBoxLogin_TextChanged" />
-        <TextBox x:Name="txtHaslo" Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,30,30,30" Grid.Row="1" 
-                 TextWrapping="NoWrap" VerticalAlignment="Center" Width="Auto" TextChanged="TextBoxHaslo_TextChanged"  />
         <Label x:Name="errHaslo"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30"  HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="1" VerticalAlignment="Bottom"/>
         <Label x:Name="errLogin"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30" HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="0" VerticalAlignment="Bottom"/>
         <Button x:Name="btnZaloguj" Content="ZALOGUJ" Height="40" Style="{StaticResource buttonStyle }" 
                 VerticalAlignment="Bottom"  Padding="0" Grid.Row="2" Grid.Column="1" Margin="69,0,47,33" Click="Zaloguj_Click"/>
         <Button x:Name="btnAnuluj" Content="ANULUJ" Height="40" Style="{StaticResource buttonStyle }"  
                 VerticalAlignment="Bottom"  Padding="0"  Grid.Row="2" Grid.Column="0" Margin="61,0,0,33" Click="Anuluj_Click"/>
+        <PasswordBox x:Name="txtHaslo" Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,30,30,30" Grid.Row="1" 
+                  VerticalAlignment="Center" Width="Auto"  />
     </Grid>
 </Window>

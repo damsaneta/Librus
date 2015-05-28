@@ -1,4 +1,5 @@
-﻿using Librus.Model;
+﻿using Librus.DostepDoDanych.Pamiec;
+using Librus.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Librus.Widoki
     /// </summary>
     public partial class PanelLogowania : Window
     {
+        private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
         public PanelLogowania()
         {
             InitializeComponent();
@@ -27,23 +29,48 @@ namespace Librus.Widoki
 
         private void Zaloguj_Click(object sender, RoutedEventArgs e)
         {
-            Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin);
-            Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtHaslo, this.errHaslo);
+            bool result = true;
+            result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin);
+            result &=Walidator.WalidacjaHasla(this.txtHaslo, this.errHaslo);
+            Uzytkownik u = repozytorium.PobierzPoEmailu(this.txtLogin.Text);
+            if(result==true)
+            {
+                if(u!=null)
+                {
+                    if(u.Haslo==this.txtHaslo.Password)
+                    {
+                        var widok = new OknoGlowne();
+                        widok.Show();
+                        this.Close();
+
+                    }
+                    else
+                    {
+                        Walidator.WyswietlBlad(this.txtHaslo, this.errHaslo, "Niepoprawne hasło!");
+                    }
+                }
+                else
+                {
+                    Walidator.WyswietlBlad(this.txtLogin, this.errLogin, "Uzytkownik o takim e-mailu nie istnieje!");
+                }
+            }
         }
 
         private void TextBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin);
+           if( Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin))
+           {
+               Walidator.WalidacjaPolaEmail(this.txtLogin, this.errLogin);
+           }
         }
 
-        private void TextBoxHaslo_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtHaslo, this.errHaslo);
-        }
+       
 
         private void Anuluj_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
+      
     }
 }
