@@ -18,24 +18,39 @@ namespace Librus.DostepDoDanych.Pamiec
         {
             return uzytkownicy.Values.ToList();
         }
-        
+
         public void Dodaj(Uzytkownik uzytkownik)
         {
             ostatnieID++;
             uzytkownik.Id = ostatnieID;
             uzytkownicy.Add(ostatnieID, uzytkownik);
-            emaileUzytkownika.Add(uzytkownik.Email,uzytkownik.Id);
+            emaileUzytkownika.Add(uzytkownik.Email, uzytkownik.Id);
         }
         public IList<Uzytkownik> WyszukajUzytkownikow(string wzorzec)
         {
-           return uzytkownicy.Values.Where(x => (x.Imie.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))
-               || (x.Nazwisko.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))
-               || (x.Email.StartsWith(wzorzec,StringComparison.CurrentCultureIgnoreCase))
-               ).ToList();
+            return uzytkownicy.Values.Where(x => (x.Imie.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))
+                || (x.Nazwisko.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))
+                || (x.Email.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))
+                ).ToList();
         }
         public IList<Uzytkownik> WyszukajPoRoli(string wzorzec)
         {
             return uzytkownicy.Values.Where(x => x.Rola.ToString().StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        }
+
+        public Uzytkownik WyszukajDziecka(string imie, string nazwisko)
+        {
+            IList<Uzytkownik> lista = uzytkownicy.Values.Where(x => (x.Rola.ToString().StartsWith(TypRoli.Uczen.ToString(), StringComparison.CurrentCultureIgnoreCase))).ToList();
+            foreach (Uzytkownik u in lista)
+            {
+                if (u.Imie == imie && u.Nazwisko == nazwisko)
+                {
+                    return u;
+                }
+
+            }
+            return null;
+
         }
         public IList<Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola)
         {
@@ -47,14 +62,41 @@ namespace Librus.DostepDoDanych.Pamiec
         }
         public Uzytkownik PobierzPoEmailu(string email)
         {
-           if(emaileUzytkownika.ContainsKey(email))
-           {
-               int id = emaileUzytkownika[email];
-               return uzytkownicy[id];
-           }
+            if (emaileUzytkownika.ContainsKey(email))
+            {
+                int id = emaileUzytkownika[email];
+                return uzytkownicy[id];
+            }
             return null;
         }
+        public List<Uzytkownik> WyszukiwanieDzieci(string tekst)
+        {
+            List<Uzytkownik> dzieci = new List<Uzytkownik>();
+            string slowo = tekst;
+            string brakDzieci = string.Empty;
+            string[] tab = slowo.Split(new char[] { ',' });
+            for (int i = 0; i < tab.Length; i++)
+            {
+                tab[i] = tab[i].Trim();
+            }
+            foreach (string s in tab)
+            {
+                string[] wynik = s.Split(new char[] { ' ' });
+                string imie = wynik[0];
+                string nazwisko = wynik[1];
+                Uzytkownik dziecko = WyszukajDziecka(imie, nazwisko);
+                if (dziecko != null)
+                {
+                    dzieci.Add(dziecko);
 
-      
+                }
+
+            }
+            return dzieci;
+
+
+        }
+
+
     }
 }

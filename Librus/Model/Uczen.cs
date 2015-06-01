@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Librus.Model
 {
-    public class Uczen:Uzytkownik
+    public class Uczen : Uzytkownik
     {
         public Uczen()
         {
 
         }
-        public Uczen(string imie, string nazwisko,string mail, TypRoli rola ,string haslo,string klasa):
-            base(imie,nazwisko,mail,rola ,haslo)
+        public Uczen(string imie, string nazwisko, string mail, string haslo, string klasa) :
+            base(imie, nazwisko, mail, TypRoli.Uczen, haslo)
         {
             this.Klasa = klasa;
         }

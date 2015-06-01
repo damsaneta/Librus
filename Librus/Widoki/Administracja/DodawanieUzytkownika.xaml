@@ -1,8 +1,7 @@
 ﻿<Window x:Class="Librus.Widoki.Administracja.DodawanieUzytkownika"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       
-        Title="Dodawanie użytkownika" Height="530" Width="600" Background="#1d1d1d" >    
+       Title="Dodawanie użytkownika" Height="570" Width="600" Background="#1d1d1d" >    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -18,26 +17,26 @@
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="lblImie" Style="{StaticResource labelStyle}" Content="Imię:" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center"/>
-        <Label x:Name="lblNazwisko" Style="{StaticResource labelStyle}" Content="Nazwisko:" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="1" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtImie" Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" TextWrapping="NoWrap" 
+        <Label x:Name="lblImie" Style="{StaticResource labelStyle}" Grid.Row="1" Content="Imię:" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center"/>
+        <Label x:Name="lblNazwisko" Style="{StaticResource labelStyle}" Content="Nazwisko:" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="2" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtImie" Grid.Row="1" Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" TextWrapping="NoWrap" 
                  VerticalAlignment="Center" Width="Auto" TextChanged="TextBoxImie_TextChanged" />
-        <TextBox x:Name="txtNazwisko" Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" Grid.Row="1" 
+        <TextBox x:Name="txtNazwisko" Style="{StaticResource txtStyle}" Grid.Column="2" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" Grid.Row="2" 
                  TextWrapping="NoWrap" VerticalAlignment="Center" Width="Auto" TextChanged="TextBoxNazwisko_TextChanged" />
-        <Label Content="E-mail:" Style="{StaticResource labelStyle}" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="2" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtEmail" Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" Grid.Row="2" TextWrapping="NoWrap"
+        <Label Content="E-mail:" Style="{StaticResource labelStyle}" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtEmail" Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" Grid.Row="3" TextWrapping="NoWrap"
                   VerticalAlignment="Center"  Width="Auto" TextChanged="TextBoxEmail_TextChanged" />
         <Label x:Name="lblRola" Content="Rola:"  Style="{StaticResource labelStyle}"  HorizontalAlignment="Right" Margin="0,0,10,0"
-               Grid.Row="3" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtKlasa" Visibility="Hidden"  Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" Grid.Row="4" TextWrapping="NoWrap"
+               Grid.Row="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtKlasa"  IsEnabled="False"  Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" Grid.Row="4" TextWrapping="NoWrap"
                   VerticalAlignment="Center"  Width="Auto" TextChanged="TxtKlasa_TextChanged" />
-        <Label x:Name="lblKlasa" Visibility="Hidden" Content="Klasa:"  Style="{StaticResource labelStyle}"  HorizontalAlignment="Right" Margin="0,0,10,0"
+        <Label x:Name="lblKlasa"  Content="Klasa:"  Style="{StaticResource labelStyle}"  HorizontalAlignment="Right" Margin="0,0,10,0"
                Grid.Row="4" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtDziecko" Visibility="Hidden"  Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" Grid.Row="5" TextWrapping="NoWrap"
+        <TextBox x:Name="txtDziecko"  IsEnabled="False" Style="{StaticResource txtStyle}" Grid.Column="1" HorizontalAlignment="Stretch" Height="30" Margin="0,0,30,0" Grid.Row="5" TextWrapping="NoWrap"
                   VerticalAlignment="Center"  Width="Auto" TextChanged="txtDziecko_TextChanged" />
-        <Label x:Name="lblDziecko" Visibility="Hidden" Content="Klasa:"  Style="{StaticResource labelStyle}"  HorizontalAlignment="Right" Margin="0,0,10,0"
+        <Label x:Name="lblDziecko"  Content="Dziecko:"  Style="{StaticResource labelStyle}"  HorizontalAlignment="Right" Margin="0,0,10,0"
                Grid.Row="5" VerticalAlignment="Center"/>
-        <ComboBox Name="comboRola" Style="{StaticResource txtStyle}" HorizontalAlignment="Stretch" Margin="0,0,30,0" VerticalAlignment="Center" Grid.Row="3" Height="30"  Width="Auto" Grid.Column="1" SelectionChanged="ComboRola_SelectionChanged" >
+        <ComboBox Name="comboRola" Style="{StaticResource txtStyle}" HorizontalAlignment="Stretch" Margin="0,0,30,0" VerticalAlignment="Center" Grid.Row="0" Height="30"  Width="Auto" Grid.Column="1" SelectionChanged="ComboRola_SelectionChanged" >
             <ComboBoxItem IsSelected="True">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0,0,0">Wybierz...</TextBlock>
@@ -74,10 +73,10 @@
                 VerticalAlignment="Bottom"  Padding="0" Margin="223,0,30,26" Grid.Row="6" Grid.Column="1" Click="Dodaj_Click"/>
         <Button x:Name="btnAnuluj" IsCancel="True" Content="ANULUJ" Height="40" Style="{StaticResource buttonStyle }"  
                 VerticalAlignment="Bottom"  Padding="0" Margin="10,0,238,26" Grid.Row="6" Grid.Column="1" Click="Anuluj_Click"/>
-        <Label x:Name="errNazwisko"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30"  HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="1" VerticalAlignment="Bottom" Width="365"/>
-        <Label x:Name="errEmail"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30" HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="2" VerticalAlignment="Bottom" Width="365"/>
-        <Label x:Name="errImie"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30" HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="0" VerticalAlignment="Bottom" Width="365"/>
-        <Label x:Name="errRola"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30" HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="3" VerticalAlignment="Bottom" Width="365"/>
+        <Label x:Name="errNazwisko"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30"  HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="2" VerticalAlignment="Bottom" Width="365"/>
+        <Label x:Name="errEmail"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30" HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="3" VerticalAlignment="Bottom" Width="365"/>
+        <Label x:Name="errImie"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30" HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="1" VerticalAlignment="Bottom" Width="365"/>
+        <Label x:Name="errRola"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30" HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="0" VerticalAlignment="Bottom" Width="365"/>
         <Label x:Name="errKlasa" Visibility="Hidden"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30" HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="4" VerticalAlignment="Bottom" Width="365"/>
         <Label x:Name="errDziecko" Visibility="Hidden"  Style="{StaticResource errStyle}" Grid.Column="1" Height="30" HorizontalAlignment="Stretch" Margin="0,0,30,0" Grid.Row="5" VerticalAlignment="Bottom" Width="365"/>
     </Grid>

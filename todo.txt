@@ -1,9 +1,21 @@
 ->1. poprawic txtbox filtrowania
 ->2. filtrowanie 2 opcji na raz
-3. sprawdzanie przy dodawaniu uzytkownikow czy juz taki e-mail jest
-4. logowanie - zrobic testowanie i walidacje
-5. poprawic wyswietlenie roli w dodawaniu
-6. dodac nowe klasy nauczyciel, rodzic uczen i admin dziedziczace po uzytkowniku
-7. pole List<uczen> Dzieci u rodzica i pole klasa u ucznia
-8. w zaleznosci od roli wyswietlic odpowiednie txtboxy
-9. ogarnac wyszukiwanie nazwisk uczniow. 
+->3. sprawdzanie przy dodawaniu uzytkownikow czy juz taki e-mail jest
+->4. logowanie - zrobic testowanie i walidacje
+->4.5 dodac haslo uzytkownikowi i nadawanie hasla
+->5. poprawic wyswietlenie roli w dodawaniu
+->6. dodac nowe klasy nauczyciel, rodzic uczen i admin dziedziczace po uzytkowniku
+->7. pole List<uczen> Dzieci u rodzica i pole klasa u ucznia
+
+->8. w zaleznosci od roli uaktywnic odpowiednie txtboxy
+->10. Rola u góry
+-->12. txtbox z imieniem i nazwiskiem dziecka. jesli nie ma takiego dziecka to wyswietl
+blad, dodawac po przecinku dzieci i split po przecinkach czy wszyscy istnieja z tych podanych
+jesli ktorys nie to wyswietl blad ktory(moze byc wiecej niz jeden)
+(zmienilam dzieci na list<Uzytkownik>)
+-->13. do repo. daj wszystkich dodac filtr zeby szukac wsrod dzieci
+-->14. jesli wszytsko jest okej to do rodzica dodac liste dzieci
+-->15. metoda klasy string trim- obczaic
+16. uporzadkowc dodaja- walidacja
+
+

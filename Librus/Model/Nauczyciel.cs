@@ -12,8 +12,8 @@ namespace Librus.Model
         {
 
         }
-        public Nauczyciel(string imie, string nazwisko, string mail, TypRoli rola, string haslo) :
-            base(imie, nazwisko, mail, rola, haslo)
+        public Nauczyciel(string imie, string nazwisko, string mail,  string haslo) :
+            base(imie, nazwisko, mail, TypRoli.Nauczyciel, haslo)
         {
 
         }

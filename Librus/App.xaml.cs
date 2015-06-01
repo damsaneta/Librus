@@ -18,10 +18,11 @@ namespace Librus
         private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
         public App()
         {
-            this.repozytorium.Dodaj(new Uzytkownik("Aneta", "Dams", "damsA@gmail.com", TypRoli.Rodzic,"AneDam"));
-            this.repozytorium.Dodaj(new Uzytkownik("Łukasz", "Nowak", "ld@gmail.com", TypRoli.Administrator,"ŁukNow"));
-            this.repozytorium.Dodaj(new Uzytkownik("Anna", "Kowalska", "das@gmail.com", TypRoli.Rodzic,"AnnKow"));
-            this.repozytorium.Dodaj(new Uzytkownik("Damian", "Brzeziński", "brzeziu@wp.pl", TypRoli.Nauczyciel,"DamBrz"));
+            this.repozytorium.Dodaj(new Rodzic("Aneta", "Dams", "damsA@gmail.com", "AneDam",null));
+            this.repozytorium.Dodaj(new Administrator("Łukasz", "Nowak", "ld@gmail.com", "ŁukNow"));
+            this.repozytorium.Dodaj(new Uczen("Anna", "Kowalska", "das@gmail.com", "AnnKow","IA"));
+            this.repozytorium.Dodaj(new Uczen("Alina", "Jawor", "jawor@gmail.com", "AliJaw", "IA"));
+            this.repozytorium.Dodaj(new Nauczyciel("Damian", "Brzeziński", "brzeziu@wp.pl", "DamBrz"));
             
         }
     }

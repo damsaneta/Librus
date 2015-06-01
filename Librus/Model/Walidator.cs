@@ -39,9 +39,9 @@ namespace Librus.Model
             UsunBlad(box, lbl);
             return true;
         }
-        public static bool WalidacjaPolaEmail(TextBox txt,Label lbl)
+        public static bool WalidacjaPolaEmail(TextBox txt, Label lbl)
         {
-            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"); 
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Match match = regex.Match(txt.Text);
             if (match.Success)
             {
@@ -89,6 +89,21 @@ namespace Librus.Model
             lbl.Visibility = Visibility.Hidden;
         }
 
+        public static bool WalidacjaDzieci(TextBox textBox, Label label, string test)
+        {
+            if (String.IsNullOrEmpty(test))
+            {
+                UsunBlad(textBox, label);
+                return true;
+            }
+            else
+            {
+                WyswietlBlad(textBox, label, test);
+                return false;
+            }
+
+
+        }
 
 
         public static bool WalidacjaHasla(PasswordBox passwordBox, Label label)
@@ -104,5 +119,44 @@ namespace Librus.Model
                 return true;
             }
         }
+
+
+        public static string SprawdzanieIstnieniaDzieci(TextBox textBox)
+        {
+            string slowo = textBox.Text;
+            string brakDzieci = string.Empty;
+            string[] tab = slowo.Split(new char[] { ',' });
+            for (int i = 0; i < tab.Length; i++)
+            {
+                tab[i] = tab[i].Trim();
+            }
+            foreach (string s in tab)
+            {
+                string[] wynik = s.Split(new char[] { ' ' });
+                string imie = wynik[0];
+                string nazwisko = wynik[1];
+                Uzytkownik dziecko = repozytorium.WyszukajDziecka(imie, nazwisko);
+                if (dziecko == null)
+                {
+                    if (string.IsNullOrEmpty(brakDzieci))
+                    {
+                        brakDzieci = "Brak ucznia: " + imie + " " + nazwisko;
+                    }
+                    else
+                    {
+                        brakDzieci = ", " + imie + " " + nazwisko;
+                    }
+
+                }
+
+            }
+            return brakDzieci;
+
+        }
+
+
+
+
+
     }
 }

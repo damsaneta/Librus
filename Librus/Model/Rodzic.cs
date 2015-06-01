@@ -12,12 +12,12 @@ namespace Librus.Model
         {
 
         }
-        public Rodzic(string imie, string nazwisko, string mail, TypRoli rola, string haslo,List<Uczen> lista) :
-            base(imie, nazwisko, mail, rola, haslo)
+        public Rodzic(string imie, string nazwisko, string mail, string haslo,List<Uzytkownik> lista) :
+            base(imie, nazwisko, mail,TypRoli.Rodzic, haslo)
         {
             this.Dzieci = lista;
         }
 
-        public List<Uczen> Dzieci { get; set; }
+        public List<Uzytkownik> Dzieci { get; set; }
     }
 }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Librus.Model
 {
-    public class Uzytkownik
+    public abstract class Uzytkownik
     {
-        public Uzytkownik()
+        protected Uzytkownik()
         {
                 
         }
-        public Uzytkownik(string imie, string nazwisko,string email, TypRoli rola, string haslo)
+        protected Uzytkownik(string imie, string nazwisko,string email, TypRoli rola, string haslo)
         {
             this.Imie = imie;
             this.Nazwisko = nazwisko;
