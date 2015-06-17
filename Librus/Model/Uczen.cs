@@ -18,6 +18,5 @@ namespace Librus.Model
             this.Klasa = klasa;
         }
         public string Klasa { get; set; }
-
     }
 }

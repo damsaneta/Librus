@@ -81,11 +81,15 @@
     <Compile Include="Widoki\Administracja\Uzytkownicy.xaml.cs">
       <DependentUpon>Uzytkownicy.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widoki\ObecnoscUcznia.cs" />
     <Compile Include="Widoki\OknoGlowne.xaml.cs">
       <DependentUpon>OknoGlowne.xaml</DependentUpon>
     </Compile>
     <Compile Include="Widoki\PanelLogowania.xaml.cs">
       <DependentUpon>PanelLogowania.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widoki\SprawdzanieObecnosci.xaml.cs">
+      <DependentUpon>SprawdzanieObecnosci.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\PanelLogowania.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\SprawdzanieObecnosci.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

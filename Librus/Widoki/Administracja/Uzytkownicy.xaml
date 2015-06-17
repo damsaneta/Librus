@@ -46,6 +46,11 @@
                     <TextBlock Margin="5,0,0,0"><Run Text="Rodzic"/></TextBlock>
                 </StackPanel>
             </ComboBoxItem>
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5,0,0,0"><Run Text="Uczen"/></TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
         </ComboBox>
 
     </Grid>

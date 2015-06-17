@@ -60,6 +60,20 @@ namespace Librus.DostepDoDanych.Pamiec
                && (x.Rola.ToString().StartsWith(rola, StringComparison.CurrentCultureIgnoreCase))
                ).ToList();
         }
+
+        public IList<Uczen> WyszukajPoKlasie(string wzorzec)
+        {
+
+            List<Uczen> uczniowie = new List<Uczen>();
+            IList<Uzytkownik> lista = WyszukajPoRoli("Uczen");
+            foreach (var x in lista)
+            {
+                uczniowie.Add((Uczen)x);
+            }
+
+            return uczniowie.FindAll(x => (x.Klasa.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))).ToList();
+
+        }
         public Uzytkownik PobierzPoEmailu(string email)
         {
             if (emaileUzytkownika.ContainsKey(email))
