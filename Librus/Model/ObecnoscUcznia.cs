@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Librus.Widoki
 {
-    class ObecnoscUcznia
+    public class ObecnoscUcznia
     {
         public Uczen Uczen { get; set; }
 

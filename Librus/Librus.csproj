@@ -69,8 +69,11 @@
     </Compile>
     <Compile Include="Model\Administrator.cs" />
     <Compile Include="Model\Nauczyciel.cs" />
+    <Compile Include="Model\OcenyUcznia.cs" />
+    <Compile Include="Model\Przedmiot.cs" />
     <Compile Include="Model\Rodzic.cs" />
     <Compile Include="Model\Rola.cs" />
+    <Compile Include="Model\TypPrzedmiotu.cs" />
     <Compile Include="Model\TypRoli.cs" />
     <Compile Include="Model\Uczen.cs" />
     <Compile Include="Model\Uzytkownik.cs" />
@@ -81,7 +84,10 @@
     <Compile Include="Widoki\Administracja\Uzytkownicy.xaml.cs">
       <DependentUpon>Uzytkownicy.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Widoki\ObecnoscUcznia.cs" />
+    <Compile Include="Widoki\DodawanieOcen.xaml.cs">
+      <DependentUpon>DodawanieOcen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ObecnoscUcznia.cs" />
     <Compile Include="Widoki\OknoGlowne.xaml.cs">
       <DependentUpon>OknoGlowne.xaml</DependentUpon>
     </Compile>
@@ -112,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\Administracja\Uzytkownicy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\DodawanieOcen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

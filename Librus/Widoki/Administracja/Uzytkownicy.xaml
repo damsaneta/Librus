@@ -10,8 +10,8 @@
             <RowDefinition Height="95*"/>
             <RowDefinition Height="374*"/>
         </Grid.RowDefinitions>
-       
-        <DataGrid x:Name="grid"  AutoGenerateColumns="False"   Style="{DynamicResource DataGridStyle}" Margin="20,0,20,10"   VerticalAlignment="Top" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
+
+        <DataGrid x:Name="grid" CanUserAddRows="False"  AutoGenerateColumns="False"   Style="{DynamicResource DataGridStyle}" Margin="20,0,20,10"   VerticalAlignment="Top" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
 			AlternatingRowBackground="DimGray" RowHeight="20" HorizontalAlignment="Stretch"
 			BorderBrush="#1d1d1d" Background="#1d1d1d" Grid.Row="1">
             <DataGrid.Columns>

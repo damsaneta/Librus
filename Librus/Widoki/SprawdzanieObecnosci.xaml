@@ -19,62 +19,15 @@
                 </StackPanel>
             </ComboBoxItem>
         </ComboBox>
-        <ComboBox Name="godzinaComboBox" HorizontalAlignment="Left" Margin="230,23,0,0" VerticalAlignment="Top" Width="175" Height="32" SelectionChanged="GodzinaComboBoxSelectionChanged">
-            <ComboBoxItem IsSelected="True">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock ><Run Text="Wybierz godzinę..."/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="8:00"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="9:00"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="10:00"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="11:00"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="12:00"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="13:00"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="14:00"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="15:00"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-        </ComboBox>
-        <DatePicker Name="wyborDaty" HorizontalAlignment="Left" DisplayDate="" Margin="455,23,0,0" VerticalAlignment="Top" Height="32" Width="145" RenderTransformOrigin="0.515,1"/>
-        <DataGrid Name="nieobecnosciDataGrid"  AutoGenerateColumns="False"   Style="{DynamicResource DataGridStyle}" Margin="20,0,20,10"   VerticalAlignment="Top" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
+        <DatePicker Name="wyborDaty" HorizontalAlignment="Left" DisplayDate="" Margin="220,23,0,0" VerticalAlignment="Top" Height="32" Width="145" RenderTransformOrigin="0.515,1"/>
+        <DataGrid Name="nieobecnosciDataGrid" CanUserAddRows="False"  AutoGenerateColumns="False"   Style="{DynamicResource DataGridStyle}" Margin="20,0,20,10"   VerticalAlignment="Top" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
 			AlternatingRowBackground="DimGray" RowHeight="20" HorizontalAlignment="Stretch"
-			BorderBrush="#1d1d1d" Background="#1d1d1d" Grid.Row="1" SelectedCellsChanged="nieobecnosciDataGrid_SelectedCellsChanged">
+			BorderBrush="#1d1d1d" Background="#1d1d1d" Grid.Row="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Imie i nazwisko" Binding="{Binding Uczen.PelnaNazwa}" />
+                <DataGridTextColumn Header="Imię i nazwisko" Binding="{Binding Uczen.PelnaNazwa}" />
                 <DataGridCheckBoxColumn x:Name="godzina" Header=" 8:00 " Binding="{Binding Godzina8}" />
                 <DataGridCheckBoxColumn Header=" 9:00 " Binding="{Binding Godzina9}">
-           
+
                 </DataGridCheckBoxColumn>
                 <DataGridCheckBoxColumn Header=" 10:00 "  Binding="{Binding Godzina10}"/>
                 <DataGridCheckBoxColumn Header=" 11:00 "  Binding="{Binding Godzina11}"/>
@@ -82,9 +35,10 @@
                 <DataGridCheckBoxColumn Header=" 13:00 "  Binding="{Binding Godzina13}"/>
                 <DataGridCheckBoxColumn Header=" 14:00 "  Binding="{Binding Godzina14}"/>
                 <DataGridCheckBoxColumn Header=" 15:00 "  Binding="{Binding Godzina15}"/>
-            </DataGrid.Columns>     
+            </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="255,190,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button x:Name="btnDodaj" IsDefault="True"  Content="Dodaj" Height="32" Style="{StaticResource buttonStyle }"  
+                VerticalAlignment="Bottom"  Padding="0" Margin="410,0,347,25" Click="DodajClick"/>
 
 
     </Grid>

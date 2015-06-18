@@ -33,9 +33,6 @@ namespace Librus.Widoki
 
         private void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-
-
             if (licznik != 0)
             {
                 this.nieobecnosciDataGrid.ItemsSource = this.repozytorium.WyszukajPoKlasie("IA")
@@ -43,33 +40,26 @@ namespace Librus.Widoki
 
             }
             licznik++;
-
         }
 
-        private void GodzinaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int ind = godzinaComboBox.SelectedIndex;
-            if (ind != 0)
-            {
-                ind += 7;
-                string wynik = ind + ":00";
+        //private void GodzinaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    int ind = godzinaComboBox.SelectedIndex;
+        //    if (ind != 0)
+        //    {
+        //        ind += 7;
+        //        string wynik = ind + ":00";
 
-                this.nieobecnosciDataGrid.Columns[1].Header = wynik;
-            }
-        }
+        //        this.nieobecnosciDataGrid.Columns[1].Header = wynik;
+        //    }
+        //}
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void DodajClick(object sender, RoutedEventArgs e)
         {
             var g = this.nieobecnosciDataGrid;
             var v = g.Items;
             var b = (g.Columns[1] as DataGridCheckBoxColumn);
-            
-            
-        }
-
-        private void nieobecnosciDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-
+            var c = this.wyborDaty.SelectedDate;
         }
     }
 }
