@@ -1,4 +1,5 @@
-﻿using Librus.DostepDoDanych.Pamiec;
+﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
@@ -21,25 +22,36 @@ namespace Librus.Widoki
     /// </summary>
     public partial class SprawdzanieObecnosci : Window
     {
-        int licznik = 0;
-        private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
+
+        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlas();
+        private readonly IRepozytoriumObecnosci repozytoriumObecnosci = new RepozytoriumObecnosciWPamieci();
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
+       
         public SprawdzanieObecnosci()
         {
 
             InitializeComponent();
-            this.wyborDaty.SelectedDate = DateTime.Now;
-
+            this.wyborDaty.SelectedDate = DateTime.Now.Date;
+            this.klasaComboBox.ItemsSource= this.repozytoriumKlas.PobierzWszystkie();
+            this.klasaComboBox.DisplayMemberPath = "Nazwa";
+            this.klasaComboBox.SelectedValuePath = "Id";// zmienic na nazwa
         }
 
         private void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (licznik != 0)
+            if ((int)this.klasaComboBox.SelectedValue != 0)// wybrana data
             {
-                this.nieobecnosciDataGrid.ItemsSource = this.repozytorium.WyszukajPoKlasie("IA")
-                    .Select(uczen => new ObecnoscUcznia(uczen)).ToList();
-
+                Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
+                var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Nazwa, this.wyborDaty.SelectedDate.Value);
+                if(obecnosci == null || obecnosci.Count ==0)
+                {
+                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
+                    obecnosci = uczniowie.Select(x => new ObecnoscUcznia(x, this.wyborDaty.SelectedDate.Value)).ToList();
+                    this.nieobecnosciDataGrid.ItemsSource = obecnosci;
+                }
+                
             }
-            licznik++;
+
         }
 
         //private void GodzinaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -57,9 +69,8 @@ namespace Librus.Widoki
         private void DodajClick(object sender, RoutedEventArgs e)
         {
             var g = this.nieobecnosciDataGrid;
-            var v = g.Items;
-            var b = (g.Columns[1] as DataGridCheckBoxColumn);
-            var c = this.wyborDaty.SelectedDate;
+            var v = g.Items.SourceCollection as IList<ObecnoscUcznia>;
+            this.repozytoriumObecnosci.Zapisz(v);
         }
     }
 }

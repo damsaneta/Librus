@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Librus.DostepDoDanych.Pamiec
 {
-    public class RepozytoriumUzytkownikowWPamieci
+    public class RepozytoriumUzytkownikowWPamieci : Librus.DostepDoDanych.IRepozytoriumUzytkownikow
     {
         private static readonly Dictionary<int, Uzytkownik> uzytkownicy = new Dictionary<int, Uzytkownik>();
         private static readonly Dictionary<string, int> emaileUzytkownika = new Dictionary<string, int>();
@@ -71,7 +71,7 @@ namespace Librus.DostepDoDanych.Pamiec
                 uczniowie.Add((Uczen)x);
             }
 
-            return uczniowie.FindAll(x => (x.Klasa.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))).ToList();
+            return uczniowie.FindAll(x => (x.Klasa.Nazwa.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))).ToList();
 
         }
         public Uzytkownik PobierzPoEmailu(string email)

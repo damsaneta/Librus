@@ -70,11 +70,11 @@ namespace Librus.Widoki
             bool result = true;
             result &= Walidator.WalidacjaComboBox(this.klasaComboBox, this.errKlasa);
             result &= Walidator.WalidacjaComboBox(this.przedmiotComboBox, this.errPrzedmiot);
-            if(result)
-            {
-                this.ocenyDataGrid.ItemsSource = this.repozytorium.WyszukajPoKlasie("IA")
-                 .Select(uczen => new ObecnoscUcznia(uczen)).ToList();
-            }
+            //if(result)
+            //{
+            //    this.ocenyDataGrid.ItemsSource = this.repozytorium.WyszukajPoKlasie("IA")
+            //     .Select(uczen => new ObecnoscUcznia(uczen)).ToList();
+            //}
 
         }
     }

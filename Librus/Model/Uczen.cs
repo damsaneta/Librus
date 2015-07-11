@@ -12,11 +12,11 @@ namespace Librus.Model
         {
 
         }
-        public Uczen(string imie, string nazwisko, string mail, string haslo, string klasa) :
+        public Uczen(string imie, string nazwisko, string mail, string haslo, Klasa klasa) :
             base(imie, nazwisko, mail, TypRoli.Uczen, haslo)
         {
             this.Klasa = klasa;
         }
-        public string Klasa { get; set; }
+        public Klasa Klasa { get; set; }
     }
 }

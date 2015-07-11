@@ -9,7 +9,7 @@ namespace Librus.Widoki
     public class ObecnoscUcznia
     {
         public Uczen Uczen { get; set; }
-
+        public DateTime Data { get; set; }
         public bool Godzina8 { get; set; }
         public bool Godzina9 { get; set; }
         public bool Godzina10 { get; set; }
@@ -19,9 +19,10 @@ namespace Librus.Widoki
         public bool Godzina14 { get; set; }
         public bool Godzina15 { get; set; }
 
-        public ObecnoscUcznia(Uczen uczen)
+        public ObecnoscUcznia(Uczen uczen, DateTime data)
         {
             this.Uczen = uczen;
+            this.Data = data;
         }
 
     }

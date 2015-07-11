@@ -1,2 +1,6 @@
-
+1. dodac wybierz do comboboxa
+2. repozytorium obecnosci : metoda pobierz po klasie i dacie
+3. zapisywnie do repozytorium
+4. dane testowe
+5 walidacja dodaja
 
