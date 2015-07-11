@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Librus.Widoki;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,22 @@ namespace Librus.DostepDoDanych.Pamiec
 {
     public class RepozytoriumObecnosciWPamieci: IRepozytoriumObecnosci
     {
-        public IList<Widoki.ObecnoscUcznia> PobierzPoKlasieIDacie(string klasa, DateTime data)
+        public static readonly Dictionary<int, ObecnoscUcznia> obecnosciUcznia = new Dictionary<int, ObecnoscUcznia>();
+        public IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasa, DateTime data)
         {
-            return null;
+            return obecnosciUcznia.Values.Where(x => ((x.Data == data) && (x.Uczen.Klasa.Nazwa == klasa))).ToList();
         }
 
-        public void Zapisz(IList<Widoki.ObecnoscUcznia> obecnosci)
+        public void Zapisz(IList<ObecnoscUcznia> obecnosci)
         {
-            throw new NotImplementedException();
+            foreach(ObecnoscUcznia obe in obecnosci)
+            {
+                var c = obecnosciUcznia.Values.Where(x =>( (x.Uczen == obe.Uczen) && (x.Data==obe.Data))).ToList();
+               if(c==null || c.Count ==0)
+               {
+                   obecnosciUcznia.Add((obecnosciUcznia.Count+1),obe);
+               }
+            }
         }
     }
 }

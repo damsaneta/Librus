@@ -67,7 +67,8 @@ namespace Librus.Widoki
         //}
 
         private void DodajClick(object sender, RoutedEventArgs e)
-        {
+        { 
+            
             var g = this.nieobecnosciDataGrid;
             var v = g.Items.SourceCollection as IList<ObecnoscUcznia>;
             this.repozytoriumObecnosci.Zapisz(v);
