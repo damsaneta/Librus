@@ -4,17 +4,15 @@
         Title="Obecności" Height="600" Width="900" Background="#1d1d1d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80*"/>
-            <RowDefinition Height="489*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="469*"/>
         </Grid.RowDefinitions>
         <ComboBox Name="klasaComboBox" HorizontalAlignment="Left" Foreground="Black" Margin="10,23,0,0" VerticalAlignment="Top" Width="175" Height="32" SelectionChanged="KlasaComboBoxSelectionChanged" >
-         
-    
         </ComboBox>
         <DatePicker Name="wyborDaty" HorizontalAlignment="Left" DisplayDate="" Margin="220,23,0,0" VerticalAlignment="Top" Height="32" Width="145" RenderTransformOrigin="0.515,1"/>
-        <DataGrid Name="nieobecnosciDataGrid" CanUserAddRows="False"  AutoGenerateColumns="False"   Style="{DynamicResource DataGridStyle}" Margin="20,0,20,10"   VerticalAlignment="Top" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
+        <DataGrid Name="nieobecnosciDataGrid" CanUserAddRows="False"  AutoGenerateColumns="False"   Style="{DynamicResource DataGridStyle}" Margin="20,0"   VerticalAlignment="Top" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
 			AlternatingRowBackground="DimGray" RowHeight="20" HorizontalAlignment="Stretch"
-			BorderBrush="#1d1d1d" Background="#1d1d1d" Grid.Row="1">
+			BorderBrush="#1d1d1d" Background="#1d1d1d" Grid.Row="1" Height="21">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Imię i nazwisko" Binding="{Binding Uczen.PelnaNazwa}" />
                 <DataGridCheckBoxColumn x:Name="godzina" Header=" 8:00 " Binding="{Binding Godzina8}" />
@@ -30,7 +28,9 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnDodaj" IsDefault="True"  Content="Dodaj" Height="32" Style="{StaticResource buttonStyle }"  
-                VerticalAlignment="Bottom"  Padding="0" Margin="410,0,347,25" Click="DodajClick"/>
+                VerticalAlignment="Bottom"  Padding="0" Margin="410,0,347,45" Click="DodajClick"/>
+        <Label Name="errKlasa" Style="{DynamicResource errStyle}" Content="Label" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="30" Width="175"/>
+        <Label Name="errData" Style="{DynamicResource errStyle}" Content="Label" HorizontalAlignment="Left" Margin="220,60,0,0" VerticalAlignment="Top" Height="30" Width="145"/>
 
 
     </Grid>

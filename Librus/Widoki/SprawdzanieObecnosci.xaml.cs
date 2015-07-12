@@ -32,14 +32,16 @@ namespace Librus.Widoki
 
             InitializeComponent();
             this.wyborDaty.SelectedDate = DateTime.Now.Date;
-            this.klasaComboBox.ItemsSource= this.repozytoriumKlas.PobierzWszystkie();
+            this.klasaComboBox.ItemsSource = this.repozytoriumKlas.PobierzWszystkie();
             this.klasaComboBox.DisplayMemberPath = "Nazwa";
             this.klasaComboBox.SelectedValuePath = "Id";// zmienic na nazwa
         }
 
         private void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((int)this.klasaComboBox.SelectedValue != 0)// wybrana data
+            bool test = true;
+            test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, errData);//walidaxja daty
+            if ((int)this.klasaComboBox.SelectedValue != 0 && test)
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                 var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Nazwa, this.wyborDaty.SelectedDate.Value);
@@ -67,11 +69,17 @@ namespace Librus.Widoki
         //}
 
         private void DodajClick(object sender, RoutedEventArgs e)
-        { 
+        {
+            bool test = true;
+            test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, this.errData);
+            if ((int)this.klasaComboBox.SelectedValue != 0 && test)
+            {
+                var g = this.nieobecnosciDataGrid;
+                var v = g.Items.SourceCollection as IList<ObecnoscUcznia>;
+                this.repozytoriumObecnosci.Zapisz(v);
+
+            }
             
-            var g = this.nieobecnosciDataGrid;
-            var v = g.Items.SourceCollection as IList<ObecnoscUcznia>;
-            this.repozytoriumObecnosci.Zapisz(v);
         }
     }
 }

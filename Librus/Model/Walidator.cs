@@ -64,6 +64,19 @@ namespace Librus.Model
                 return true;
             }
         }
+        public static bool WalidacjaWymaganegoPolaDaty(DatePicker data, Label lbl)
+        {
+            if(data.SelectedDate==null)
+            {
+                WyswietlBlad(data, lbl, "Wybierz datę");
+                return false;
+            }
+            else
+            {
+                UsunBlad(data, lbl);
+                return true;
+            }
+        }
         //public static bool WalidacjaIstnieniaUzytkownika(TextBox textBox, Label label)
         //{
         //    if(repozytorium.PobierzPoEmailu(textBox.Text)!=null)
@@ -153,6 +166,7 @@ namespace Librus.Model
             return brakDzieci;
 
         }
+
 
 
 
