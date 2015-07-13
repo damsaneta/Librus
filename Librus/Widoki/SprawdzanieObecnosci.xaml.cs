@@ -26,7 +26,7 @@ namespace Librus.Widoki
         private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlas();
         private readonly IRepozytoriumObecnosci repozytoriumObecnosci = new RepozytoriumObecnosciWPamieci();
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
-       
+
         public SprawdzanieObecnosci()
         {
 
@@ -40,19 +40,26 @@ namespace Librus.Widoki
         private void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool test = true;
+
             test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, errData);//walidaxja daty
+            test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, errKlasa);
             if ((int)this.klasaComboBox.SelectedValue != 0 && test)
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                 var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Nazwa, this.wyborDaty.SelectedDate.Value);
-                if(obecnosci == null || obecnosci.Count ==0)
+                if (obecnosci == null || obecnosci.Count == 0)
                 {
                     var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
                     obecnosci = uczniowie.Select(x => new ObecnoscUcznia(x, this.wyborDaty.SelectedDate.Value)).ToList();
                     this.nieobecnosciDataGrid.ItemsSource = obecnosci;
                 }
-                
+                else
+                {
+                    this.nieobecnosciDataGrid.ItemsSource = obecnosci;
+                }
+
             }
+
 
         }
 
@@ -72,6 +79,7 @@ namespace Librus.Widoki
         {
             bool test = true;
             test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, this.errData);
+            test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, errKlasa);
             if ((int)this.klasaComboBox.SelectedValue != 0 && test)
             {
                 var g = this.nieobecnosciDataGrid;
@@ -79,7 +87,33 @@ namespace Librus.Widoki
                 this.repozytoriumObecnosci.Zapisz(v);
 
             }
-            
+
+        }
+
+        private void ZmianaDaty(object sender, SelectionChangedEventArgs e)
+        {
+            bool test = true;
+            test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, errData);//walidaxja daty
+            test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, errKlasa);
+            if (this.klasaComboBox.SelectedValue != null)
+            {
+                if ((int)this.klasaComboBox.SelectedValue != 0 && test)
+                {
+                    Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
+                    var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Nazwa, this.wyborDaty.SelectedDate.Value);
+                    if (obecnosci == null || obecnosci.Count == 0)
+                    {
+                        var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
+                        obecnosci = uczniowie.Select(x => new ObecnoscUcznia(x, this.wyborDaty.SelectedDate.Value)).ToList();
+                        this.nieobecnosciDataGrid.ItemsSource = obecnosci;
+                    }
+                    else
+                    {
+                        this.nieobecnosciDataGrid.ItemsSource = obecnosci;
+                    }
+
+                }
+            }
         }
     }
 }

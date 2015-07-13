@@ -3,4 +3,18 @@
 3. zapisywnie do repozytorium
 4. dane testowe
 5 walidacja dodaja
+//
+1.repozytorium przedmiotow + dane testowe
+2. klasa OcenyUcznia, oceny w stringu, Przedmiot, Uczen-klasa brana z ucznia
+3. 
+
+
+poniedzialek:
+-->1.walidacja dodawania obecnosci
+2.dodac wybierz do comboboxa??
+3.repozytorium przedmiotow + dane testowe
+4. klasa OcenyUcznia...
+5.dodawanie ocen
+6.walidacja
+
 

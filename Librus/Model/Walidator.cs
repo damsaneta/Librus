@@ -64,6 +64,19 @@ namespace Librus.Model
                 return true;
             }
         }
+        public static bool WalidacjaWymaganegoComboBoxa(ComboBox kontrolka, Label lbl)
+        {
+            if (kontrolka.SelectedValue==null)
+            {
+                WyswietlBlad(kontrolka, lbl, "Proszę wybrać klasę.");
+                return false;
+            }
+            else
+            {
+                UsunBlad(kontrolka, lbl);
+                return true;
+            }
+        }
         public static bool WalidacjaWymaganegoPolaDaty(DatePicker data, Label lbl)
         {
             if(data.SelectedDate==null)

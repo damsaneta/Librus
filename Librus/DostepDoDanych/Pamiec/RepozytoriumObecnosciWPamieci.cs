@@ -12,14 +12,14 @@ namespace Librus.DostepDoDanych.Pamiec
         public static readonly Dictionary<int, ObecnoscUcznia> obecnosciUcznia = new Dictionary<int, ObecnoscUcznia>();
         public IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasa, DateTime data)
         {
-            return obecnosciUcznia.Values.Where(x => ((x.Data == data) && (x.Uczen.Klasa.Nazwa == klasa))).ToList();
+            return obecnosciUcznia.Values.Where(x => ((x.Data.Year == data.Year && x.Data.Month==data.Month && x.Data.Day == data.Day) && (x.Uczen.Klasa.Nazwa == klasa))).ToList();
         }
 
         public void Zapisz(IList<ObecnoscUcznia> obecnosci)
         {
             foreach(ObecnoscUcznia obe in obecnosci)
             {
-                var c = obecnosciUcznia.Values.Where(x =>( (x.Uczen == obe.Uczen) && (x.Data==obe.Data))).ToList();
+                var c = obecnosciUcznia.Values.Where(x =>x.Uczen == obe.Uczen && x.Data==obe.Data).ToList();
                if(c==null || c.Count ==0)
                {
                    obecnosciUcznia.Add((obecnosciUcznia.Count+1),obe);
