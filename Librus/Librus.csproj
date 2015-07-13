@@ -122,6 +122,9 @@
     <Compile Include="Widoki\SprawdzanieObecnosci.xaml.cs">
       <DependentUpon>SprawdzanieObecnosci.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widoki\WyswietlanieOcen.xaml.cs">
+      <DependentUpon>WyswietlanieOcen.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -159,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\SprawdzanieObecnosci.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\WyswietlanieOcen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

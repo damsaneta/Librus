@@ -34,13 +34,14 @@ namespace Librus
             this.klasy.Dodaj(new Klasa("IA"));
             this.klasy.Dodaj(new Klasa("IB"));
             this.klasy.Dodaj(new Klasa("IC"));
-            Uczen u3 = new Uczen("Alan", "Jamróz", "jamr@gmail.com", "AlaJam", new Klasa("IA"));
+            Uczen u3 = new Uczen("Alan", "Kowalski", "jamr@gmail.com", "AlaKow", new Klasa("IA"));
             Uczen u1 = new Uczen("Anna", "Kowalska", "das@gmail.com", "AnnKow", new Klasa("IA"));
             Uczen u2 = new Uczen("Michalina", "Nowak", "mich@gmail.com", "MicNow", new Klasa("IA"));
             Uczen u4 = new Uczen("Adam", "Boroch", "asdf@gmail.com", "AdaBor", new Klasa("IC"));
             Uczen u5 = new Uczen("Iza", "Kania", "fdsfsd@gmail.com", "IzaKan", new Klasa("IC"));
             this.klasy.PobierzWszystkie();
-            this.repozytorium.Dodaj(new Rodzic("Aneta", "Dams", "damsA@gmail.com", "AneDam", null));
+            IList<Uzytkownik> dzieci = new List<Uzytkownik>();
+       
             this.repozytorium.Dodaj(new Administrator("Łukasz", "Nowak", "ld@gmail.com", "ŁukNow"));
             this.repozytorium.Dodaj(u1);
             this.repozytorium.Dodaj(u2);
@@ -51,10 +52,16 @@ namespace Librus
             this.repozytorium.Dodaj(new Nauczyciel("Damian", "Brzeziński", "brzeziu@wp.pl", "DamBrz"));
             this.repozytorium.Dodaj(u4);
             this.repozytorium.Dodaj(u5);
+            dzieci.Add(u1);
+            dzieci.Add(u3);
+            this.repozytorium.Dodaj(new Rodzic("Aneta", "Dams", "damsA@gmail.com", "AneDam", dzieci));
             IList <OcenyUcznia> oceny = new List<OcenyUcznia>();
             OcenyUcznia b1 = new OcenyUcznia(u1,new Przedmiot("Fizyka"));
             b1.Oceny = "4, 5, 5, 2";
             oceny.Add(b1);
+            OcenyUcznia b4 = new OcenyUcznia(u1, new Przedmiot("Matematyka"));
+            b4.Oceny = "4, 5, 5, 5";
+            oceny.Add(b4);
             OcenyUcznia b2 = new OcenyUcznia(u2,new Przedmiot("Fizyka"));
             b2.Oceny = "3, 2, 4, 2";
             oceny.Add(b2);

@@ -30,7 +30,7 @@ namespace Librus.Widoki.Administracja
         private void Dodaj_Click(object sender, RoutedEventArgs e)
         {
             bool result = true;
-            List<Uzytkownik> dzieci = new List<Uzytkownik>();
+            IList<Uzytkownik> dzieci = new List<Uzytkownik>();
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtImie, this.errImie);
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtNazwisko, this.errNazwisko);
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtEmail, this.errEmail);

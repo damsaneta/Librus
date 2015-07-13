@@ -83,9 +83,9 @@ namespace Librus.DostepDoDanych.Pamiec
             }
             return null;
         }
-        public List<Uzytkownik> WyszukiwanieDzieci(string tekst)
+        public IList<Uzytkownik> WyszukiwanieDzieci(string tekst)
         {
-            List<Uzytkownik> dzieci = new List<Uzytkownik>();
+            IList<Uzytkownik> dzieci = new List<Uzytkownik>();
             string slowo = tekst;
             string brakDzieci = string.Empty;
             string[] tab = slowo.Split(new char[] { ',' });
@@ -110,7 +110,6 @@ namespace Librus.DostepDoDanych.Pamiec
 
 
         }
-
 
     }
 }

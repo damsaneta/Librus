@@ -1,0 +1,22 @@
+﻿<Window x:Class="Librus.Widoki.WyswietlanieOcen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Oceny" Height="582" Width="624" Background="#1d1d1d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="476*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="ocenyDataGrid" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Top" Style="{DynamicResource DataGridStyle}" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
+			AlternatingRowBackground="DimGray" RowHeight="20" 
+			BorderBrush="#1d1d1d" Background="#1d1d1d" Height="466" Width="596">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Przedmiot" Binding="{Binding Przedmiot.Nazwa}" />
+                <DataGridTextColumn Header=" Oceny" Binding="{Binding Oceny}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Wybór dziecka:" Style="{DynamicResource labelStyle}" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Height="25" Width="105"/>
+        <ComboBox Name="uczenComboBox"  HorizontalAlignment="Left" Margin="145,15,0,0" VerticalAlignment="Top" Width="160" Height="25" SelectionChanged="UczenComboBoxSelectionChanged"/>
+        <Label Name="errUczen"  Style="{DynamicResource errStyle}" HorizontalAlignment="Left" Margin="145,45,0,0" VerticalAlignment="Top" Width="160" Height="25"/>
+    </Grid>
+</Window>

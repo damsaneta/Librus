@@ -1,4 +1,5 @@
-
+//TO DO 
+1.pobieranie maila rodzica do wyswietlania ocen!
 poniedzialek:
 -->1.walidacja dodawania obecnosci
 2.dodac wybierz do comboboxa??
@@ -9,8 +10,9 @@ poniedzialek:
 -->5.dodawanie ocen
 -->6.walidacja
 wtorek:
+Dla ucznia to samo zrobic tylko rozpoznawac czyj e-mail jest
 1. wyswietlanie ocen dla ucznia i rodzica
-
+==>!!1pamietac zeby ustawic aby rodzic nie mogl zmienic zawartosci tabeli==? isreadonly
  public Klasa(string klasa)
         {
             this.Nazwa = klasa;

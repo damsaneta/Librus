@@ -11,6 +11,6 @@ namespace Librus.DostepDoDanych
         System.Collections.Generic.IList<Librus.Model.Uzytkownik> WyszukajPoRoli(string wzorzec);
         System.Collections.Generic.IList<Librus.Model.Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola);
         System.Collections.Generic.IList<Librus.Model.Uzytkownik> WyszukajUzytkownikow(string wzorzec);
-        System.Collections.Generic.List<Librus.Model.Uzytkownik> WyszukiwanieDzieci(string tekst);
+        System.Collections.Generic.IList<Librus.Model.Uzytkownik> WyszukiwanieDzieci(string tekst);
     }
 }
