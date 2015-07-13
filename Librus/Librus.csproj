@@ -79,8 +79,12 @@
     <Compile Include="DostepDoDanych\IRepozytoriumObecnosci.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumUzytkownikow.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumKlas.cs" />
+    <Compile Include="DostepDoDanych\IRepozytoriumPrzedmiotow.cs" />
+    <Compile Include="DostepDoDanych\IRepozytoriumOcenUcznia.cs" />
     <Compile Include="DostepDoDanych\Pamiec\RepozytoriumKlas.cs" />
     <Compile Include="DostepDoDanych\Pamiec\RepozytoriumObecnosciWPamieci.cs" />
+    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumOcenUcznia.cs" />
+    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumPrzedmiotow.cs" />
     <Compile Include="DostepDoDanych\Pamiec\RepozytoriumUzytkownikowWPamieci.cs" />
     <Compile Include="Grafika\Grafika.Designer.cs">
       <AutoGen>True</AutoGen>

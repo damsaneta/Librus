@@ -27,8 +27,8 @@
                 <DataGridCheckBoxColumn Header=" 15:00 "  Binding="{Binding Godzina15}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnDodaj" IsDefault="True"  Content="Dodaj" Height="32" Style="{StaticResource buttonStyle }"  
-                VerticalAlignment="Bottom"  Padding="0" Margin="410,0,347,45" Click="DodajClick"/>
+        <Button x:Name="btnZapisz" IsDefault="True"  Content="ZAPISZ" Height="32" Style="{StaticResource buttonStyle }"  
+                VerticalAlignment="Bottom"  Padding="0" Margin="410,0,347,45" Click="ZapiszClick"/>
         <Label Name="errKlasa" Style="{DynamicResource errStyle}" Content="Label" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="30" Width="175"/>
         <Label Name="errData" Style="{DynamicResource errStyle}" Content="Label" HorizontalAlignment="Left" Margin="220,60,0,0" VerticalAlignment="Top" Height="30" Width="145"/>
 

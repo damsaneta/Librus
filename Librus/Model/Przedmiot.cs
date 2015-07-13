@@ -8,19 +8,11 @@ namespace Librus.Model
 {
     public class Przedmiot
     {
-        public Przedmiot(TypPrzedmiotu przedmiot)
-        {
-            this.Typ = przedmiot;
-            this.Nazwa = przedmiot.ToString();
-        }
-
-        public TypPrzedmiotu Typ { get; private set; }
-
         public string Nazwa { get; private set; }
-
-        public override string ToString()
+        public Przedmiot(string nazwa)
         {
-            return this.Nazwa;
+            this.Nazwa = nazwa;
         }
+        
     }
 }

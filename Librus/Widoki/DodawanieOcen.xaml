@@ -4,79 +4,24 @@
         Title="DodawanieOcen"  Height="617" Width="700" Background="#1d1d1d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="215*"/>
-            <RowDefinition Height="33*"/>
+            <RowDefinition Height="95*"/>
+            <RowDefinition Height="425*"/>
+            <RowDefinition Height="66*"/>
         </Grid.RowDefinitions>
-        <ComboBox Name="klasaComboBox" HorizontalAlignment="Left" Foreground="Black" Margin="10,18,0,0" VerticalAlignment="Top" Width="175" Height="32" SelectionChanged="KlasaComboBoxSelectionChanged" >
-            <ComboBoxItem IsSelected="True">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock ><Run Text="Wybierz klasę..."/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="IA"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-        </ComboBox>
+        <ComboBox Name="klasaComboBox" HorizontalAlignment="Left" Foreground="Black" Margin="10,18,0,0" VerticalAlignment="Top" Width="175" Height="32" SelectionChanged="KlasaComboBoxSelectionChanged" />
+        <ComboBox Name="przedmiotComboBox"  HorizontalAlignment="Left" Foreground="Black" Margin="215,18,0,0" VerticalAlignment="Top" Width="175" Height="32" SelectionChanged="PrzedmiotComboBoxSelectionChanged"/>
 
-        <ComboBox Name="przedmiotComboBox" HorizontalAlignment="Left" Foreground="Black" Margin="215,18,0,0" VerticalAlignment="Top" Width="175" Height="32" SelectionChanged="PrzedmiotComboBoxSelectionChanged">
-            <ComboBoxItem IsSelected="True">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock ><Run Text="Wybierz przedmiot..."/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="Matematyka"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="Fizyka"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="Biologia"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="Chemia"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="Polski"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="Angielski"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0,0,0"><Run Text="WF"/></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-        </ComboBox>
-
-        <DataGrid Name="ocenyDataGrid" CanUserAddRows="False" AutoGenerateColumns="False"   Style="{DynamicResource DataGridStyle}" Margin="20,0"   VerticalAlignment="Top" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
+        <DataGrid Name="ocenyDataGrid" CanUserAddRows="False" AutoGenerateColumns="False"   Style="{DynamicResource DataGridStyle}" Margin="10,10,20,0"   VerticalAlignment="Top" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
 			AlternatingRowBackground="DimGray" RowHeight="20" HorizontalAlignment="Stretch"
-			BorderBrush="#1d1d1d" Background="#1d1d1d" Grid.Row="1" Height="410">
+			BorderBrush="#1d1d1d" Background="#1d1d1d" Grid.Row="1" Height="400">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Imię i nazwisko" Binding="{Binding Uczen.PelnaNazwa}" />
                 <DataGridTextColumn Header=" Oceny" Binding="{Binding Oceny}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Name="errKlasa" Visibility="Hidden" Style="{StaticResource errStyle}" HorizontalAlignment="Left" Height="25"  VerticalAlignment="Top" Width="175" Margin="10,55,0,0"/>
-        <Label Name="errPrzedmiot" Visibility="Hidden" Style="{StaticResource errStyle}" HorizontalAlignment="Left" Height="25"  VerticalAlignment="Top" Width="175" Margin="215,55,0,0"/>
-        <Button x:Name="btnDodaj" IsDefault="True"  Content="DODAJ" Height="46" Style="{StaticResource buttonStyle }"  
-                VerticalAlignment="Bottom"  Padding="0" Margin="435,0,87,10" Click="BtnDodajClick" Grid.Row="2"  />
-        <Button x:Name="btnPokaz" IsDefault="True"  Content="POKAŻ" Height="32" Style="{StaticResource buttonStyle }"  
-                VerticalAlignment="Bottom"  Padding="0" Margin="435,0,87,40"  Grid.Row="0" Click="PokazClick"  />
+        <Label Name="errKlasa" Visibility="Hidden" Style="{StaticResource errStyle}" HorizontalAlignment="Left" Height="40"  VerticalAlignment="Top" Width="175" Margin="10,55,0,0"/>
+        <Label Name="errPrzedmiot" Visibility="Hidden" Style="{StaticResource errStyle}" HorizontalAlignment="Left" Height="40"  VerticalAlignment="Top" Width="175" Margin="215,55,0,0"/>
+        <Button x:Name="btnZapisz" IsDefault="True"  Content="ZAPISZ" Height="46" Style="{StaticResource buttonStyle }"  
+                VerticalAlignment="Bottom"  Padding="0" Margin="465,0,77,10" Click="BtnZapiszClick" RenderTransformOrigin="0.56,-4.348" Grid.Row="2"  />
     </Grid>
 </Window>

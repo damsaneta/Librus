@@ -1,4 +1,5 @@
-﻿using Librus.DostepDoDanych.Pamiec;
+﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
@@ -21,62 +22,85 @@ namespace Librus.Widoki
     /// </summary>
     public partial class DodawanieOcen : Window
     {
-        private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
+        private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotow();
+        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlas();
+        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia = new RepozytoriumOcenUcznia();
         public DodawanieOcen()
         {
             InitializeComponent();
+            this.klasaComboBox.ItemsSource = repozytoriumKlas.PobierzWszystkie();
+            this.klasaComboBox.DisplayMemberPath = "Nazwa";
+            this.klasaComboBox.SelectedValuePath = "Nazwa";
+
+            this.przedmiotComboBox.ItemsSource = repozytoriumPrzedmiotow.PobierzWszystkie();
+            this.przedmiotComboBox.DisplayMemberPath = "Nazwa";
+            this.przedmiotComboBox.SelectedValuePath = "Nazwa";
         }
         private void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            bool test = true;
+            test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, this.errKlasa);
+            test &= Walidator.WalidacjaWymaganegoComboBoxa(this.przedmiotComboBox, this.errPrzedmiot);
+            if (test && !string.IsNullOrEmpty(this.klasaComboBox.SelectedValue.ToString()) && !string.IsNullOrEmpty(this.klasaComboBox.SelectedValue.ToString()))
             {
-                bool test = Walidator.WalidacjaComboBox(this.klasaComboBox, this.errKlasa);
-                
-            }
-            catch
-            {
+                Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
+                Przedmiot przedmiot = this.przedmiotComboBox.SelectedItem as Przedmiot;
+                var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Nazwa, przedmiot.Nazwa);
+                if (oceny == null || oceny.Count == 0)
+                {
+                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
+                    oceny = uczniowie.Select(x => new OcenyUcznia(x, przedmiot)).ToList();
+                    this.ocenyDataGrid.ItemsSource = oceny;
+                }
+                else
+                {
+                    this.ocenyDataGrid.ItemsSource = oceny;
+                }
 
             }
-            
-          
+
         }
 
         private void PrzedmiotComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            bool test = true;
+            test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, this.errKlasa);
+            test &= Walidator.WalidacjaWymaganegoComboBoxa(this.przedmiotComboBox, this.errPrzedmiot);
+            if (test && !string.IsNullOrEmpty(this.klasaComboBox.SelectedValue.ToString()) && !string.IsNullOrEmpty(this.klasaComboBox.SelectedValue.ToString()))
             {
-                Walidator.WalidacjaComboBox(this.przedmiotComboBox, this.errPrzedmiot);
-            }
-            catch
-            {
+                Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
+                Przedmiot przedmiot = this.przedmiotComboBox.SelectedItem as Przedmiot;
+                var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Nazwa, przedmiot.Nazwa);
+                if (oceny == null || oceny.Count == 0)
+                {
+                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
+                    oceny = uczniowie.Select(x => new OcenyUcznia(x, przedmiot)).ToList();
+                    this.ocenyDataGrid.ItemsSource = oceny;
+                }
+                else
+                {
+                    this.ocenyDataGrid.ItemsSource = oceny;
+                }
 
             }
 
         }
 
-        private void BtnDodajClick(object sender, RoutedEventArgs e)
+        private void BtnZapiszClick(object sender, RoutedEventArgs e)
         {
-            bool result = true;
-            result &= Walidator.WalidacjaComboBox(this.klasaComboBox, this.errKlasa);
-            result &= Walidator.WalidacjaComboBox(this.przedmiotComboBox, this.errPrzedmiot);
-            if(result)
+            bool test = true;
+            test &= Walidator.WalidacjaWymaganegoComboBoxa(this.przedmiotComboBox, this.errPrzedmiot);
+            test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, errKlasa);
+            if (test && !string.IsNullOrEmpty(this.klasaComboBox.SelectedValue.ToString()) && !string.IsNullOrEmpty(this.klasaComboBox.SelectedValue.ToString()))
             {
+                var g = this.ocenyDataGrid;
+                var v = g.Items.SourceCollection as IList<OcenyUcznia>;
+                this.repozytoriumOcenUcznia.Zapisz(v);
 
             }
         }
 
-        private void PokazClick(object sender, RoutedEventArgs e)
-        {
-            bool result = true;
-            result &= Walidator.WalidacjaComboBox(this.klasaComboBox, this.errKlasa);
-            result &= Walidator.WalidacjaComboBox(this.przedmiotComboBox, this.errPrzedmiot);
-            //if(result)
-            //{
-            //    this.ocenyDataGrid.ItemsSource = this.repozytorium.WyszukajPoKlasie("IA")
-            //     .Select(uczen => new ObecnoscUcznia(uczen)).ToList();
-            //}
-
-        }
     }
 }
 

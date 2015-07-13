@@ -1,20 +1,39 @@
-1. dodac wybierz do comboboxa
-2. repozytorium obecnosci : metoda pobierz po klasie i dacie
-3. zapisywnie do repozytorium
-4. dane testowe
-5 walidacja dodaja
-//
-1.repozytorium przedmiotow + dane testowe
-2. klasa OcenyUcznia, oceny w stringu, Przedmiot, Uczen-klasa brana z ucznia
-3. 
-
 
 poniedzialek:
 -->1.walidacja dodawania obecnosci
 2.dodac wybierz do comboboxa??
-3.repozytorium przedmiotow + dane testowe
-4. klasa OcenyUcznia...
-5.dodawanie ocen
-6.walidacja
+-->3.repozytorium przedmiotow + dane testowe
+-->4. klasa OcenyUcznia...
+-->5. repozytorium ocen
+-->6. dane testowe do repo ocen
+-->5.dodawanie ocen
+-->6.walidacja
+wtorek:
+1. wyswietlanie ocen dla ucznia i rodzica
+
+ public Klasa(string klasa)
+        {
+            this.Nazwa = klasa;
+        }
+        public Przedmiot(TypPrzedmiotu przedmiot)
+        {
+            this.Typ = przedmiot;
+            this.Nazwa = przedmiot.ToString();
+        }
+
+        public Przedmiot()
+        {
+            
+        }
+
+        public TypPrzedmiotu Typ { get; private set; }
+
+        public string Nazwa { get; private set; }
+
+        public override string ToString()
+        {
+            return this.Nazwa;
+        }
+    }
 
 

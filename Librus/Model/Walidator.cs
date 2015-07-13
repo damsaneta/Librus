@@ -68,7 +68,7 @@ namespace Librus.Model
         {
             if (kontrolka.SelectedValue==null)
             {
-                WyswietlBlad(kontrolka, lbl, "Proszę wybrać klasę.");
+                WyswietlBlad(kontrolka, lbl, "Proszę wybrać.");
                 return false;
             }
             else

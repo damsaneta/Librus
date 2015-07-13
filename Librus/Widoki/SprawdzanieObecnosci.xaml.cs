@@ -63,19 +63,7 @@ namespace Librus.Widoki
 
         }
 
-        //private void GodzinaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    int ind = godzinaComboBox.SelectedIndex;
-        //    if (ind != 0)
-        //    {
-        //        ind += 7;
-        //        string wynik = ind + ":00";
-
-        //        this.nieobecnosciDataGrid.Columns[1].Header = wynik;
-        //    }
-        //}
-
-        private void DodajClick(object sender, RoutedEventArgs e)
+        private void ZapiszClick(object sender, RoutedEventArgs e)
         {
             bool test = true;
             test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, this.errData);
