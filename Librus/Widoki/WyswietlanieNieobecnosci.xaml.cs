@@ -18,17 +18,17 @@ using System.Windows.Shapes;
 namespace Librus.Widoki
 {
     /// <summary>
-    /// Interaction logic for WyswietlanieOcen.xaml
+    /// Interaction logic for Wyswietlanie_nieobecnosci.xaml
     /// </summary>
-    public partial class WyswietlanieOcen : Window
+    public partial class Wyswietlanie_nieobecnosci : Window
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
-        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia = new RepozytoriumOcenUcznia();
-        public WyswietlanieOcen()
+        private readonly IRepozytoriumObecnosci repozytoriumObecnosciUcznia = new RepozytoriumObecnosciWPamieci();
+        public Wyswietlanie_nieobecnosci()
         {
             //TO DO: Pobieranie emaila z logowania ??
             InitializeComponent();
-            string mail = "damsA@gmail.com";
+           string mail = "damsA@gmail.com";
            // string mail = "jamr@gmail.com";
             Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(mail);
             //Rodzic rodzic = repozytoriumUzytkownikow.PobierzPoEmailu(mail) as Rodzic;
@@ -46,7 +46,7 @@ namespace Librus.Widoki
                     Uczen uczen = user as Uczen;
                     this.uczenComboBox.Visibility = Visibility.Hidden;
                     this.uczenLbl.Visibility = Visibility.Hidden;
-                    this.ocenyDataGrid.ItemsSource = repozytoriumOcenUcznia.PobierzOcenyPoUczniu(uczen);
+                    this.nieobecnosciDataGrid.ItemsSource = repozytoriumObecnosciUcznia.PobierzObecnosciPoUczniu(uczen);
                     break;
                     
 
@@ -54,10 +54,11 @@ namespace Librus.Widoki
 
         }
 
-        public void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var uczen = this.uczenComboBox.SelectedItem as Uczen;
-            this.ocenyDataGrid.ItemsSource = repozytoriumOcenUcznia.PobierzOcenyPoUczniu(uczen);
+            this.nieobecnosciDataGrid.ItemsSource = repozytoriumObecnosciUcznia.PobierzObecnosciPoUczniu(uczen);
         }
     }
 }

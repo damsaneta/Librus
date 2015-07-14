@@ -1,0 +1,29 @@
+﻿<Window x:Class="Librus.Widoki.Wyswietlanie_nieobecnosci"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nieobecnosci" Height="582" Width="624" Background="#1d1d1d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="496*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="nieobecnosciDataGrid" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Top" Style="{DynamicResource DataGridStyle}" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" GridLinesVisibility="Vertical" FontFamily="Segoe Ui Light" HeadersVisibility="Column" Foreground="Silver" RowBackground="#2a2a2a"
+			AlternatingRowBackground="DimGray" RowHeight="20" 
+			BorderBrush="#1d1d1d" Background="#1d1d1d" Height="466" Width="596">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Data" Binding="{Binding Data}" />
+                <DataGridCheckBoxColumn x:Name="godzina" Header=" 8:00 " Binding="{Binding Godzina8}" />
+                <DataGridCheckBoxColumn Header=" 9:00 " Binding="{Binding Godzina9}"/>
+                <DataGridCheckBoxColumn Header=" 10:00 "  Binding="{Binding Godzina10}"/>
+                <DataGridCheckBoxColumn Header=" 11:00 "  Binding="{Binding Godzina11}"/>
+                <DataGridCheckBoxColumn Header=" 12:00 "  Binding="{Binding Godzina12}"/>
+                <DataGridCheckBoxColumn Header=" 13:00 "  Binding="{Binding Godzina13}"/>
+                <DataGridCheckBoxColumn Header=" 14:00 "  Binding="{Binding Godzina14}"/>
+                <DataGridCheckBoxColumn Header=" 15:00 "  Binding="{Binding Godzina15}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Name="uczenLbl" Content="Wybór dziecka:" Visibility="Hidden" Style="{DynamicResource labelStyle}" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Height="30" Width="105"/>
+        <ComboBox Name="uczenComboBox" Visibility="Hidden" HorizontalAlignment="Left" Margin="145,15,0,15" VerticalAlignment="Top" Width="160" Height="25" SelectionChanged="UczenComboBoxSelectionChanged" />
+
+    </Grid>
+</Window>

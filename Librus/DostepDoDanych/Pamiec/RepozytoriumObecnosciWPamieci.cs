@@ -1,4 +1,5 @@
-﻿using Librus.Widoki;
+﻿using Librus.Model;
+using Librus.Widoki;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,10 @@ namespace Librus.DostepDoDanych.Pamiec
         {
             return obecnosciUcznia.Values.Where(x => ((x.Data.Year == data.Year && x.Data.Month==data.Month && x.Data.Day == data.Day) && (x.Uczen.Klasa.Nazwa == klasa))).ToList();
         }
-
+        public IList<ObecnoscUcznia> PobierzObecnosciPoUczniu(Uczen uczen)
+        {
+            return obecnosciUcznia.Values.Where(x => x.Uczen.Email == uczen.Email).ToList();
+        }
         public void Zapisz(IList<ObecnoscUcznia> obecnosci)
         {
             foreach(ObecnoscUcznia obe in obecnosci)
