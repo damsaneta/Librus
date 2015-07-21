@@ -9,6 +9,7 @@ namespace Librus.Model
     public class Przedmiot
     {
         public string Nazwa { get; private set; }
+
         public Przedmiot(string nazwa)
         {
             this.Nazwa = nazwa;

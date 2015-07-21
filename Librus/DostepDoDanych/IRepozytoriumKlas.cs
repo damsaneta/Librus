@@ -5,6 +5,6 @@ namespace Librus.DostepDoDanych
     {
         void Dodaj(Librus.Model.Klasa klasa);
         System.Collections.Generic.IList<Librus.Model.Klasa> PobierzWszystkie();
-        Librus.Model.Klasa ZnajdzKlase(int id);
+        Librus.Model.Klasa ZnajdzKlase(string id);
     }
 }

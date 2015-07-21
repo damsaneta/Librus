@@ -31,23 +31,24 @@ namespace Librus
             
 
             IList<ObecnoscUcznia> lista = new List<ObecnoscUcznia>();
-            this.klasy.Dodaj(new Klasa("IA"));
-            this.klasy.Dodaj(new Klasa("IB"));
-            this.klasy.Dodaj(new Klasa("IC"));
-            Uczen u3 = new Uczen("Alan", "Kowalski", "jamr@gmail.com", "AlaKow", new Klasa("IA"));
-            Uczen u1 = new Uczen("Anna", "Kowalska", "das@gmail.com", "AnnKow", new Klasa("IA"));
-            Uczen u2 = new Uczen("Michalina", "Nowak", "mich@gmail.com", "MicNow", new Klasa("IA"));
-            Uczen u4 = new Uczen("Adam", "Boroch", "asdf@gmail.com", "AdaBor", new Klasa("IC"));
-            Uczen u5 = new Uczen("Iza", "Kania", "fdsfsd@gmail.com", "IzaKan", new Klasa("IC"));
+            var klasa1a = new Klasa("IA", "IA (mat - fiz)");
+            this.klasy.Dodaj(klasa1a);
+            this.klasy.Dodaj(new Klasa("IB", "IB (hum - praw)"));
+            this.klasy.Dodaj(new Klasa("IC", "IC (bio - chem)"));
+            Uczen u3 = new Uczen("Alan", "Kowalski", "jamr@gmail.com", "AlaKow", klasa1a);
+            Uczen u1 = new Uczen("Anna", "Kowalska", "das@gmail.com", "AnnKow", klasa1a);
+            Uczen u2 = new Uczen("Michalina", "Nowak", "mich@gmail.com", "MicNow", klasa1a);
+            Uczen u4 = new Uczen("Adam", "Boroch", "asdf@gmail.com", "AdaBor", klasa1a);
+            Uczen u5 = new Uczen("Iza", "Kania", "fdsfsd@gmail.com", "IzaKan", klasa1a);
             this.klasy.PobierzWszystkie();
             IList<Uzytkownik> dzieci = new List<Uzytkownik>();
        
             this.repozytorium.Dodaj(new Administrator("Łukasz", "Nowak", "ld@gmail.com", "ŁukNow"));
             this.repozytorium.Dodaj(u1);
             this.repozytorium.Dodaj(u2);
-            this.repozytorium.Dodaj(new Uczen("Janusz", "Nowak", "jan@gmail.com", "JanNow", new Klasa("IB")));
-            this.repozytorium.Dodaj(new Uczen("Alina", "Jawor", "jawor@gmail.com", "AliJaw", new Klasa("IB")));
-            this.repozytorium.Dodaj(new Uczen("Martyna", "Dudziec", "dudz@gmail.com", "MarDus", new Klasa("IB")));
+            this.repozytorium.Dodaj(new Uczen("Janusz", "Nowak", "jan@gmail.com", "JanNow", klasa1a));
+            this.repozytorium.Dodaj(new Uczen("Alina", "Jawor", "jawor@gmail.com", "AliJaw", klasa1a));
+            this.repozytorium.Dodaj(new Uczen("Martyna", "Dudziec", "dudz@gmail.com", "MarDus", klasa1a));
             this.repozytorium.Dodaj(u3);
             this.repozytorium.Dodaj(new Nauczyciel("Damian", "Brzeziński", "brzeziu@wp.pl", "DamBrz"));
             this.repozytorium.Dodaj(u4);

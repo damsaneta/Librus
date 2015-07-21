@@ -91,7 +91,8 @@ namespace Librus.Widoki.Administracja
                             uzytkownik = new Rodzic(imie, nazwisko, email, haslo, dzieci);
                             break;
                         case TypRoli.Uczen:
-                            uzytkownik = new Uczen(imie, nazwisko, email, haslo,new Klasa(this.txtKlasa.Text));
+                            //// TODO
+                            uzytkownik = new Uczen(imie, nazwisko, email, haslo,null);
                             break;
                         default:
                             throw new InvalidOperationException();

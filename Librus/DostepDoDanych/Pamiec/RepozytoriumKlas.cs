@@ -9,22 +9,19 @@ namespace Librus.DostepDoDanych.Pamiec
 {
     public class RepozytoriumKlas : Librus.DostepDoDanych.IRepozytoriumKlas
     {
-        private static readonly Dictionary<int, Klasa> Klasy = new Dictionary<int, Klasa>();
+        private static readonly Dictionary<string, Klasa> Klasy = new Dictionary<string, Klasa>();
 
-        private static int ostatnieID = 0;
         public void Dodaj(Klasa klasa)
         {
-            ostatnieID++;
-            klasa.Id = ostatnieID;
-            Klasy.Add(ostatnieID, klasa);
+            Klasy.Add(klasa.Id, klasa);
         }
         public IList<Klasa> PobierzWszystkie()
         {
             return Klasy.Values.ToList();
         }
-        public Klasa ZnajdzKlase(int id)
+        public Klasa ZnajdzKlase(string id)
         {
-            var lista =  Klasy.Values.Where(k => (k.Id.ToString().StartsWith(id.ToString()))).ToList();
+            var lista =  Klasy.Values.Where(k => (k.Id.StartsWith(id))).ToList();
             return lista.First();
         }
     }

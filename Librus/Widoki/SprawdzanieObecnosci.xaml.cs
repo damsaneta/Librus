@@ -34,7 +34,7 @@ namespace Librus.Widoki
             this.wyborDaty.SelectedDate = DateTime.Now.Date;
             this.klasaComboBox.ItemsSource = this.repozytoriumKlas.PobierzWszystkie();
             this.klasaComboBox.DisplayMemberPath = "Nazwa";
-            this.klasaComboBox.SelectedValuePath = "Id";// zmienic na nazwa
+            this.klasaComboBox.SelectedValuePath = "Nazwa";// zmienic na nazwa
         }
 
         private void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -43,7 +43,7 @@ namespace Librus.Widoki
 
             test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, errData);//walidaxja daty
             test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, errKlasa);
-            if ((int)this.klasaComboBox.SelectedValue != 0 && test)
+            if (this.klasaComboBox.SelectedIndex != 0 && test)
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                 var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Nazwa, this.wyborDaty.SelectedDate.Value);
