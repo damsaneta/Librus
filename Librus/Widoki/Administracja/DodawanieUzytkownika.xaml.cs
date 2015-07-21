@@ -1,4 +1,5 @@
-﻿using Librus.DostepDoDanych.Pamiec;
+﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,14 @@ namespace Librus.Widoki.Administracja
     /// </summary>
     public partial class DodawanieUzytkownika : Window
     {
-        private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
+        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlas();
         public DodawanieUzytkownika()
         {
             InitializeComponent();
+            this.comboKlasa.ItemsSource = this.repozytoriumKlas.PobierzWszystkie();
+            this.comboKlasa.DisplayMemberPath = "Nazwa";
+            this.comboKlasa.SelectedValuePath = "Id";
         }
 
         private void Dodaj_Click(object sender, RoutedEventArgs e)
@@ -48,12 +53,12 @@ namespace Librus.Widoki.Administracja
             }
             //result &= Walidator.WalidacjaIstnieniaUzytkownika(this.txtEmail, this.errEmail);
             result &= Walidator.WalidacjaComboBox(this.comboRola, this.errRola);
-            Uzytkownik u = repozytorium.PobierzPoEmailu(this.txtEmail.Text);
+            Uzytkownik u = repozytoriumUzytkownikow.PobierzPoEmailu(this.txtEmail.Text);
 
             if (TypRoli.Uczen == (TypRoli)this.comboRola.SelectedIndex)
             {
-                result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtKlasa, this.errKlasa);
-
+                //result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtKlasa, this.errKlasa);
+                result &= Walidator.WalidacjaWymaganegoComboBoxa(this.comboKlasa, errKlasa);
 
             }
             if (TypRoli.Rodzic == (TypRoli)this.comboRola.SelectedIndex)
@@ -62,7 +67,7 @@ namespace Librus.Widoki.Administracja
                 {
                     string test = Walidator.SprawdzanieIstnieniaDzieci(this.txtDziecko);
                     result &= Walidator.WalidacjaDzieci(this.txtDziecko, this.errDziecko, test);
-                    dzieci = repozytorium.WyszukiwanieDzieci(this.txtDziecko.Text);
+                    dzieci = repozytoriumUzytkownikow.WyszukiwanieDzieci(this.txtDziecko.Text);
 
                 }
 
@@ -91,14 +96,15 @@ namespace Librus.Widoki.Administracja
                             uzytkownik = new Rodzic(imie, nazwisko, email, haslo, dzieci);
                             break;
                         case TypRoli.Uczen:
-                            //// TODO
-                            uzytkownik = new Uczen(imie, nazwisko, email, haslo,null);
+                            var klasa = this.comboKlasa.SelectedItem as Klasa;
+                            
+                            uzytkownik = new Uczen(imie, nazwisko, email, haslo,klasa);
                             break;
                         default:
                             throw new InvalidOperationException();
                     }
 
-                    this.repozytorium.Dodaj(uzytkownik);
+                    this.repozytoriumUzytkownikow.Dodaj(uzytkownik);
                     this.DialogResult = true;
                     this.Close();
                 }
@@ -137,10 +143,10 @@ namespace Librus.Widoki.Administracja
 
 
 
-        private void TxtKlasa_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtKlasa, this.errKlasa);
-        }
+        //private void TxtKlasa_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtKlasa, this.errKlasa);
+        //}
         private void txtDziecko_TextChanged(object sender, TextChangedEventArgs e)
         {
             Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtDziecko, this.errDziecko);
@@ -164,11 +170,11 @@ namespace Librus.Widoki.Administracja
                     TypRoli typ = (TypRoli)this.comboRola.SelectedIndex;
                     if (typ == TypRoli.Uczen)
                     {
-                        this.txtKlasa.IsEnabled = true;
+                        this.comboKlasa.IsEnabled = true;
                     }
                     else if (typ != TypRoli.Uczen)
                     {
-                        this.txtKlasa.IsEnabled = false;
+                        this.comboKlasa.IsEnabled = false;
 
                     }
                     if (typ == TypRoli.Rodzic)
@@ -186,6 +192,11 @@ namespace Librus.Widoki.Administracja
             {
 
             }
+        }
+
+        private void ComboKlasaSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Walidator.WalidacjaWymaganegoComboBoxa(this.comboKlasa, errKlasa);
         }
     }
 }
