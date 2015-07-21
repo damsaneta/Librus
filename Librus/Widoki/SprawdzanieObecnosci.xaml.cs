@@ -34,16 +34,16 @@ namespace Librus.Widoki
             this.wyborDaty.SelectedDate = DateTime.Now.Date;
             this.klasaComboBox.ItemsSource = this.repozytoriumKlas.PobierzWszystkie();
             this.klasaComboBox.DisplayMemberPath = "Nazwa";
-            this.klasaComboBox.SelectedValuePath = "Nazwa";// zmienic na nazwa
+            this.klasaComboBox.SelectedValuePath = "Id";
         }
 
         private void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool test = true;
 
-            test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, errData);//walidaxja daty
+            test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, errData);
             test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, errKlasa);
-            if (this.klasaComboBox.SelectedIndex != 0 && test)
+            if ((this.klasaComboBox.SelectedValue != null) && test)
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                 var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Nazwa, this.wyborDaty.SelectedDate.Value);
@@ -60,7 +60,6 @@ namespace Librus.Widoki
 
             }
 
-
         }
 
         private void ZapiszClick(object sender, RoutedEventArgs e)
@@ -68,7 +67,7 @@ namespace Librus.Widoki
             bool test = true;
             test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, this.errData);
             test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, errKlasa);
-            if ((int)this.klasaComboBox.SelectedValue != 0 && test)
+            if (this.klasaComboBox.SelectedValue != null && test)
             {
                 var g = this.nieobecnosciDataGrid;
                 var v = g.Items.SourceCollection as IList<ObecnoscUcznia>;
@@ -85,7 +84,7 @@ namespace Librus.Widoki
             test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, errKlasa);
             if (this.klasaComboBox.SelectedValue != null)
             {
-                if ((int)this.klasaComboBox.SelectedValue != 0 && test)
+                if (this.klasaComboBox.SelectedValue != null && test)
                 {
                     Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                     var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Nazwa, this.wyborDaty.SelectedDate.Value);

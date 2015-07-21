@@ -24,31 +24,37 @@ namespace Librus
         private readonly IRepozytoriumOcenUcznia repozytoriumOcen = new RepozytoriumOcenUcznia();
         public App()
         {
-            repozytoriumPrzedmiotow.Dodaj(new Przedmiot("Angielski"));
-            repozytoriumPrzedmiotow.Dodaj(new Przedmiot("Biologia"));
-            repozytoriumPrzedmiotow.Dodaj(new Przedmiot("Fizyka"));
-            repozytoriumPrzedmiotow.Dodaj(new Przedmiot("Matematyka"));
+            Przedmiot p1 = new Przedmiot("Angielski");
+            Przedmiot p2 = new Przedmiot("Biologia");
+            Przedmiot p3 = new Przedmiot("Fizyka");
+            Przedmiot p4 = new Przedmiot("Matematyka");
+            repozytoriumPrzedmiotow.Dodaj(p1);
+            repozytoriumPrzedmiotow.Dodaj(p2);
+            repozytoriumPrzedmiotow.Dodaj(p3);
+            repozytoriumPrzedmiotow.Dodaj(p4);
             
 
             IList<ObecnoscUcznia> lista = new List<ObecnoscUcznia>();
             var klasa1a = new Klasa("IA", "IA (mat - fiz)");
             this.klasy.Dodaj(klasa1a);
-            this.klasy.Dodaj(new Klasa("IB", "IB (hum - praw)"));
-            this.klasy.Dodaj(new Klasa("IC", "IC (bio - chem)"));
+            var klasa1b = new Klasa("IB", "IB (hum - praw)");
+            var klasa1c =  new Klasa("IC", "IC (bio - chem)");
+            this.klasy.Dodaj(klasa1b);
+            this.klasy.Dodaj(klasa1c);
             Uczen u3 = new Uczen("Alan", "Kowalski", "jamr@gmail.com", "AlaKow", klasa1a);
             Uczen u1 = new Uczen("Anna", "Kowalska", "das@gmail.com", "AnnKow", klasa1a);
             Uczen u2 = new Uczen("Michalina", "Nowak", "mich@gmail.com", "MicNow", klasa1a);
-            Uczen u4 = new Uczen("Adam", "Boroch", "asdf@gmail.com", "AdaBor", klasa1a);
-            Uczen u5 = new Uczen("Iza", "Kania", "fdsfsd@gmail.com", "IzaKan", klasa1a);
+            Uczen u4 = new Uczen("Adam", "Boroch", "asdf@gmail.com", "AdaBor", klasa1b);
+            Uczen u5 = new Uczen("Iza", "Kania", "fdsfsd@gmail.com", "IzaKan", klasa1b);
             this.klasy.PobierzWszystkie();
             IList<Uzytkownik> dzieci = new List<Uzytkownik>();
        
             this.repozytorium.Dodaj(new Administrator("Łukasz", "Nowak", "ld@gmail.com", "ŁukNow"));
             this.repozytorium.Dodaj(u1);
             this.repozytorium.Dodaj(u2);
-            this.repozytorium.Dodaj(new Uczen("Janusz", "Nowak", "jan@gmail.com", "JanNow", klasa1a));
-            this.repozytorium.Dodaj(new Uczen("Alina", "Jawor", "jawor@gmail.com", "AliJaw", klasa1a));
-            this.repozytorium.Dodaj(new Uczen("Martyna", "Dudziec", "dudz@gmail.com", "MarDus", klasa1a));
+            this.repozytorium.Dodaj(new Uczen("Janusz", "Nowak", "jan@gmail.com", "JanNow", klasa1c));
+            this.repozytorium.Dodaj(new Uczen("Alina", "Jawor", "jawor@gmail.com", "AliJaw", klasa1c));
+            this.repozytorium.Dodaj(new Uczen("Martyna", "Dudziec", "dudz@gmail.com", "MarDus", klasa1c));
             this.repozytorium.Dodaj(u3);
             this.repozytorium.Dodaj(new Nauczyciel("Damian", "Brzeziński", "brzeziu@wp.pl", "DamBrz"));
             this.repozytorium.Dodaj(u4);
@@ -57,16 +63,16 @@ namespace Librus
             dzieci.Add(u3);
             this.repozytorium.Dodaj(new Rodzic("Aneta", "Dams", "damsA@gmail.com", "AneDam", dzieci));
             IList <OcenyUcznia> oceny = new List<OcenyUcznia>();
-            OcenyUcznia b1 = new OcenyUcznia(u1,new Przedmiot("Fizyka"));
+            OcenyUcznia b1 = new OcenyUcznia(u1,p3);
             b1.Oceny = "4, 5, 5, 2";
             oceny.Add(b1);
-            OcenyUcznia b4 = new OcenyUcznia(u1, new Przedmiot("Matematyka"));
+            OcenyUcznia b4 = new OcenyUcznia(u1, p4);
             b4.Oceny = "4, 5, 5, 5";
             oceny.Add(b4);
-            OcenyUcznia b2 = new OcenyUcznia(u2,new Przedmiot("Fizyka"));
+            OcenyUcznia b2 = new OcenyUcznia(u2,p3);
             b2.Oceny = "3, 2, 4, 2";
             oceny.Add(b2);
-            OcenyUcznia b3 = new OcenyUcznia(u3,new Przedmiot("Fizyka"));
+            OcenyUcznia b3 = new OcenyUcznia(u3,p3);
             b3.Oceny = "1, 2, 3, 2";
             oceny.Add(b3);
             this.repozytoriumOcen.Zapisz(oceny);
