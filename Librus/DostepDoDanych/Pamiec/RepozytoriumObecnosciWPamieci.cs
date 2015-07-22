@@ -11,9 +11,9 @@ namespace Librus.DostepDoDanych.Pamiec
     public class RepozytoriumObecnosciWPamieci: IRepozytoriumObecnosci
     {
         public static readonly Dictionary<int, ObecnoscUcznia> obecnosciUcznia = new Dictionary<int, ObecnoscUcznia>();
-        public IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasa, DateTime data)
+        public IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasaId, DateTime data)
         {
-            return obecnosciUcznia.Values.Where(x => ((x.Data.Year == data.Year && x.Data.Month==data.Month && x.Data.Day == data.Day) && (x.Uczen.Klasa.Nazwa == klasa))).ToList();
+            return obecnosciUcznia.Values.Where(x => ((x.Data.Year == data.Year && x.Data.Month==data.Month && x.Data.Day == data.Day) && (x.Uczen.Klasa.Id == klasaId))).ToList();
         }
         public IList<ObecnoscUcznia> PobierzObecnosciPoUczniu(Uczen uczen)
         {

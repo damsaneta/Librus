@@ -23,7 +23,7 @@ namespace Librus.Widoki.Administracja
     public partial class DodawanieUzytkownika : Window
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
-        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlas();
+        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlasWPamieci();
         public DodawanieUzytkownika()
         {
             InitializeComponent();

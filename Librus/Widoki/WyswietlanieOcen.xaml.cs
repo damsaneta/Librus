@@ -23,7 +23,7 @@ namespace Librus.Widoki
     public partial class WyswietlanieOcen : Window
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
-        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia = new RepozytoriumOcenUcznia();
+        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia = new RepozytoriumOcenUczniaWPamieci();
         public WyswietlanieOcen()
         {
             //TO DO: Pobieranie emaila z logowania ??

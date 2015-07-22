@@ -19,15 +19,15 @@ namespace Librus
     {
         private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
         private readonly RepozytoriumObecnosciWPamieci repozytoriumObecnosci = new RepozytoriumObecnosciWPamieci();
-        private readonly RepozytoriumKlas klasy = new RepozytoriumKlas();
-        private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotow();
-        private readonly IRepozytoriumOcenUcznia repozytoriumOcen = new RepozytoriumOcenUcznia();
+        private readonly RepozytoriumKlasWPamieci klasy = new RepozytoriumKlasWPamieci();
+        private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotowWPamieci();
+        private readonly IRepozytoriumOcenUcznia repozytoriumOcen = new RepozytoriumOcenUczniaWPamieci();
         public App()
         {
-            Przedmiot p1 = new Przedmiot("Angielski");
-            Przedmiot p2 = new Przedmiot("Biologia");
-            Przedmiot p3 = new Przedmiot("Fizyka");
-            Przedmiot p4 = new Przedmiot("Matematyka");
+            Przedmiot p1 = new Przedmiot("jang","Angielski");
+            Przedmiot p2 = new Przedmiot("bio","Biologia");
+            Przedmiot p3 = new Przedmiot("fiz","Fizyka");
+            Przedmiot p4 = new Przedmiot("mat","Matematyka");
             repozytoriumPrzedmiotow.Dodaj(p1);
             repozytoriumPrzedmiotow.Dodaj(p2);
             repozytoriumPrzedmiotow.Dodaj(p3);

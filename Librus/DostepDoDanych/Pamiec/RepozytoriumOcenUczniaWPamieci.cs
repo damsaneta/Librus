@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Librus.DostepDoDanych.Pamiec
 {
-    public class RepozytoriumOcenUcznia : Librus.DostepDoDanych.IRepozytoriumOcenUcznia 
+    public class RepozytoriumOcenUczniaWPamieci : Librus.DostepDoDanych.IRepozytoriumOcenUcznia 
     {
         public static readonly Dictionary<int, OcenyUcznia> ocenyUcznia = new Dictionary<int, OcenyUcznia>();
 
-        public IList<OcenyUcznia> PobierzPoKlasieIPrzedmiocie(string klasa, string przedmiot)
+        public IList<OcenyUcznia> PobierzPoKlasieIPrzedmiocie(string klasaId, string przedmiotId)
         {
-            return ocenyUcznia.Values.Where(x => x.Przedmiot.Nazwa == przedmiot && x.Uczen.Klasa.Nazwa == klasa).ToList();
+            return ocenyUcznia.Values.Where(x => x.Przedmiot.Id == przedmiotId && x.Uczen.Klasa.Id == klasaId).ToList();
         }
         public IList<OcenyUcznia> PobierzOcenyPoUczniu(Uczen uczen)
         {

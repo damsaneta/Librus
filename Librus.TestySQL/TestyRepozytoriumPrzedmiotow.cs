@@ -2,22 +2,19 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Librus.DostepDoDanych.BazaDanych;
 using Librus.Model;
-using System.Transactions;
 
 namespace Librus.TestySQL
 {
     [TestClass]
-    public class TestyRepozytoriumKlas
+    public class TestyRepozytoriumPrzedmiotow
     {
         private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
-
         [TestMethod]
-        public void Test()
+
+        public void test1()
         {
-            var repozytorium = new RepozytoriumKlas(connectionString);
-           // repozytorium.Dodaj(new Klasa("9z", "klasa testowa"));
-
-
+            var repo = new RepozytoriumPrzedmiotow(connectionString);
+            repo.Dodaj(new Przedmiot("rel","Religia"));
         }
     }
 }

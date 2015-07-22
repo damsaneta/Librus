@@ -8,12 +8,14 @@ namespace Librus.Model
 {
     public class Przedmiot
     {
-        public string Nazwa { get; private set; }
-
-        public Przedmiot(string nazwa)
+        public Przedmiot(string id, string nazwa)
         {
+            this.Id = id;
             this.Nazwa = nazwa;
         }
-        
+
+        public string Nazwa { get; private set; }
+
+        public string Id { get; private set; }
     }
 }

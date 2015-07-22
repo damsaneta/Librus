@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Librus.Widoki.Wyswietlanie_nieobecnosci"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Nieobecnosci" Height="582" Width="624" Background="#1d1d1d">
+        Title="Nieobecności" Height="582" Width="624" Background="#1d1d1d">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

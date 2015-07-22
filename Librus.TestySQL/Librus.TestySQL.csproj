@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="TestyRepozytoriumKlas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestyRepozytoriumPrzedmiotow.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Librus\Librus.csproj">

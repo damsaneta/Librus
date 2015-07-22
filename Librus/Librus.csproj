@@ -76,16 +76,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DostepDoDanych\BazaDanych\RepozytoriumKlasB.cs" />
+    <Compile Include="DostepDoDanych\BazaDanych\RepozytoriumKlas.cs" />
+    <Compile Include="DostepDoDanych\BazaDanych\RepozytoriumPrzedmiotow.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumObecnosci.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumUzytkownikow.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumKlas.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumPrzedmiotow.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumOcenUcznia.cs" />
-    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumKlas.cs" />
+    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumKlasWPamieci.cs" />
     <Compile Include="DostepDoDanych\Pamiec\RepozytoriumObecnosciWPamieci.cs" />
-    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumOcenUcznia.cs" />
-    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumPrzedmiotow.cs" />
+    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumOcenUczniaWPamieci.cs" />
+    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumPrzedmiotowWPamieci.cs" />
     <Compile Include="DostepDoDanych\Pamiec\RepozytoriumUzytkownikowWPamieci.cs" />
     <Compile Include="Grafika\Grafika.Designer.cs">
       <AutoGen>True</AutoGen>

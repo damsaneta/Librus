@@ -23,7 +23,7 @@ namespace Librus.Widoki
     public partial class SprawdzanieObecnosci : Window
     {
 
-        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlas();
+        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlasWPamieci();
         private readonly IRepozytoriumObecnosci repozytoriumObecnosci = new RepozytoriumObecnosciWPamieci();
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
 
@@ -46,9 +46,12 @@ namespace Librus.Widoki
             if ((this.klasaComboBox.SelectedValue != null) && test)
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
-                var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Nazwa, this.wyborDaty.SelectedDate.Value);
+                //pobieranie nie po nazwie a po id
+
+                var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Id, this.wyborDaty.SelectedDate.Value);
                 if (obecnosci == null || obecnosci.Count == 0)
                 {
+                    //pobieranie nie po nazwie a po id
                     var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
                     obecnosci = uczniowie.Select(x => new ObecnoscUcznia(x, this.wyborDaty.SelectedDate.Value)).ToList();
                     this.nieobecnosciDataGrid.ItemsSource = obecnosci;
@@ -87,7 +90,7 @@ namespace Librus.Widoki
                 if (this.klasaComboBox.SelectedValue != null && test)
                 {
                     Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
-                    var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Nazwa, this.wyborDaty.SelectedDate.Value);
+                    var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Id, this.wyborDaty.SelectedDate.Value);
                     if (obecnosci == null || obecnosci.Count == 0)
                     {
                         var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);

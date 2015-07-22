@@ -1,0 +1,5 @@
+-->1. Pozmieniac nazwy repozytoriów.
+2. Uzupelnic repozytorium klas w bazie
+-->3. Zmienic przedmiot(dodaæ ID)
+-->4. dodaæ tabelê przedmioty.
+-->5. Utworzyc repozytorium przedmiotów w bazie

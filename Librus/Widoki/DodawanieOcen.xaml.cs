@@ -23,19 +23,19 @@ namespace Librus.Widoki
     public partial class DodawanieOcen : Window
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
-        private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotow();
-        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlas();
-        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia = new RepozytoriumOcenUcznia();
+        private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotowWPamieci();
+        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlasWPamieci();
+        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia = new RepozytoriumOcenUczniaWPamieci();
         public DodawanieOcen()
         {
             InitializeComponent();
             this.klasaComboBox.ItemsSource = repozytoriumKlas.PobierzWszystkie();
             this.klasaComboBox.DisplayMemberPath = "Nazwa";
-            this.klasaComboBox.SelectedValuePath = "Nazwa";
+            this.klasaComboBox.SelectedValuePath = "Id";
 
             this.przedmiotComboBox.ItemsSource = repozytoriumPrzedmiotow.PobierzWszystkie();
             this.przedmiotComboBox.DisplayMemberPath = "Nazwa";
-            this.przedmiotComboBox.SelectedValuePath = "Nazwa";
+            this.przedmiotComboBox.SelectedValuePath = "Id";
         }
         private void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -46,7 +46,8 @@ namespace Librus.Widoki
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                 Przedmiot przedmiot = this.przedmiotComboBox.SelectedItem as Przedmiot;
-                var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Nazwa, przedmiot.Nazwa);
+                //to do
+                var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Id, przedmiot.Id);
                 if (oceny == null || oceny.Count == 0)
                 {
                     var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
@@ -71,7 +72,7 @@ namespace Librus.Widoki
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                 Przedmiot przedmiot = this.przedmiotComboBox.SelectedItem as Przedmiot;
-                var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Nazwa, przedmiot.Nazwa);
+                var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Id, przedmiot.Id);
                 if (oceny == null || oceny.Count == 0)
                 {
                     var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);

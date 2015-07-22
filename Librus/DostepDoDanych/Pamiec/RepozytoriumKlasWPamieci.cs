@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Librus.DostepDoDanych.Pamiec
 {
-    public class RepozytoriumKlas : Librus.DostepDoDanych.IRepozytoriumKlas
+    public class RepozytoriumKlasWPamieci : Librus.DostepDoDanych.IRepozytoriumKlas
     {
         private static readonly Dictionary<string, Klasa> Klasy = new Dictionary<string, Klasa>();
 
