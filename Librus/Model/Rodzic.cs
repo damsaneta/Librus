@@ -13,7 +13,7 @@ namespace Librus.Model
 
         }
         public Rodzic(string imie, string nazwisko, string mail, string haslo,IList<Uzytkownik> lista) :
-            base(imie, nazwisko, mail,TypRoli.Rodzic, haslo)
+            base(imie, nazwisko, mail,Rola.Rodzic, haslo)
         {
             this.Dzieci = lista;
         }

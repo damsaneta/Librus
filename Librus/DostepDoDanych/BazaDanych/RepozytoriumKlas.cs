@@ -47,8 +47,10 @@ namespace Librus.DostepDoDanych.BazaDanych
                     {
                         while(reader.Read())
                         {
-                            
-
+                            var id = reader["Id"].ToString();
+                            var nazwa =reader["Nazwa"].ToString();
+                            var klasa = new Klasa(id, nazwa);
+                            wynik.Add(klasa);
                             
                         }
                     }

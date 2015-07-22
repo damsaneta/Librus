@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="DostepDoDanych\BazaDanych\RepozytoriumKlas.cs" />
     <Compile Include="DostepDoDanych\BazaDanych\RepozytoriumPrzedmiotow.cs" />
+    <Compile Include="DostepDoDanych\BazaDanych\RepozytoriumUzytkownikow.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumObecnosci.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumUzytkownikow.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumKlas.cs" />

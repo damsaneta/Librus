@@ -12,12 +12,12 @@ namespace Librus.Model
         {
                 
         }
-        protected Uzytkownik(string imie, string nazwisko,string email, TypRoli rola, string haslo)
+        protected Uzytkownik(string imie, string nazwisko,string email, Rola rola, string haslo)
         {
             this.Imie = imie;
             this.Nazwisko = nazwisko;
             this.Email = email;
-            this.Rola =  new Rola(rola);
+            this.Rola =  rola;
             this.Haslo = haslo;
         }
         public string PelnaNazwa { get { return this.Imie + " " + this.Nazwisko; } }

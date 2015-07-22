@@ -13,7 +13,7 @@ namespace Librus.Model
 
         }
         public Nauczyciel(string imie, string nazwisko, string mail,  string haslo) :
-            base(imie, nazwisko, mail, TypRoli.Nauczyciel, haslo)
+            base(imie, nazwisko, mail,Rola.Nauczyciel, haslo)
         {
 
         }
