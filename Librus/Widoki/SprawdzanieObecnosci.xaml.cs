@@ -52,7 +52,7 @@ namespace Librus.Widoki
                 if (obecnosci == null || obecnosci.Count == 0)
                 {
                     //pobieranie nie po nazwie a po id
-                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
+                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Id);
                     obecnosci = uczniowie.Select(x => new ObecnoscUcznia(x, this.wyborDaty.SelectedDate.Value)).ToList();
                     this.nieobecnosciDataGrid.ItemsSource = obecnosci;
                 }
@@ -93,7 +93,7 @@ namespace Librus.Widoki
                     var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Id, this.wyborDaty.SelectedDate.Value);
                     if (obecnosci == null || obecnosci.Count == 0)
                     {
-                        var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
+                        var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Id);
                         obecnosci = uczniowie.Select(x => new ObecnoscUcznia(x, this.wyborDaty.SelectedDate.Value)).ToList();
                         this.nieobecnosciDataGrid.ItemsSource = obecnosci;
                     }

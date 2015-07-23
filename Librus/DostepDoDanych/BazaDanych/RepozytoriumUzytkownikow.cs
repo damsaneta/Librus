@@ -106,14 +106,81 @@ namespace Librus.DostepDoDanych.BazaDanych
             throw new NotImplementedException();
         }
 
-        public IList<Model.Uczen> WyszukajPoKlasie(string wzorzec)
+        public IList<Uczen> WyszukajPoKlasie(string wzorzec)
         {
-            throw new NotImplementedException();
+            IList<Uczen> wynik = new List<Uczen>();
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT * FROM Uzytkownicy WHERE KlasaId LIKE @KlasaId";
+                    cmd.Parameters.AddWithValue("@KlasaId", wzorzec);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var id = (int)reader["Id"];
+                            var imie = reader["Imie"].ToString();
+                            var nazwisko = reader["Nazwisko"].ToString();
+                            var email = reader["Email"].ToString();
+                            var haslo = reader["Haslo"].ToString();
+                            var klasaId = reader["KlasaId"].ToString();
+                            Klasa klasa = repozytoriumKlas.ZnajdzKlase(klasaId);
+                            Uczen uczen = new Uczen(imie, nazwisko, email, haslo, klasa);
+                            uczen.Id = id;
+                            wynik.Add(uczen);
+
+                        }
+                    }
+
+                }
+            }
+            return wynik;
         }
 
-        public IList<Model.Uzytkownik> WyszukajPoRoli(string wzorzec)
+        public IList<Uzytkownik> WyszukajPoRoli(string wzorzec)
         {
-            throw new NotImplementedException();
+            IList<Uzytkownik> wynik = new List<Uzytkownik>();
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT * FROM Uzytkownicy WHERE Rola LIKE @Rola";
+                    cmd.Parameters.AddWithValue("@Rola", wzorzec);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            switch (wzorzec)
+                            {
+                                case TypRoli.Administrator:
+                                    uzytkownik = new Administrator(imie, nazwisko, email, haslo);
+                                    uzytkownik.Id = id;
+                                    break;
+                                case TypRoli.Nauczyciel:
+                                    uzytkownik = new Nauczyciel(imie, nazwisko, email, haslo);
+                                    uzytkownik.Id = id;
+                                    break;
+                                case TypRoli.Rodzic:
+                                    uzytkownik = new Rodzic(imie, nazwisko, email, haslo, null);
+                                    uzytkownik.Id = id;
+                                    break;
+                                case TypRoli.Uczen:
+                                    Klasa klasa = repozytoriumKlas.ZnajdzKlase((string)klasaId);
+                                    uzytkownik = new Uczen(imie, nazwisko, email, haslo, klasa);
+                                    uzytkownik.Id = id;
+                                    break;
+                            }
+                        }
+                    }
+
+                }
+            }
+            return wynik;
+            
         }
 
         public IList<Model.Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola)

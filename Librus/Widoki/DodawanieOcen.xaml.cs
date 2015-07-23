@@ -50,7 +50,7 @@ namespace Librus.Widoki
                 var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Id, przedmiot.Id);
                 if (oceny == null || oceny.Count == 0)
                 {
-                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
+                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Id);
                     oceny = uczniowie.Select(x => new OcenyUcznia(x, przedmiot)).ToList();
                     this.ocenyDataGrid.ItemsSource = oceny;
                 }
@@ -75,7 +75,7 @@ namespace Librus.Widoki
                 var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Id, przedmiot.Id);
                 if (oceny == null || oceny.Count == 0)
                 {
-                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Nazwa);
+                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Id);
                     oceny = uczniowie.Select(x => new OcenyUcznia(x, przedmiot)).ToList();
                     this.ocenyDataGrid.ItemsSource = oceny;
                 }

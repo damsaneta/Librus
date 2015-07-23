@@ -71,7 +71,7 @@ namespace Librus.DostepDoDanych.Pamiec
                 uczniowie.Add((Uczen)x);
             }
 
-            return uczniowie.FindAll(x => (x.Klasa.Nazwa.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))).ToList();
+            return uczniowie.FindAll(x => (x.Klasa.Id.StartsWith(wzorzec, StringComparison.CurrentCultureIgnoreCase))).ToList();
 
         }
         public Uzytkownik PobierzPoEmailu(string email)

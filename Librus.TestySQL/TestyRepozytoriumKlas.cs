@@ -26,7 +26,7 @@ namespace Librus.TestySQL
             var repozytorium = new RepozytoriumUzytkownikow(connectionString);
             // repozytorium.Dodaj(new Klasa("9z", "klasa testowa"));
            // repozytorium.Dodaj(new Rodzic("Aneta", "Dams", "aneta@gmail.com", "AneDam",null));
-            var lista =  repozytorium.PobierzWszystkich();
+            var lista = repozytorium.WyszukajPoKlasie("IA");
      
         }
     }
