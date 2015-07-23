@@ -16,7 +16,8 @@ namespace Librus.TestySQL
         {
             var repozytorium = new RepozytoriumKlas(connectionString);
            // repozytorium.Dodaj(new Klasa("9z", "klasa testowa"));
-            var lista = repozytorium.PobierzWszystkie();
+            //var lista = repozytorium.PobierzWszystkie();
+            var klasa = repozytorium.ZnajdzKlase("IA");
 
         }
         [TestMethod]
@@ -24,7 +25,8 @@ namespace Librus.TestySQL
         {
             var repozytorium = new RepozytoriumUzytkownikow(connectionString);
             // repozytorium.Dodaj(new Klasa("9z", "klasa testowa"));
-             repozytorium.Dodaj(new Uczen("Magda","Dams","gmail@damdfds.com","MagDam",new Klasa("IA","")));
+           // repozytorium.Dodaj(new Rodzic("Aneta", "Dams", "aneta@gmail.com", "AneDam",null));
+            var lista =  repozytorium.PobierzWszystkich();
      
         }
     }

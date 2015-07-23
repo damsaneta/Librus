@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Librus.Model
 {
-    class Rodzic:Uzytkownik
+    public class Rodzic:Uzytkownik
     {
         public Rodzic()
         {

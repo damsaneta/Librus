@@ -34,12 +34,52 @@ namespace Librus.DostepDoDanych.BazaDanych
 
         public IList<Przedmiot> PobierzWszystkie()
         {
-            throw new NotImplementedException();
+            IList<Przedmiot> wynik = new List<Przedmiot>();
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, Nazwa FROM Przedmioty";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var id = reader["Id"].ToString();
+                            var nazwa = reader["Nazwa"].ToString();
+                            var przedmiot = new Przedmiot(id, nazwa);
+                            wynik.Add(przedmiot);
+
+                        }
+                    }
+                }
+            }
+            return wynik;
         }
 
         public Przedmiot ZnajdzPrzedmiot(string id)
         {
-            throw new NotImplementedException();
+            Przedmiot przedmiot = null;
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT * FROM Przedmioty WHERE Id LIKE @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var nazwa = reader["Nazwa"].ToString();
+                            var idd = reader["Id"].ToString();
+                            przedmiot = new Przedmiot(idd, nazwa);
+                        }
+                    }
+                }
+            }
+            return przedmiot;
         }
     }
 }

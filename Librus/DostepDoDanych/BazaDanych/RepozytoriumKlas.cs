@@ -61,17 +61,27 @@ namespace Librus.DostepDoDanych.BazaDanych
 
         public Klasa ZnajdzKlase(string id)
         {
+            Klasa klasa = null;
             using(var connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
                 using(var cmd = connection.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Nazwa WHERE Id LIKE @id";
+                    cmd.CommandText = "SELECT * FROM Klasy WHERE Id LIKE @id";
                     cmd.Parameters.AddWithValue("@id", id);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var nazwa = reader["Nazwa"].ToString();
+                            var idd = reader["Id"].ToString();
+                            klasa = new Klasa(idd, nazwa);
+                        }
 
+                    }
                 }
             }
-            return null;
+            return klasa;
         }
     }
 }

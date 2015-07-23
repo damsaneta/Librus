@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace Librus.DostepDoDanych.BazaDanych
 {
-    public class RepozytoriumUzytkownikow: IRepozytoriumUzytkownikow
+    public class RepozytoriumUzytkownikow : IRepozytoriumUzytkownikow
     {
         private readonly string connectionString;
-
+        private readonly IRepozytoriumKlas repozytoriumKlas;
         public RepozytoriumUzytkownikow(string connectionString)
         {
             this.connectionString = connectionString;
+            repozytoriumKlas = new RepozytoriumKlas(this.connectionString);
         }
 
         public void Dodaj(Uzytkownik uzytkownik)
@@ -40,7 +41,7 @@ namespace Librus.DostepDoDanych.BazaDanych
                     uzytkownik.Id = (int)parameter.Value;
                 }
             }
-            
+
         }
 
         public Uzytkownik PobierzPoEmailu(string email)
@@ -53,10 +54,11 @@ namespace Librus.DostepDoDanych.BazaDanych
             IList<Uzytkownik> wynik = new List<Uzytkownik>();
             using (var connection = new SqlConnection(this.connectionString))
             {
+                Uzytkownik uzytkownik = null; ;
                 connection.Open();
                 using (var cmd = connection.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Imie, Nazwisko, Email, Rola, Haslo FROM Uzytkownicy";
+                    cmd.CommandText = "SELECT Id, Imie, Nazwisko, Email, Rola, Haslo, KlasaId FROM Uzytkownicy";
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -67,12 +69,30 @@ namespace Librus.DostepDoDanych.BazaDanych
                             var nazwisko = reader["Nazwisko"].ToString();
                             var email = reader["Email"].ToString();
                             var haslo = reader["Haslo"].ToString();
+                            var klasaId = reader["KlasaId"] == DBNull.Value ? null : (object)reader["KlasaId"].ToString();
                             var rola = reader["Rola"].ToString();
                             var typRoli = (TypRoli)Enum.Parse(typeof(TypRoli), rola);
-                            //swicha po roli i w zaleznosci co bedzie uzupelnic
-
-                          //  var uzytkownik = new Uzytkownik();
-                          //  wynik.Add(uzytkownik);
+                            switch (typRoli)
+                            {
+                                case TypRoli.Administrator:
+                                    uzytkownik = new Administrator(imie, nazwisko, email, haslo);
+                                    uzytkownik.Id = id;
+                                    break;
+                                case TypRoli.Nauczyciel:
+                                    uzytkownik = new Nauczyciel(imie, nazwisko, email, haslo);
+                                    uzytkownik.Id = id;
+                                    break;
+                                case TypRoli.Rodzic:
+                                    uzytkownik = new Rodzic(imie, nazwisko, email, haslo, null);
+                                    uzytkownik.Id = id;
+                                    break;
+                                case TypRoli.Uczen:
+                                    Klasa klasa = repozytoriumKlas.ZnajdzKlase((string)klasaId);
+                                    uzytkownik = new Uczen(imie, nazwisko, email, haslo, klasa);
+                                    uzytkownik.Id = id;
+                                    break;
+                            }
+                            wynik.Add(uzytkownik);
 
                         }
                     }

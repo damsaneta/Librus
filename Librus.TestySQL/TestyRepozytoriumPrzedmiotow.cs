@@ -14,7 +14,7 @@ namespace Librus.TestySQL
         public void test1()
         {
             var repo = new RepozytoriumPrzedmiotow(connectionString);
-            repo.Dodaj(new Przedmiot("rel","Religia"));
+            var lista = repo.ZnajdzPrzedmiot("jpol");
         }
     }
 }
