@@ -141,6 +141,8 @@ namespace Librus.DostepDoDanych.BazaDanych
 
         public IList<Uzytkownik> WyszukajPoRoli(string wzorzec)
         {
+            Uzytkownik uzytkownik = null;
+            var typRoli = (TypRoli)Enum.Parse(typeof(TypRoli), wzorzec);
             IList<Uzytkownik> wynik = new List<Uzytkownik>();
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -153,8 +155,14 @@ namespace Librus.DostepDoDanych.BazaDanych
                     {
                         while (reader.Read())
                         {
+                            var id = (int)reader["Id"];
+                            var imie = reader["Imie"].ToString();
+                            var nazwisko = reader["Nazwisko"].ToString();
+                            var email = reader["Email"].ToString();
+                            var haslo = reader["Haslo"].ToString();
+                            var klasaId = reader["KlasaId"] == DBNull.Value ? null : (object)reader["KlasaId"].ToString();
 
-                            switch (wzorzec)
+                            switch (typRoli)
                             {
                                 case TypRoli.Administrator:
                                     uzytkownik = new Administrator(imie, nazwisko, email, haslo);
@@ -174,6 +182,7 @@ namespace Librus.DostepDoDanych.BazaDanych
                                     uzytkownik.Id = id;
                                     break;
                             }
+                            wynik.Add(uzytkownik);
                         }
                     }
 
@@ -182,15 +191,65 @@ namespace Librus.DostepDoDanych.BazaDanych
             return wynik;
             
         }
-
+        //do zrobienia
         public IList<Model.Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola)
         {
             throw new NotImplementedException();
         }
 
-        public IList<Model.Uzytkownik> WyszukajUzytkownikow(string wzorzec)
+        public IList<Uzytkownik> WyszukajUzytkownikow(string wzorzec)
         {
-            throw new NotImplementedException();
+
+            IList<Uzytkownik> wynik = new List<Uzytkownik>();
+            Uzytkownik uzytkownik = null;
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT * FROM Uzytkownicy WHERE Imie LIKE @Wzorzec OR Nazwisko LIKE @Wzorzec OR Email LIKE @Wzorzec";
+                    cmd.Parameters.AddWithValue("@Wzorzec", wzorzec + "%");
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var id = (int)reader["Id"];
+                            var imie = reader["Imie"].ToString();
+                            var nazwisko = reader["Nazwisko"].ToString();
+                            var email = reader["Email"].ToString();
+                            var haslo = reader["Haslo"].ToString();
+                            var klasaId = reader["KlasaId"] == DBNull.Value ? null : (object)reader["KlasaId"].ToString();
+                            var rola = reader["Rola"].ToString();
+                            var typRoli = (TypRoli)Enum.Parse(typeof(TypRoli), rola);
+                            switch (typRoli)
+                            {
+                                case TypRoli.Administrator:
+                                    uzytkownik = new Administrator(imie, nazwisko, email, haslo);
+                                    uzytkownik.Id = id;
+                                    break;
+                                case TypRoli.Nauczyciel:
+                                    uzytkownik = new Nauczyciel(imie, nazwisko, email, haslo);
+                                    uzytkownik.Id = id;
+                                    break;
+                                case TypRoli.Rodzic:
+                                    uzytkownik = new Rodzic(imie, nazwisko, email, haslo, null);
+                                    uzytkownik.Id = id;
+                                    break;
+                                case TypRoli.Uczen:
+                                    Klasa klasa = repozytoriumKlas.ZnajdzKlase((string)klasaId);
+                                    uzytkownik = new Uczen(imie, nazwisko, email, haslo, klasa);
+                                    uzytkownik.Id = id;
+                                    break;
+                            }
+                            wynik.Add(uzytkownik);
+
+
+                        }
+                    }
+
+                }
+            }
+            return wynik;
         }
 
         public IList<Model.Uzytkownik> WyszukiwanieDzieci(string tekst)
