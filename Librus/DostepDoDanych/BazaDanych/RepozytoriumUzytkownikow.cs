@@ -59,8 +59,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                 using (var cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = "INSERT INTO Dzieci (IdRodzica, IdDziecka) VALUES(@IdRodzica, @IdDziecka)";
-                    cmd.Parameters.Add("@IdRodzica", rodzic.Id);
-                    cmd.Parameters.Add("@IdDziecka", dziecko.Id);
+                    cmd.Parameters.AddWithValue("@IdRodzica", rodzic.Id);
+                    cmd.Parameters.AddWithValue("@IdDziecka", dziecko.Id);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -80,7 +80,23 @@ namespace Librus.DostepDoDanych.BazaDanych
                 }
             }
             return wynik[0];
-     
+
+        }
+        public Uzytkownik PobierzUzytkownikaPoId(int id)
+        {
+            IList<Uzytkownik> wynik = new List<Uzytkownik>();
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, Imie, Nazwisko, Email, Rola, Haslo, KlasaId FROM Uzytkownicy WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    wynik = this.WywolanieKomendy(cmd);
+                }
+            }
+            return wynik[0];
+
         }
 
         public IList<Uzytkownik> PobierzWszystkich()
@@ -165,7 +181,7 @@ namespace Librus.DostepDoDanych.BazaDanych
             return wynik;
 
         }
-        
+
         public IList<Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola)
         {
             IList<Uzytkownik> wynik = new List<Uzytkownik>();
@@ -238,8 +254,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                     cmd.CommandText = @"SELECT Id, Imie, Nazwisko, Email, Rola, Haslo, KlasaId 
                         FROM Uzytkownicy u
                         INNER JOIN Dzieci d ON u.Id = d.IdDziecka
-                        WHERE d.IdRodzica = idRodzica";
-
+                        WHERE d.IdRodzica = @idRodzica";
+                    cmd.Parameters.AddWithValue("@idRodzica", idRodzica);
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())

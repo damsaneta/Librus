@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Librus.Model;
+using System;
 namespace Librus.DostepDoDanych
 {
     interface IRepozytoriumUzytkownikow
@@ -12,5 +13,6 @@ namespace Librus.DostepDoDanych
         System.Collections.Generic.IList<Librus.Model.Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola);
         System.Collections.Generic.IList<Librus.Model.Uzytkownik> WyszukajUzytkownikow(string wzorzec);
         System.Collections.Generic.IList<Librus.Model.Uzytkownik> WyszukiwanieDzieci(string tekst);
+        Uzytkownik PobierzUzytkownikaPoId(int id);
     }
 }

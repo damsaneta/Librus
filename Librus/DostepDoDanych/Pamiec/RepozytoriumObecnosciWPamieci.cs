@@ -19,6 +19,10 @@ namespace Librus.DostepDoDanych.Pamiec
         {
             return obecnosciUcznia.Values.Where(x => x.Uczen.Email == uczen.Email).ToList();
         }
+        public IList<ObecnoscUcznia> PobierzObecnoscPoUczniuIDacie(Uczen uczen, DateTime data)
+        {
+            return null;
+        }
         public void Zapisz(IList<ObecnoscUcznia> obecnosci)
         {
             foreach(ObecnoscUcznia obe in obecnosci)

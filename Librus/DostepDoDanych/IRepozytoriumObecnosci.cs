@@ -12,6 +12,7 @@ namespace Librus.DostepDoDanych
     {
         IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasaId, DateTime data);
         IList<ObecnoscUcznia> PobierzObecnosciPoUczniu(Uczen uczen);
+        IList<ObecnoscUcznia> PobierzObecnoscPoUczniuIDacie(Uczen uczen, DateTime data);
         void Zapisz(IList<ObecnoscUcznia> obecnosci);
 
     }

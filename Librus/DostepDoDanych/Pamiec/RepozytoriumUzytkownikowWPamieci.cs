@@ -18,6 +18,10 @@ namespace Librus.DostepDoDanych.Pamiec
         {
             return uzytkownicy.Values.ToList();
         }
+        public Uzytkownik PobierzUzytkownikaPoId(int id)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Dodaj(Uzytkownik uzytkownik)
         {
