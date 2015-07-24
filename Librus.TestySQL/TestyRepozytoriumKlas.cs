@@ -27,7 +27,7 @@ namespace Librus.TestySQL
             // repozytorium.Dodaj(new Klasa("9z", "klasa testowa"));
            // repozytorium.Dodaj(new Rodzic("Aneta", "Dams", "aneta@gmail.com", "AneDam",null));
          //   repozytorium.Dodaj(new Uczen("Justyna", "Kowalska", "justyna@gmail.com", "JusKow",new Klasa("IA", "IA (mat - fiz)")));
-            var lista = repozytorium.WyszukajUzytkownikow("Da");
+            var user = repozytorium.WyszukiwanieDzieci("Aneta Dams, Justyna Kowalska");
      
         }
     }

@@ -39,14 +39,48 @@ namespace Librus.DostepDoDanych.BazaDanych
                     parameter.Direction = System.Data.ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
                     uzytkownik.Id = (int)parameter.Value;
+                    var rodzic = uzytkownik as Rodzic;
+                    if (rodzic != null)
+                    {
+                        foreach (var dziecko in rodzic.Dzieci)
+                        {
+                            DodajDziecko(rodzic, dziecko);
+                        }
+                    }
                 }
             }
 
         }
+        private void DodajDziecko(Rodzic rodzic, Uzytkownik dziecko)
+        {
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "INSERT INTO Dzieci (IdRodzica, IdDziecka) VALUES(@IdRodzica, @IdDziecka)";
+                    cmd.Parameters.Add("@IdRodzica", rodzic.Id);
+                    cmd.Parameters.Add("@IdDziecka", dziecko.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         public Uzytkownik PobierzPoEmailu(string email)
         {
-            throw new NotImplementedException();
+            IList<Uzytkownik> wynik = new List<Uzytkownik>();
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, Imie, Nazwisko, Email, Rola, Haslo, KlasaId FROM Uzytkownicy WHERE Email = @Email";
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    wynik = this.WywolanieKomendy(cmd);
+                }
+            }
+            return wynik[0];
+     
         }
 
         public IList<Uzytkownik> PobierzWszystkich()
@@ -54,56 +88,31 @@ namespace Librus.DostepDoDanych.BazaDanych
             IList<Uzytkownik> wynik = new List<Uzytkownik>();
             using (var connection = new SqlConnection(this.connectionString))
             {
-                Uzytkownik uzytkownik = null; ;
                 connection.Open();
                 using (var cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = "SELECT Id, Imie, Nazwisko, Email, Rola, Haslo, KlasaId FROM Uzytkownicy";
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var id = (int)reader["Id"];
-                            var imie = reader["Imie"].ToString();
-                            var nazwisko = reader["Nazwisko"].ToString();
-                            var email = reader["Email"].ToString();
-                            var haslo = reader["Haslo"].ToString();
-                            var klasaId = reader["KlasaId"] == DBNull.Value ? null : (object)reader["KlasaId"].ToString();
-                            var rola = reader["Rola"].ToString();
-                            var typRoli = (TypRoli)Enum.Parse(typeof(TypRoli), rola);
-                            switch (typRoli)
-                            {
-                                case TypRoli.Administrator:
-                                    uzytkownik = new Administrator(imie, nazwisko, email, haslo);
-                                    uzytkownik.Id = id;
-                                    break;
-                                case TypRoli.Nauczyciel:
-                                    uzytkownik = new Nauczyciel(imie, nazwisko, email, haslo);
-                                    uzytkownik.Id = id;
-                                    break;
-                                case TypRoli.Rodzic:
-                                    uzytkownik = new Rodzic(imie, nazwisko, email, haslo, null);
-                                    uzytkownik.Id = id;
-                                    break;
-                                case TypRoli.Uczen:
-                                    Klasa klasa = repozytoriumKlas.ZnajdzKlase((string)klasaId);
-                                    uzytkownik = new Uczen(imie, nazwisko, email, haslo, klasa);
-                                    uzytkownik.Id = id;
-                                    break;
-                            }
-                            wynik.Add(uzytkownik);
-
-                        }
-                    }
+                    wynik = this.WywolanieKomendy(cmd);
                 }
             }
             return wynik;
         }
 
-        public Model.Uzytkownik WyszukajDziecka(string imie, string nazwisko)
+        public Uzytkownik WyszukajDziecka(string imie, string nazwisko)
         {
-            throw new NotImplementedException();
+            IList<Uzytkownik> wynik = new List<Uzytkownik>();
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, Imie, Nazwisko, Email, Rola, Haslo, KlasaId FROM Uzytkownicy WHERE Imie = @imie AND Nazwisko = @nazwisko";
+                    cmd.Parameters.AddWithValue("@imie", imie);
+                    cmd.Parameters.AddWithValue("@nazwisko", nazwisko);
+                    wynik = this.WywolanieKomendy(cmd);
+                }
+            }
+            return wynik[0];
         }
 
         public IList<Uczen> WyszukajPoKlasie(string wzorzec)
@@ -114,7 +123,7 @@ namespace Librus.DostepDoDanych.BazaDanych
                 connection.Open();
                 using (var cmd = connection.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT * FROM Uzytkownicy WHERE KlasaId LIKE @KlasaId";
+                    cmd.CommandText = "SELECT * FROM Uzytkownicy WHERE KlasaId = @KlasaId";
                     cmd.Parameters.AddWithValue("@KlasaId", wzorzec);
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -141,7 +150,6 @@ namespace Librus.DostepDoDanych.BazaDanych
 
         public IList<Uzytkownik> WyszukajPoRoli(string wzorzec)
         {
-            Uzytkownik uzytkownik = null;
             var typRoli = (TypRoli)Enum.Parse(typeof(TypRoli), wzorzec);
             IList<Uzytkownik> wynik = new List<Uzytkownik>();
             using (var connection = new SqlConnection(this.connectionString))
@@ -149,59 +157,36 @@ namespace Librus.DostepDoDanych.BazaDanych
                 connection.Open();
                 using (var cmd = connection.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT * FROM Uzytkownicy WHERE Rola LIKE @Rola";
+                    cmd.CommandText = "SELECT * FROM Uzytkownicy WHERE Rola = @Rola";
                     cmd.Parameters.AddWithValue("@Rola", wzorzec);
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var id = (int)reader["Id"];
-                            var imie = reader["Imie"].ToString();
-                            var nazwisko = reader["Nazwisko"].ToString();
-                            var email = reader["Email"].ToString();
-                            var haslo = reader["Haslo"].ToString();
-                            var klasaId = reader["KlasaId"] == DBNull.Value ? null : (object)reader["KlasaId"].ToString();
-
-                            switch (typRoli)
-                            {
-                                case TypRoli.Administrator:
-                                    uzytkownik = new Administrator(imie, nazwisko, email, haslo);
-                                    uzytkownik.Id = id;
-                                    break;
-                                case TypRoli.Nauczyciel:
-                                    uzytkownik = new Nauczyciel(imie, nazwisko, email, haslo);
-                                    uzytkownik.Id = id;
-                                    break;
-                                case TypRoli.Rodzic:
-                                    uzytkownik = new Rodzic(imie, nazwisko, email, haslo, null);
-                                    uzytkownik.Id = id;
-                                    break;
-                                case TypRoli.Uczen:
-                                    Klasa klasa = repozytoriumKlas.ZnajdzKlase((string)klasaId);
-                                    uzytkownik = new Uczen(imie, nazwisko, email, haslo, klasa);
-                                    uzytkownik.Id = id;
-                                    break;
-                            }
-                            wynik.Add(uzytkownik);
-                        }
-                    }
-
+                    wynik = this.WywolanieKomendy(cmd);
                 }
             }
             return wynik;
-            
-        }
-        //do zrobienia
-        public IList<Model.Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola)
-        {
-            throw new NotImplementedException();
-        }
 
+        }
+        
+        public IList<Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola)
+        {
+            IList<Uzytkownik> wynik = new List<Uzytkownik>();
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT * FROM Uzytkownicy WHERE (Imie LIKE @Wzorzec OR Nazwisko LIKE @Wzorzec OR Email LIKE @Wzorzec) AND Rola LIKE @Rola";
+                    cmd.Parameters.AddWithValue("@Wzorzec", wzorzec + "%");
+                    cmd.Parameters.AddWithValue("@Rola", rola + "%");
+                    wynik = this.WywolanieKomendy(cmd);
+                }
+            }
+            return wynik;
+        }
+        //wyszukiwanie po wzorcu
         public IList<Uzytkownik> WyszukajUzytkownikow(string wzorzec)
         {
 
             IList<Uzytkownik> wynik = new List<Uzytkownik>();
-            Uzytkownik uzytkownik = null;
             using (var connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
@@ -209,6 +194,52 @@ namespace Librus.DostepDoDanych.BazaDanych
                 {
                     cmd.CommandText = "SELECT * FROM Uzytkownicy WHERE Imie LIKE @Wzorzec OR Nazwisko LIKE @Wzorzec OR Email LIKE @Wzorzec";
                     cmd.Parameters.AddWithValue("@Wzorzec", wzorzec + "%");
+                    wynik = this.WywolanieKomendy(cmd);
+                }
+            }
+            return wynik;
+        }
+
+        public IList<Uzytkownik> WyszukiwanieDzieci(string tekst)
+        {
+            IList<Uzytkownik> dzieci = new List<Uzytkownik>();
+            string slowo = tekst;
+            string brakDzieci = string.Empty;
+            string[] tab = slowo.Split(new char[] { ',' });
+            for (int i = 0; i < tab.Length; i++)
+            {
+                tab[i] = tab[i].Trim();
+            }
+            foreach (string s in tab)
+            {
+                string[] wynik = s.Split(new char[] { ' ' });
+                string imie = wynik[0];
+                string nazwisko = wynik[1];
+                Uzytkownik dziecko = this.WyszukajDziecka(imie, nazwisko);
+                if (dziecko != null)
+                {
+                    dzieci.Add(dziecko);
+
+                }
+
+            }
+            return dzieci;
+        }
+
+        public IList<Uzytkownik> PobierzPoIdRodzica(int idRodzica)
+        {
+            IList<Uzytkownik> wynik = new List<Uzytkownik>();
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                Uzytkownik uzytkownik = null; ;
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, Imie, Nazwisko, Email, Rola, Haslo, KlasaId 
+                        FROM Uzytkownicy u
+                        INNER JOIN Dzieci d ON u.Id = d.IdDziecka
+                        WHERE d.IdRodzica = idRodzica";
+
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -218,43 +249,60 @@ namespace Librus.DostepDoDanych.BazaDanych
                             var nazwisko = reader["Nazwisko"].ToString();
                             var email = reader["Email"].ToString();
                             var haslo = reader["Haslo"].ToString();
-                            var klasaId = reader["KlasaId"] == DBNull.Value ? null : (object)reader["KlasaId"].ToString();
-                            var rola = reader["Rola"].ToString();
-                            var typRoli = (TypRoli)Enum.Parse(typeof(TypRoli), rola);
-                            switch (typRoli)
-                            {
-                                case TypRoli.Administrator:
-                                    uzytkownik = new Administrator(imie, nazwisko, email, haslo);
-                                    uzytkownik.Id = id;
-                                    break;
-                                case TypRoli.Nauczyciel:
-                                    uzytkownik = new Nauczyciel(imie, nazwisko, email, haslo);
-                                    uzytkownik.Id = id;
-                                    break;
-                                case TypRoli.Rodzic:
-                                    uzytkownik = new Rodzic(imie, nazwisko, email, haslo, null);
-                                    uzytkownik.Id = id;
-                                    break;
-                                case TypRoli.Uczen:
-                                    Klasa klasa = repozytoriumKlas.ZnajdzKlase((string)klasaId);
-                                    uzytkownik = new Uczen(imie, nazwisko, email, haslo, klasa);
-                                    uzytkownik.Id = id;
-                                    break;
-                            }
-                            wynik.Add(uzytkownik);
+                            var klasaId = (string)reader["KlasaId"];
 
+                            Klasa klasa = repozytoriumKlas.ZnajdzKlase((string)klasaId);
+                            uzytkownik = new Uczen(imie, nazwisko, email, haslo, klasa);
+                            uzytkownik.Id = id;
+
+                            wynik.Add(uzytkownik);
 
                         }
                     }
+                }
+            }
+            return wynik;
 
+        }
+        public IList<Uzytkownik> WywolanieKomendy(SqlCommand cmd)
+        {
+            Uzytkownik uzytkownik = null;
+            IList<Uzytkownik> wynik = new List<Uzytkownik>();
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var id = (int)reader["Id"];
+                    var imie = reader["Imie"].ToString();
+                    var nazwisko = reader["Nazwisko"].ToString();
+                    var email = reader["Email"].ToString();
+                    var haslo = reader["Haslo"].ToString();
+                    var klasaId = reader["KlasaId"] == DBNull.Value ? null : (object)reader["KlasaId"].ToString();
+                    var rola = reader["Rola"].ToString();
+                    var typRoli = (TypRoli)Enum.Parse(typeof(TypRoli), rola);
+                    switch (typRoli)
+                    {
+                        case TypRoli.Administrator:
+                            uzytkownik = new Administrator(imie, nazwisko, email, haslo);
+                            break;
+                        case TypRoli.Nauczyciel:
+                            uzytkownik = new Nauczyciel(imie, nazwisko, email, haslo);
+                            break;
+                        case TypRoli.Rodzic:
+                            var dzieci = this.PobierzPoIdRodzica(id);
+                            uzytkownik = new Rodzic(imie, nazwisko, email, haslo, dzieci);
+                            break;
+                        case TypRoli.Uczen:
+                            Klasa klasa = repozytoriumKlas.ZnajdzKlase((string)klasaId);
+                            uzytkownik = new Uczen(imie, nazwisko, email, haslo, klasa);
+                            break;
+                    }
+                    uzytkownik.Id = id;
+                    wynik.Add(uzytkownik);
                 }
             }
             return wynik;
         }
 
-        public IList<Model.Uzytkownik> WyszukiwanieDzieci(string tekst)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
