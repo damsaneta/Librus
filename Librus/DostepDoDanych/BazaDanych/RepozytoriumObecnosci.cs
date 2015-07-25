@@ -14,10 +14,12 @@ namespace Librus.DostepDoDanych.BazaDanych
         private readonly string connectionString;
 
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
+        private readonly IRepozytoriumKlas repozytoriumKlas;
         public RepozytoriumObecnosci(string connectionString)
         {
             this.connectionString = connectionString;
             repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
+            repozytoriumKlas = new RepozytoriumKlas(connectionString);
         }
 
         public IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasaId, DateTime data)
@@ -101,6 +103,7 @@ namespace Librus.DostepDoDanych.BazaDanych
                             cmd.Parameters.AddWithValue("@Godzina14", obe.Godzina14);
                             cmd.Parameters.AddWithValue("@Godzina15", obe.Godzina15);
                             cmd.ExecuteNonQuery();
+                            cmd.Parameters.Clear();
                         }
                     }
                 }
@@ -125,6 +128,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                     var godzina14 = (bool)reader["Godzina14"];
                     var godzina15 = (bool)reader["Godzina15"];
                     var uczen = (Uczen)this.repozytoriumUzytkownikow.PobierzUzytkownikaPoId(id);
+                    
+                    
                     ObecnoscUcznia obecnosc = new ObecnoscUcznia(uczen, dataNieobecnosci);
                     obecnosc.Godzina10 = godzina10;
                     obecnosc.Godzina9 = godzina9;

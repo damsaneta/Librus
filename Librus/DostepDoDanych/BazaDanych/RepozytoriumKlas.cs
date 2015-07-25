@@ -67,7 +67,7 @@ namespace Librus.DostepDoDanych.BazaDanych
                 connection.Open();
                 using(var cmd = connection.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT * FROM Klasy WHERE Id LIKE @id";
+                    cmd.CommandText = "SELECT * FROM Klasy WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -79,7 +79,9 @@ namespace Librus.DostepDoDanych.BazaDanych
                         }
 
                     }
+                  
                 }
+
             }
             return klasa;
         }

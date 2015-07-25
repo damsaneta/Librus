@@ -11,6 +11,10 @@ namespace Librus.DostepDoDanych.Pamiec
     {
         public static readonly Dictionary<int, OcenyUcznia> ocenyUcznia = new Dictionary<int, OcenyUcznia>();
 
+        public IList<OcenyUcznia> PobierzOcenyPoUczniuIPrzedmiocie(Uczen uczen, string przedmiotId)
+        {
+            return null;
+        }
         public IList<OcenyUcznia> PobierzPoKlasieIPrzedmiocie(string klasaId, string przedmiotId)
         {
             return ocenyUcznia.Values.Where(x => x.Przedmiot.Id == przedmiotId && x.Uczen.Klasa.Id == klasaId).ToList();
