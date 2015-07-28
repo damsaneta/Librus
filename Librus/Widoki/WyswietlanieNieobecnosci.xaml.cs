@@ -1,4 +1,5 @@
 ﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.BazaDanych;
 using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
@@ -22,14 +23,17 @@ namespace Librus.Widoki
     /// </summary>
     public partial class Wyswietlanie_nieobecnosci : Window
     {
-        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
-        private readonly IRepozytoriumObecnosci repozytoriumObecnosciUcznia = new RepozytoriumObecnosciWPamieci();
+        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
+        private readonly IRepozytoriumObecnosci repozytoriumObecnosciUcznia;
         public Wyswietlanie_nieobecnosci()
         {
+            this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
+            this.repozytoriumObecnosciUcznia = new RepozytoriumObecnosci(connectionString);
             //TO DO: Pobieranie emaila z logowania ??
             InitializeComponent();
-           string mail = "damsA@gmail.com";
-           // string mail = "jamr@gmail.com";
+            string mail = "leszek@gmail.com";
+            // string mail = "jamr@gmail.com";
             Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(mail);
             //Rodzic rodzic = repozytoriumUzytkownikow.PobierzPoEmailu(mail) as Rodzic;
             switch (user.Rola.Typ)
@@ -48,12 +52,8 @@ namespace Librus.Widoki
                     this.uczenLbl.Visibility = Visibility.Hidden;
                     this.nieobecnosciDataGrid.ItemsSource = repozytoriumObecnosciUcznia.PobierzObecnosciPoUczniu(uczen);
                     break;
-                    
-
             }
-
         }
-
 
         private void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

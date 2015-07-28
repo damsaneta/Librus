@@ -165,8 +165,9 @@ namespace Librus.DostepDoDanych.BazaDanych
 
 
                     ObecnoscUcznia obecnosc = new ObecnoscUcznia(uczen, dataNieobecnosci);
-                    obecnosc.Godzina10 = godzina10;
+                    obecnosc.Godzina8 = godzina8;
                     obecnosc.Godzina9 = godzina9;
+                    obecnosc.Godzina10 = godzina10;
                     obecnosc.Godzina11 = godzina11;
                     obecnosc.Godzina12 = godzina12;
                     obecnosc.Godzina13 = godzina13;

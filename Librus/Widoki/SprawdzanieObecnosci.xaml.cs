@@ -49,12 +49,9 @@ namespace Librus.Widoki
             if ((this.klasaComboBox.SelectedValue != null) && test)
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
-                //pobieranie nie po nazwie a po id
-
                 var obecnosci = this.repozytoriumObecnosci.PobierzPoKlasieIDacie(klasa.Id, this.wyborDaty.SelectedDate.Value);
                 if (obecnosci == null || obecnosci.Count == 0)
                 {
-                    //pobieranie nie po nazwie a po id
                     var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Id);
                     obecnosci = uczniowie.Select(x => new ObecnoscUcznia(x, this.wyborDaty.SelectedDate.Value)).ToList();
                     this.nieobecnosciDataGrid.ItemsSource = obecnosci;

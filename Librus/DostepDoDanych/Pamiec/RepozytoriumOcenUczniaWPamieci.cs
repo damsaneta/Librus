@@ -15,6 +15,10 @@ namespace Librus.DostepDoDanych.Pamiec
         {
             return null;
         }
+        public void EdytujOceny(OcenyUcznia oceny)
+        {
+
+        }
         public IList<OcenyUcznia> PobierzPoKlasieIPrzedmiocie(string klasaId, string przedmiotId)
         {
             return ocenyUcznia.Values.Where(x => x.Przedmiot.Id == przedmiotId && x.Uczen.Klasa.Id == klasaId).ToList();

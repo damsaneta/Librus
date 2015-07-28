@@ -1,4 +1,5 @@
 ﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.BazaDanych;
 using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
@@ -22,12 +23,17 @@ namespace Librus.Widoki
     /// </summary>
     public partial class DodawanieOcen : Window
     {
-        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
-        private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotowWPamieci();
-        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlasWPamieci();
-        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia = new RepozytoriumOcenUczniaWPamieci();
+        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
+        private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow;
+        private readonly IRepozytoriumKlas repozytoriumKlas;
+        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia;
         public DodawanieOcen()
         {
+            this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
+            this.repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotow(connectionString);
+            this.repozytoriumKlas = new RepozytoriumKlas(connectionString);
+            this.repozytoriumOcenUcznia = new RepozytoriumOcenUcznia(connectionString);
             InitializeComponent();
             this.klasaComboBox.ItemsSource = repozytoriumKlas.PobierzWszystkie();
             this.klasaComboBox.DisplayMemberPath = "Nazwa";
@@ -46,7 +52,6 @@ namespace Librus.Widoki
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                 Przedmiot przedmiot = this.przedmiotComboBox.SelectedItem as Przedmiot;
-                //to do
                 var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Id, przedmiot.Id);
                 if (oceny == null || oceny.Count == 0)
                 {
@@ -96,12 +101,17 @@ namespace Librus.Widoki
             if (test && !string.IsNullOrEmpty(this.klasaComboBox.SelectedValue.ToString()) && !string.IsNullOrEmpty(this.klasaComboBox.SelectedValue.ToString()))
             {
                 var g = this.ocenyDataGrid;
-                var v = g.Items.SourceCollection as IList<OcenyUcznia>;
+                IList<OcenyUcznia> v = g.Items.SourceCollection as IList<OcenyUcznia>;
+                foreach(OcenyUcznia w in v)
+                {
+                    if(w.Oceny == null)
+                    {
+                        w.Oceny = string.Empty;
+                    }
+                }
                 this.repozytoriumOcenUcznia.Zapisz(v);
-
             }
         }
-
     }
 }
 

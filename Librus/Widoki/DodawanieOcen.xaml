@@ -16,7 +16,7 @@
 			BorderBrush="#1d1d1d"  Background="#1d1d1d" Grid.Row="1" Height="400">
             <DataGrid.Columns >
                 <DataGridTextColumn Header="Imię i nazwisko" Binding="{Binding Uczen.PelnaNazwa}" />
-                <DataGridTextColumn Header=" Oceny" Width="560" Binding="{Binding Oceny}"/>
+                <DataGridTextColumn Header=" Oceny" Width="550" Binding="{Binding Oceny}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Name="errKlasa" Visibility="Hidden" Style="{StaticResource errStyle}" HorizontalAlignment="Left" Height="40"  VerticalAlignment="Top" Width="175" Margin="10,70,0,0" Grid.RowSpan="2"/>

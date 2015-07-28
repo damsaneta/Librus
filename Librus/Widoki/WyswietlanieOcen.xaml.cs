@@ -1,4 +1,5 @@
 ﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.BazaDanych;
 using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
@@ -22,16 +23,17 @@ namespace Librus.Widoki
     /// </summary>
     public partial class WyswietlanieOcen : Window
     {
-        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
-        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia = new RepozytoriumOcenUczniaWPamieci();
+        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
+        private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia;
         public WyswietlanieOcen()
         {
+            this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
+            this.repozytoriumOcenUcznia = new RepozytoriumOcenUcznia(connectionString);
             //TO DO: Pobieranie emaila z logowania ??
             InitializeComponent();
-            string mail = "damsA@gmail.com";
-           // string mail = "jamr@gmail.com";
+            string mail = "leszek@gmail.com";
             Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(mail);
-            //Rodzic rodzic = repozytoriumUzytkownikow.PobierzPoEmailu(mail) as Rodzic;
             switch (user.Rola.Typ)
             {
                 case TypRoli.Rodzic:

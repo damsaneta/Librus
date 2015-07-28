@@ -97,7 +97,29 @@ namespace Librus.DostepDoDanych.BazaDanych
                             cmd.ExecuteNonQuery();
                             cmd.Parameters.Clear();
                         }
+                        else
+                        {
+                            this.EdytujOceny(o);
+                        }
                     }
+                }
+            }
+
+        }
+        public void EdytujOceny(OcenyUcznia oceny)
+        {
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "UPDATE Oceny SET Oceny = @Oceny WHERE IdUcznia = @IdUcznia AND IdPRzedmiotu = @IdPrzedmiotu";
+
+                    cmd.Parameters.AddWithValue("@IdUcznia", oceny.Uczen.Id);
+                    cmd.Parameters.AddWithValue("@IdPrzedmiotu", oceny.Przedmiot.Id);
+                    cmd.Parameters.AddWithValue("@Oceny", oceny.Oceny);
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Clear();
                 }
             }
 
