@@ -28,9 +28,9 @@ namespace Librus.Widoki.Administracja
         private readonly IRepozytoriumKlas repozytoriumKlas;
         public DodawanieUzytkownika()
         {
-            InitializeComponent();
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumKlas = new RepozytoriumKlas(connectionString);
+            InitializeComponent();        
             this.comboKlasa.ItemsSource = this.repozytoriumKlas.PobierzWszystkie();
             this.comboKlasa.DisplayMemberPath = "Nazwa";
             this.comboKlasa.SelectedValuePath = "Id";
@@ -109,7 +109,7 @@ namespace Librus.Widoki.Administracja
                     }
 
                     this.repozytoriumUzytkownikow.Dodaj(uzytkownik);
-                    //this.DialogResult = true;
+                    this.DialogResult = true;
                     this.Close();
                 }
                 else

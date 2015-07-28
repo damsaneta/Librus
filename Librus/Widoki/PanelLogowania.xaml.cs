@@ -1,4 +1,6 @@
-﻿using Librus.DostepDoDanych.Pamiec;
+﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.BazaDanych;
+using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
@@ -21,9 +23,11 @@ namespace Librus.Widoki
     /// </summary>
     public partial class PanelLogowania : Window
     {
-        private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
+        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         public PanelLogowania()
         {
+            this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             InitializeComponent();
         }
 
@@ -32,7 +36,7 @@ namespace Librus.Widoki
             bool result = true;
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin);
             result &=Walidator.WalidacjaHasla(this.txtHaslo, this.errHaslo);
-            Uzytkownik u = repozytorium.PobierzPoEmailu(this.txtLogin.Text);
+            Uzytkownik u = repozytoriumUzytkownikow.PobierzPoEmailu(this.txtLogin.Text);
             if(result==true)
             {
                 if(u!=null)

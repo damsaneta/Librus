@@ -15,6 +15,10 @@ namespace Librus.DostepDoDanych.Pamiec
         {
             return obecnosciUcznia.Values.Where(x => ((x.Data.Year == data.Year && x.Data.Month==data.Month && x.Data.Day == data.Day) && (x.Uczen.Klasa.Id == klasaId))).ToList();
         }
+        public void EdytujObecnosci(ObecnoscUcznia obe)
+        {
+           
+        }
         public IList<ObecnoscUcznia> PobierzObecnosciPoUczniu(Uczen uczen)
         {
             return obecnosciUcznia.Values.Where(x => x.Uczen.Email == uczen.Email).ToList();

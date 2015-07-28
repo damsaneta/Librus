@@ -32,12 +32,18 @@ namespace Librus.TestySQL
             var repozytorium2 = new RepozytoriumOcenUcznia(connectionString);
             //var w = repozytoriumKlas.ZnajdzKlase("IA");
             // repozytorium.Dodaj(new Klasa("9z", "klasa testowa"));
-            IList<Uzytkownik> dzieci = new List<Uzytkownik>();
+           
             var u2 = repozytorium1.PobierzPoEmailu("mich@gmail.com");
-             var u1 = repozytorium1.PobierzPoEmailu("justyna@gmail.com");
-             dzieci.Add(u1);
-             dzieci.Add(u2);
-            repozytorium1.Dodaj(new Rodzic("Aneta", "Dams", "aneta@gmail.com", "AneDam",dzieci));
+             var u1 =(Uczen) repozytorium1.PobierzPoEmailu("justyna@gmail.com");
+            var d = repozytorium.PobierzObecnosciPoUczniu(u1);
+            ObecnoscUcznia obe = d[0];
+            obe.Godzina8 = false;
+            obe.Godzina9 = false;
+            obe.Godzina10 = false;
+            IList<ObecnoscUcznia> lista =  new List<ObecnoscUcznia>();
+            lista.Add(obe);
+            repozytorium.EdytujObecnosci(lista);
+
          //   repozytorium.Dodaj(new Uczen("Justyna", "Kowalska", "justyna@gmail.com", "JusKow",new Klasa("IA", "IA (mat - fiz)")));
            //repozytorium.Dodaj(new Uczen("Anna", "Kowalska", "das@gmail.com", "AnnKow", new Klasa("IA", "IA (mat - fiz)")));
            //repozytorium.Dodaj(new Uczen("Michalina", "Nowak", "mich@gmail.com", "MicNow",new Klasa("IA ","(mat - fiz)")));

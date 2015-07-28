@@ -1,4 +1,6 @@
-﻿using Librus.DostepDoDanych.Pamiec;
+﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.BazaDanych;
+using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
@@ -21,12 +23,13 @@ namespace Librus.Widoki.Administracja
     /// </summary>
     public partial class Uzytkownicy : Window
     {
-        private readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
+        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         public Uzytkownicy()
         {
-            InitializeComponent();
-
-            this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+            this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
+            InitializeComponent();    
+            this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
         }
 
         private void Dodaj_Click(object sender, RoutedEventArgs e)
@@ -35,7 +38,7 @@ namespace Librus.Widoki.Administracja
             bool? wynik =view.ShowDialog();
             if(wynik.HasValue && wynik.Value)
             {
-                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
             }
             
         }
@@ -56,17 +59,17 @@ namespace Librus.Widoki.Administracja
             if (typ != "Szukaj po roli...") typ = typ1.ToString();
              if ((string.IsNullOrEmpty(this.txtSzukaj.Text) || this.txtSzukaj.Text=="Szukaj...")&& (typ== "Szukaj po roli..." || typ=="Nieznany"))
             {
-                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
                // this.grid.Items.Refresh();
             }
              else if ((!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj...") && (typ == "Szukaj po roli..." || typ == "Nieznany"))
             {
-                this.grid.ItemsSource  = this.repozytorium.WyszukajUzytkownikow(this.txtSzukaj.Text);
+                this.grid.ItemsSource  = this.repozytoriumUzytkownikow.WyszukajUzytkownikow(this.txtSzukaj.Text);
                 //this.grid.ItemsSource = this.Lista;
             }
              else if ((!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj...") && (typ != "Szukaj po roli..." &&  typ!="Nieznany" ))
              {
-                 this.grid.ItemsSource = this.repozytorium.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ);
+                 this.grid.ItemsSource = this.repozytoriumUzytkownikow.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ);
              }
 
         }
@@ -76,20 +79,20 @@ namespace Librus.Widoki.Administracja
             TypRoli typ = (TypRoli)this.comboBox.SelectedIndex;
             if (typ.ToString() != "Nieznany" && (string.IsNullOrEmpty(this.txtSzukaj.Text) || this.txtSzukaj.Text=="Szukaj..." ))
             {
-                this.grid.ItemsSource = this.repozytorium.WyszukajPoRoli(typ.ToString());
+                this.grid.ItemsSource = this.repozytoriumUzytkownikow.WyszukajPoRoli(typ.ToString());
                 //this.grid.Items.Refresh();
             }
             else if(typ.ToString() != "Nieznany" && (!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text!="Szukaj..." ) )
                 {
-                    this.grid.ItemsSource = this.repozytorium.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ.ToString());
+                    this.grid.ItemsSource = this.repozytoriumUzytkownikow.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ.ToString());
             }
             else if (typ.ToString() == "Nieznany" && (!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj..."))
             {
-                this.grid.ItemsSource = this.repozytorium.WyszukajUzytkownikow(this.txtSzukaj.Text);
+                this.grid.ItemsSource = this.repozytoriumUzytkownikow.WyszukajUzytkownikow(this.txtSzukaj.Text);
             }
             else 
             {
-                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
                 //this.grid.ItemsSource = this.Lista;
                 //this.grid.Items.Refresh();
             }
@@ -114,13 +117,13 @@ namespace Librus.Widoki.Administracja
             {
                 
                 txtSzukaj.Text = "Szukaj...";
-                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
             }
             if (string.IsNullOrEmpty(txtSzukaj.Text) && typ == "a")
             {
 
                 txtSzukaj.Text = "Szukaj...";
-                this.grid.ItemsSource = this.repozytorium.PobierzWszystkich();
+                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
             }
         }
 

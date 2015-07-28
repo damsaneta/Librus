@@ -24,7 +24,7 @@ namespace Librus.DostepDoDanych.BazaDanych
 
         public IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasaId, DateTime data)
         {
-            
+
             IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -37,7 +37,7 @@ namespace Librus.DostepDoDanych.BazaDanych
                     cmd.Parameters.AddWithValue("@klasaId", klasaId);
                     cmd.Parameters.AddWithValue("@data", data);
 
-                    obecnosci= this.WykonajKomende(cmd);
+                    obecnosci = this.WykonajKomende(cmd);
                 }
             }
             return obecnosci;
@@ -45,7 +45,7 @@ namespace Librus.DostepDoDanych.BazaDanych
 
         public IList<ObecnoscUcznia> PobierzObecnosciPoUczniu(Uczen uczen)
         {
-           
+
             IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -60,6 +60,36 @@ namespace Librus.DostepDoDanych.BazaDanych
             }
             return obecnosci;
         }
+
+        public void EdytujObecnosci(ObecnoscUcznia obe)
+        {
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Obecnosci SET  Godzina8 = @Godzina8, Godzina9 = @Godzina9, Godzina10 = @Godzina10, Godzina11 = @Godzina11, Godzina12 = @Godzina12, Godzina13 =@Godzina13, Godzina14 =@Godzina14, Godzina15 =@Godzina15
+                            WHERE Id= @Id AND Data= @Data";
+
+                    cmd.Parameters.AddWithValue("@Id", obe.Uczen.Id);
+                    cmd.Parameters.AddWithValue("@Data", obe.Data);
+                    cmd.Parameters.AddWithValue("@Godzina8", obe.Godzina8);
+                    cmd.Parameters.AddWithValue("@Godzina9", obe.Godzina9);
+                    cmd.Parameters.AddWithValue("@Godzina10", obe.Godzina10);
+                    cmd.Parameters.AddWithValue("@Godzina11", obe.Godzina11);
+                    cmd.Parameters.AddWithValue("@Godzina12", obe.Godzina12);
+                    cmd.Parameters.AddWithValue("@Godzina13", obe.Godzina13);
+                    cmd.Parameters.AddWithValue("@Godzina14", obe.Godzina14);
+                    cmd.Parameters.AddWithValue("@Godzina15", obe.Godzina15);
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Clear();
+
+
+                }
+            }
+
+        }
+
         public IList<ObecnoscUcznia> PobierzObecnoscPoUczniuIDacie(Uczen uczen, DateTime data)
         {
             IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
@@ -105,6 +135,10 @@ namespace Librus.DostepDoDanych.BazaDanych
                             cmd.ExecuteNonQuery();
                             cmd.Parameters.Clear();
                         }
+                        else
+                        {
+                            this.EdytujObecnosci(obe);
+                        }
                     }
                 }
             }
@@ -128,8 +162,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                     var godzina14 = (bool)reader["Godzina14"];
                     var godzina15 = (bool)reader["Godzina15"];
                     var uczen = (Uczen)this.repozytoriumUzytkownikow.PobierzUzytkownikaPoId(id);
-                    
-                    
+
+
                     ObecnoscUcznia obecnosc = new ObecnoscUcznia(uczen, dataNieobecnosci);
                     obecnosc.Godzina10 = godzina10;
                     obecnosc.Godzina9 = godzina9;
@@ -142,6 +176,12 @@ namespace Librus.DostepDoDanych.BazaDanych
                 }
                 return obecnosci;
             }
+        }
+
+
+        void IRepozytoriumObecnosci.EdytujObecnosci(ObecnoscUcznia obe)
+        {
+            throw new NotImplementedException();
         }
     }
 }

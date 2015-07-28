@@ -1,4 +1,5 @@
 ﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.BazaDanych;
 using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
@@ -22,14 +23,16 @@ namespace Librus.Widoki
     /// </summary>
     public partial class SprawdzanieObecnosci : Window
     {
-
-        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlasWPamieci();
-        private readonly IRepozytoriumObecnosci repozytoriumObecnosci = new RepozytoriumObecnosciWPamieci();
-        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
+        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+        private readonly IRepozytoriumKlas repozytoriumKlas;
+        private readonly IRepozytoriumObecnosci repozytoriumObecnosci;
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
 
         public SprawdzanieObecnosci()
         {
-
+            repozytoriumKlas = new RepozytoriumKlas(connectionString);
+            repozytoriumObecnosci = new RepozytoriumObecnosci(connectionString);
+            repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             InitializeComponent();
             this.wyborDaty.SelectedDate = DateTime.Now.Date;
             this.klasaComboBox.ItemsSource = this.repozytoriumKlas.PobierzWszystkie();
