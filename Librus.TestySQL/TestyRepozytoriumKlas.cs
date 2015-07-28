@@ -32,13 +32,18 @@ namespace Librus.TestySQL
             var repozytorium2 = new RepozytoriumOcenUcznia(connectionString);
             //var w = repozytoriumKlas.ZnajdzKlase("IA");
             // repozytorium.Dodaj(new Klasa("9z", "klasa testowa"));
-           // repozytorium.Dodaj(new Rodzic("Aneta", "Dams", "aneta@gmail.com", "AneDam",null));
+            IList<Uzytkownik> dzieci = new List<Uzytkownik>();
+            var u2 = repozytorium1.PobierzPoEmailu("mich@gmail.com");
+             var u1 = repozytorium1.PobierzPoEmailu("justyna@gmail.com");
+             dzieci.Add(u1);
+             dzieci.Add(u2);
+            repozytorium1.Dodaj(new Rodzic("Aneta", "Dams", "aneta@gmail.com", "AneDam",dzieci));
          //   repozytorium.Dodaj(new Uczen("Justyna", "Kowalska", "justyna@gmail.com", "JusKow",new Klasa("IA", "IA (mat - fiz)")));
            //repozytorium.Dodaj(new Uczen("Anna", "Kowalska", "das@gmail.com", "AnnKow", new Klasa("IA", "IA (mat - fiz)")));
            //repozytorium.Dodaj(new Uczen("Michalina", "Nowak", "mich@gmail.com", "MicNow",new Klasa("IA ","(mat - fiz)")));
           //  IList<ObecnoscUcznia> lista = new List<ObecnoscUcznia>();
-            var u2 = (Uczen)repozytorium1.PobierzPoEmailu("mich@gmail.com");
-          //  var u1 = (Uczen)repozytorium1.PobierzPoEmailu("justyna@gmail.com");
+           
+         
             //ObecnoscUcznia o1 = new ObecnoscUcznia(u2, DateTime.Now.Date);
             //o1.Godzina8 = true;
             //o1.Godzina9 = true;
@@ -73,8 +78,8 @@ namespace Librus.TestySQL
             //oc2.Oceny = "5, 4, 3, 5, 5";
             //oceny.Add(oc1);
             //oceny.Add(oc2);
-            
-           var wynik = repozytorium2.PobierzPoKlasieIPrzedmiocie("IA", "fiz");
+
+         
         }
     }
 }
