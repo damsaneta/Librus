@@ -79,7 +79,12 @@ namespace Librus.DostepDoDanych.BazaDanych
                     wynik = this.WywolanieKomendy(cmd);
                 }
             }
-            return wynik[0];
+            if (wynik.Count != 0)
+            {
+                return wynik[0];
+            }
+            else return null;
+            
 
         }
         public Uzytkownik PobierzUzytkownikaPoId(int id)
@@ -95,7 +100,11 @@ namespace Librus.DostepDoDanych.BazaDanych
                     wynik = this.WywolanieKomendy(cmd);
                 }
             }
-            return wynik[0];
+            if (wynik.Count != 0)
+            {
+                return wynik[0];
+            }
+            else return null;
 
         }
 
@@ -128,7 +137,11 @@ namespace Librus.DostepDoDanych.BazaDanych
                     wynik = this.WywolanieKomendy(cmd);
                 }
             }
-            return wynik[0];
+            if (wynik.Count != 0)
+            {
+                return wynik[0];
+            }
+            else return null;
         }
 
         public IList<Uczen> WyszukajPoKlasie(string wzorzec)

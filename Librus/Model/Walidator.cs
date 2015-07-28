@@ -1,4 +1,6 @@
-﻿using Librus.DostepDoDanych.Pamiec;
+﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.BazaDanych;
+using Librus.DostepDoDanych.Pamiec;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,10 @@ namespace Librus.Model
 {
     public static class Walidator
     {
-        private static readonly RepozytoriumUzytkownikowWPamieci repozytorium = new RepozytoriumUzytkownikowWPamieci();
+        private const  string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+
+        private static readonly IRepozytoriumUzytkownikow repozytorium = new RepozytoriumUzytkownikow(connectionString);
+       
         public static bool WalidacjaPolaNazwy(TextBox txt, Label lbl)
         {
             foreach (char c in txt.Text)

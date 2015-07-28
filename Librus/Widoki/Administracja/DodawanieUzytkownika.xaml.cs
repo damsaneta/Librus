@@ -1,4 +1,5 @@
 ﻿using Librus.DostepDoDanych;
+using Librus.DostepDoDanych.BazaDanych;
 using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
@@ -22,11 +23,14 @@ namespace Librus.Widoki.Administracja
     /// </summary>
     public partial class DodawanieUzytkownika : Window
     {
-        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow = new RepozytoriumUzytkownikowWPamieci();
-        private readonly IRepozytoriumKlas repozytoriumKlas = new RepozytoriumKlasWPamieci();
+        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
+        private readonly IRepozytoriumKlas repozytoriumKlas;
         public DodawanieUzytkownika()
         {
             InitializeComponent();
+            this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
+            this.repozytoriumKlas = new RepozytoriumKlas(connectionString);
             this.comboKlasa.ItemsSource = this.repozytoriumKlas.PobierzWszystkie();
             this.comboKlasa.DisplayMemberPath = "Nazwa";
             this.comboKlasa.SelectedValuePath = "Id";
@@ -105,7 +109,7 @@ namespace Librus.Widoki.Administracja
                     }
 
                     this.repozytoriumUzytkownikow.Dodaj(uzytkownik);
-                    this.DialogResult = true;
+                    //this.DialogResult = true;
                     this.Close();
                 }
                 else
