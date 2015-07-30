@@ -1,4 +1,4 @@
-﻿<Window x:Class="Librus.Widoki.Wyswietlanie_nieobecnosci"
+﻿<Window x:Class="Librus.Widoki.WyswietlanieNieobecnosci"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Nieobecności" Height="582" Width="624" Background="#1d1d1d">

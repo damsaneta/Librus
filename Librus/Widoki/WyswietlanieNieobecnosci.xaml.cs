@@ -21,18 +21,18 @@ namespace Librus.Widoki
     /// <summary>
     /// Interaction logic for Wyswietlanie_nieobecnosci.xaml
     /// </summary>
-    public partial class Wyswietlanie_nieobecnosci : Window
+    public partial class WyswietlanieNieobecnosci : Window
     {
         private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumObecnosci repozytoriumObecnosciUcznia;
-        public Wyswietlanie_nieobecnosci()
+        public WyswietlanieNieobecnosci(string m)
         {
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumObecnosciUcznia = new RepozytoriumObecnosci(connectionString);
             //TO DO: Pobieranie emaila z logowania ??
             InitializeComponent();
-            string mail = "leszek@gmail.com";
+            string mail = m;
             // string mail = "jamr@gmail.com";
             Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(mail);
             //Rodzic rodzic = repozytoriumUzytkownikow.PobierzPoEmailu(mail) as Rodzic;

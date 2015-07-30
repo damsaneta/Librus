@@ -120,6 +120,12 @@
     <Compile Include="Widoki\OknoGlowne.xaml.cs">
       <DependentUpon>OknoGlowne.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widoki\OknoGlowneNauczyciel.xaml.cs">
+      <DependentUpon>OknoGlowneNauczyciel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widoki\OknoGlowneRodzic.xaml.cs">
+      <DependentUpon>OknoGlowneRodzic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widoki\PanelLogowania.xaml.cs">
       <DependentUpon>PanelLogowania.xaml</DependentUpon>
     </Compile>
@@ -161,6 +167,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\OknoGlowne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\OknoGlowneNauczyciel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\OknoGlowneRodzic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

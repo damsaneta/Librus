@@ -36,17 +36,34 @@ namespace Librus.Widoki
             bool result = true;
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin);
             result &=Walidator.WalidacjaHasla(this.txtHaslo, this.errHaslo);
-            Uzytkownik u = repozytoriumUzytkownikow.PobierzPoEmailu(this.txtLogin.Text);
+            Uzytkownik uzytkownik = repozytoriumUzytkownikow.PobierzPoEmailu(this.txtLogin.Text);
             if(result==true)
             {
-                if(u!=null)
+                if(uzytkownik!=null)
                 {
-                    if(u.Haslo==this.txtHaslo.Password)
+                    if(uzytkownik.Haslo==this.txtHaslo.Password)
                     {
-                        var widok = new OknoGlowne();
-                        widok.Show();
-                        this.Close();
 
+                        if (uzytkownik.Rola == Rola.Rodzic || uzytkownik.Rola==Rola.Uczen)
+                        {
+                            var widok = new OknoGlowneRodzic();
+                            widok.nazwaLbl.Content = uzytkownik.Email;
+                            widok.Show();
+                            this.Close();
+                        }
+                        else if(uzytkownik.Rola == Rola.Nauczyciel)
+                        {
+                            var widok = new OknoGlowneNauczyciel();
+                            widok.nazwaLbl.Content = uzytkownik.Email;
+                            widok.Show();
+                            this.Close();
+                        }
+                        else if(uzytkownik.Rola == Rola.Administrator)
+                        {
+                            var widok = new Administracja.Uzytkownicy();
+                            widok.Show();
+                            this.Close();
+                        }
                     }
                     else
                     {

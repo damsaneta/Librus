@@ -26,13 +26,13 @@ namespace Librus.Widoki
         private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia;
-        public WyswietlanieOcen()
+        public WyswietlanieOcen(string m)
         {
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumOcenUcznia = new RepozytoriumOcenUcznia(connectionString);
             //TO DO: Pobieranie emaila z logowania ??
             InitializeComponent();
-            string mail = "leszek@gmail.com";
+            string mail = m;
             Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(mail);
             switch (user.Rola.Typ)
             {
