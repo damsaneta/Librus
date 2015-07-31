@@ -110,6 +110,7 @@ namespace Librus.Widoki
                     }
                 }
                 this.repozytoriumOcenUcznia.Zapisz(v);
+                MessageBox.Show("Oceny zostały poprawnie zapisane.", "Dodawanie ocen", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

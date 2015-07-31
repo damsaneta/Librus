@@ -75,6 +75,7 @@ namespace Librus.Widoki
                 var g = this.nieobecnosciDataGrid;
                 var v = g.Items.SourceCollection as IList<ObecnoscUcznia>;
                 this.repozytoriumObecnosci.Zapisz(v);
+                MessageBox.Show("Obecności zostały poprawnie zapisane.", "Sprawdzanie obecności", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
 
