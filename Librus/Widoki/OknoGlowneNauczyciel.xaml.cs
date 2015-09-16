@@ -36,7 +36,7 @@ namespace Librus.Widoki
             oceny.Show();
         }
 
-        private void wylogujBtn_Click(object sender, RoutedEventArgs e)
+        private void WylogujBtnClick(object sender, RoutedEventArgs e)
         {
             var panel = new PanelLogowania();
             panel.Show();

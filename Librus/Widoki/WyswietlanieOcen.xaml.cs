@@ -24,18 +24,16 @@ namespace Librus.Widoki
     /// </summary>
     public partial class WyswietlanieOcen : Window
     {
-       // private const string connectionString = @"Data Source=(LocalDB)\v12.0;AttachDbFilename=D:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia;
-        public WyswietlanieOcen(string m)
+
+        public WyswietlanieOcen(string email)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumOcenUcznia = new RepozytoriumOcenUcznia(connectionString);
-            //TO DO: Pobieranie emaila z logowania ??
             InitializeComponent();
-            string mail = m;
-            Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(mail);
+            Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(email);
             switch (user.Rola.Typ)
             {
                 case TypRoli.Rodzic:
@@ -51,11 +49,8 @@ namespace Librus.Widoki
                     this.uczenComboBox.Visibility = Visibility.Hidden;
                     this.uczenLbl.Visibility = Visibility.Hidden;
                     this.ocenyDataGrid.ItemsSource = repozytoriumOcenUcznia.PobierzOcenyPoUczniu(uczen);
-                    break;
-                    
-
+                    break;      
             }
-
         }
 
         public void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)

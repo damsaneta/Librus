@@ -24,20 +24,18 @@ namespace Librus.Widoki
     /// </summary>
     public partial class WyswietlanieNieobecnosci : Window
     {
-      //  private const string connectionString = @"Data Source=(LocalDB)\v12.0;AttachDbFilename=D:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumObecnosci repozytoriumObecnosciUcznia;
-        public WyswietlanieNieobecnosci(string m)
+
+        public WyswietlanieNieobecnosci(string mail)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumObecnosciUcznia = new RepozytoriumObecnosci(connectionString);
-            //TO DO: Pobieranie emaila z logowania ??
+
             InitializeComponent();
-            string mail = m;
-            // string mail = "jamr@gmail.com";
+
             Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(mail);
-            //Rodzic rodzic = repozytoriumUzytkownikow.PobierzPoEmailu(mail) as Rodzic;
             switch (user.Rola.Typ)
             {
                 case TypRoli.Rodzic:

@@ -2,6 +2,7 @@
 using Librus.DostepDoDanych.BazaDanych;
 using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
+using Librus.Widoki.Administracja;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,8 +25,8 @@ namespace Librus.Widoki
     /// </summary>
     public partial class PanelLogowania : Window
     {
-        //private const string connectionString = @"Data Source=(LocalDB)\v12.0;AttachDbFilename=D:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
+
         public PanelLogowania()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
@@ -33,7 +34,7 @@ namespace Librus.Widoki
             InitializeComponent();
         }
 
-        private void Zaloguj_Click(object sender, RoutedEventArgs e)
+        private void ZalogujClick(object sender, RoutedEventArgs e)
         {
             bool result = true;
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin);
@@ -62,7 +63,7 @@ namespace Librus.Widoki
                         }
                         else if(uzytkownik.Rola == Rola.Administrator)
                         {
-                            var widok = new Administracja.Uzytkownicy();
+                            var widok = new Uzytkownicy();
                             widok.Show();
                             this.Close();
                         }
@@ -79,7 +80,7 @@ namespace Librus.Widoki
             }
         }
 
-        private void TextBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBoxLoginTextChanged(object sender, TextChangedEventArgs e)
         {
            if( Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin))
            {
@@ -87,13 +88,9 @@ namespace Librus.Widoki
            }
         }
 
-       
-
-        private void Anuluj_Click(object sender, RoutedEventArgs e)
+        private void AnulujClick(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-      
+        } 
     }
 }

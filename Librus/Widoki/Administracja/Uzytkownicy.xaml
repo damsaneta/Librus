@@ -22,10 +22,10 @@
                 <DataGridTextColumn Header="Rola" Binding="{Binding Rola}" />
             </DataGrid.Columns> 
         </DataGrid>
-        <Button x:Name="btnDodaj" Style="{StaticResource buttonStyle}" Content="DODAJ UŻYTKOWNIKA" HorizontalAlignment="Right" Margin="0,20,20,37" VerticalAlignment="Center" Width="192" Click="Dodaj_Click" Height="38"/>
+        <Button x:Name="btnDodaj" Style="{StaticResource buttonStyle}" Content="DODAJ UŻYTKOWNIKA" HorizontalAlignment="Right" Margin="0,20,20,37" VerticalAlignment="Center" Width="192" Click="DodajClick" Height="38"/>
         <TextBox x:Name="txtSzukaj" Style="{StaticResource txtStyle}" Background="DimGray"  Foreground="Silver" BorderBrush="Black" HorizontalAlignment="Left"
-			Height="26" Margin="20,20,0,49" TextWrapping="Wrap" Text="Szukaj..." VerticalAlignment="Center" Width="405"  TextChanged="Szukaj_TextChanged" LostFocus="txtSzukaj_LostFocus"  />
-        <ComboBox x:Name="comboBox"  HorizontalAlignment="Left" Foreground="Black"  Margin="20,59,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged">
+			Height="26" Margin="20,20,0,49" TextWrapping="Wrap" Text="Szukaj..." VerticalAlignment="Center" Width="405"  TextChanged="SzukajTextChanged" LostFocus="TxtSzukajLostFocus"  />
+        <ComboBox x:Name="comboBox"  HorizontalAlignment="Left" Foreground="Black"  Margin="20,59,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="RolaSelectionChanged">
             <ComboBoxItem IsSelected="True">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock ><Run Text="Szukaj po roli..."/></TextBlock>

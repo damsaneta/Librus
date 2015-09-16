@@ -28,7 +28,6 @@ namespace Librus.Widoki
         {
             var obecnosci = new WyswietlanieNieobecnosci(this.nazwaLbl.Content.ToString());
             obecnosci.Show();
-
         }
 
         private void OcenyBtnClick(object sender, RoutedEventArgs e)
@@ -37,14 +36,11 @@ namespace Librus.Widoki
             oceny.Show();
         }
 
-        private void wylogujBtn_Click(object sender, RoutedEventArgs e)
+        private void WylogujBtnClick(object sender, RoutedEventArgs e)
         {
-            
             var panelLogowania = new PanelLogowania();
             panelLogowania.Show();
             this.Close();
         }
-
-       
     }
 }
