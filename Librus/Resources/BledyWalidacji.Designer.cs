@@ -61,11 +61,38 @@ namespace Librus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proszę wybrać..
+        ///   Looks up a localized string similar to Pole jest wymagane!.
+        /// </summary>
+        internal static string KomunikatPoleJestWymagane {
+            get {
+                return ResourceManager.GetString("KomunikatPoleJestWymagane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proszę wybrać!.
         /// </summary>
         internal static string KomunikatProszeWybrac {
             get {
                 return ResourceManager.GetString("KomunikatProszeWybrac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proszę podać poprawną wartość!.
+        /// </summary>
+        internal static string KomunikatProszeWybracPoprawnaWartosc {
+            get {
+                return ResourceManager.GetString("KomunikatProszeWybracPoprawnaWartosc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybierz datę!.
+        /// </summary>
+        internal static string KomunikatWybierzDate {
+            get {
+                return ResourceManager.GetString("KomunikatWybierzDate", resourceCulture);
             }
         }
     }

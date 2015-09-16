@@ -12,6 +12,7 @@ namespace Librus.DostepDoDanych.BazaDanych
     {
         private readonly string connectionString;
         private readonly IRepozytoriumKlas repozytoriumKlas;
+
         public RepozytoriumUzytkownikow(string connectionString)
         {
             this.connectionString = connectionString;
@@ -49,8 +50,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                     }
                 }
             }
-
         }
+
         private void DodajDziecko(Rodzic rodzic, Uzytkownik dziecko)
         {
             using (var connection = new SqlConnection(this.connectionString))
@@ -79,12 +80,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                     wynik = this.WywolanieKomendy(cmd);
                 }
             }
-            if (wynik.Count != 0)
-            {
-                return wynik[0];
-            }
-            else return null;
-            
+
+            return wynik.SingleOrDefault();
 
         }
         public Uzytkownik PobierzUzytkownikaPoId(int id)
@@ -100,11 +97,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                     wynik = this.WywolanieKomendy(cmd);
                 }
             }
-            if (wynik.Count != 0)
-            {
-                return wynik[0];
-            }
-            else return null;
+
+            return wynik.SingleOrDefault();
 
         }
 
@@ -137,11 +131,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                     wynik = this.WywolanieKomendy(cmd);
                 }
             }
-            if (wynik.Count != 0)
-            {
-                return wynik[0];
-            }
-            else return null;
+
+            return wynik.SingleOrDefault();
         }
 
         public IList<Uczen> WyszukajPoKlasie(string wzorzec)
@@ -192,7 +183,6 @@ namespace Librus.DostepDoDanych.BazaDanych
                 }
             }
             return wynik;
-
         }
 
         public IList<Uzytkownik> WyszukajPoRoliIWzorcu(string wzorzec, string rola)
@@ -211,10 +201,9 @@ namespace Librus.DostepDoDanych.BazaDanych
             }
             return wynik;
         }
-        //wyszukiwanie po wzorcu
+
         public IList<Uzytkownik> WyszukajUzytkownikow(string wzorzec)
         {
-
             IList<Uzytkownik> wynik = new List<Uzytkownik>();
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -232,9 +221,8 @@ namespace Librus.DostepDoDanych.BazaDanych
         public IList<Uzytkownik> WyszukiwanieDzieci(string tekst)
         {
             IList<Uzytkownik> dzieci = new List<Uzytkownik>();
-            string slowo = tekst;
             string brakDzieci = string.Empty;
-            string[] tab = slowo.Split(new char[] { ',' });
+            string[] tab = tekst.Split(new char[] { ',' });
             for (int i = 0; i < tab.Length; i++)
             {
                 tab[i] = tab[i].Trim();
@@ -248,9 +236,7 @@ namespace Librus.DostepDoDanych.BazaDanych
                 if (dziecko != null)
                 {
                     dzieci.Add(dziecko);
-
                 }
-
             }
             return dzieci;
         }
@@ -293,7 +279,7 @@ namespace Librus.DostepDoDanych.BazaDanych
             return wynik;
 
         }
-        
+
         private IList<Uzytkownik> WywolanieKomendy(SqlCommand cmd)
         {
             Uzytkownik uzytkownik = null;

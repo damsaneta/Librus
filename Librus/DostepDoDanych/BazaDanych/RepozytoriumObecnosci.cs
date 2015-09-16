@@ -15,6 +15,7 @@ namespace Librus.DostepDoDanych.BazaDanych
 
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumKlas repozytoriumKlas;
+
         public RepozytoriumObecnosci(string connectionString)
         {
             this.connectionString = connectionString;
@@ -24,7 +25,6 @@ namespace Librus.DostepDoDanych.BazaDanych
 
         public IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasaId, DateTime data)
         {
-
             IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -45,7 +45,6 @@ namespace Librus.DostepDoDanych.BazaDanych
 
         public IList<ObecnoscUcznia> PobierzObecnosciPoUczniu(Uczen uczen)
         {
-
             IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -61,7 +60,7 @@ namespace Librus.DostepDoDanych.BazaDanych
             return obecnosci;
         }
 
-        public void EdytujObecnosci(ObecnoscUcznia obe)
+        private void EdytujObecnosci(ObecnoscUcznia obe)
         {
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -83,11 +82,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                     cmd.Parameters.AddWithValue("@Godzina15", obe.Godzina15);
                     cmd.ExecuteNonQuery();
                     cmd.Parameters.Clear();
-
-
                 }
             }
-
         }
 
         public IList<ObecnoscUcznia> PobierzObecnoscPoUczniuIDacie(Uczen uczen, DateTime data)
@@ -163,7 +159,6 @@ namespace Librus.DostepDoDanych.BazaDanych
                     var godzina15 = (bool)reader["Godzina15"];
                     var uczen = (Uczen)this.repozytoriumUzytkownikow.PobierzUzytkownikaPoId(id);
 
-
                     ObecnoscUcznia obecnosc = new ObecnoscUcznia(uczen, dataNieobecnosci);
                     obecnosc.Godzina8 = godzina8;
                     obecnosc.Godzina9 = godzina9;
@@ -177,12 +172,6 @@ namespace Librus.DostepDoDanych.BazaDanych
                 }
                 return obecnosci;
             }
-        }
-
-
-        void IRepozytoriumObecnosci.EdytujObecnosci(ObecnoscUcznia obe)
-        {
-            throw new NotImplementedException();
         }
     }
 }

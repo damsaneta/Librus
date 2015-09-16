@@ -14,7 +14,7 @@ namespace Librus.Model
         public static readonly Rola Rodzic = new Rola(TypRoli.Rodzic, "Rodzic");
         public static readonly Rola Uczen = new Rola(TypRoli.Uczen, "Uczeń");
 
-        private Rola(TypRoli typ , string nazwa)
+        private Rola(TypRoli typ, string nazwa)
         {
             this.Typ = typ;
             this.Nazwa = nazwa;
@@ -28,6 +28,6 @@ namespace Librus.Model
         {
             return this.Nazwa;
         }
-    
+
     }
 }

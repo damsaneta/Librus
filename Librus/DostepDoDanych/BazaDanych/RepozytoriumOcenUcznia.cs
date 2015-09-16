@@ -13,6 +13,7 @@ namespace Librus.DostepDoDanych.BazaDanych
         private readonly string connectionString;
         private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow;
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
+
         public RepozytoriumOcenUcznia(string connectionString)
         {
             this.connectionString = connectionString;
@@ -31,13 +32,10 @@ namespace Librus.DostepDoDanych.BazaDanych
                     cmd.CommandText = "SELECT * FROM Oceny WHERE IdUcznia = @IdUcznia";
                     cmd.Parameters.AddWithValue("@IdUcznia", uczen.Id);
                     oceny = this.WykonajKomende(cmd);
-
                 }
             }
             return oceny;
         }
-
-
 
         public IList<OcenyUcznia> PobierzPoKlasieIPrzedmiocie(string klasaId, string przedmiotId)
         {
@@ -53,7 +51,6 @@ namespace Librus.DostepDoDanych.BazaDanych
                     cmd.Parameters.AddWithValue("@przedmiotId", przedmiotId);
 
                     oceny = this.WykonajKomende(cmd);
-
                 }
             }
             return oceny;
@@ -73,11 +70,11 @@ namespace Librus.DostepDoDanych.BazaDanych
                     cmd.Parameters.AddWithValue("@przedmiotId", przedmiotId);
 
                     oceny = this.WykonajKomende(cmd);
-
                 }
             }
             return oceny;
         }
+
         public void Zapisz(IList<OcenyUcznia> oceny)
         {
             using (var connection = new SqlConnection(this.connectionString))
@@ -104,9 +101,9 @@ namespace Librus.DostepDoDanych.BazaDanych
                     }
                 }
             }
-
         }
-        public void EdytujOceny(OcenyUcznia oceny)
+
+        private void EdytujOceny(OcenyUcznia oceny)
         {
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -122,8 +119,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                     cmd.Parameters.Clear();
                 }
             }
-
         }
+
         private IList<OcenyUcznia> WykonajKomende(SqlCommand cmd)
         {
             IList<OcenyUcznia> wynik = new List<OcenyUcznia>();

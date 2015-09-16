@@ -117,7 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="KomunikatPoleJestWymagane" xml:space="preserve">
+    <value>Pole jest wymagane!</value>
+  </data>
   <data name="KomunikatProszeWybrac" xml:space="preserve">
-    <value>Proszę wybrać.</value>
+    <value>Proszę wybrać!</value>
+  </data>
+  <data name="KomunikatProszeWybracPoprawnaWartosc" xml:space="preserve">
+    <value>Proszę podać poprawną wartość!</value>
+  </data>
+  <data name="KomunikatWybierzDate" xml:space="preserve">
+    <value>Wybierz datę!</value>
   </data>
 </root>

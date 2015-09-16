@@ -13,6 +13,7 @@ namespace Librus.Widoki
             this.Uczen = uczen;
             this.Data = data;
         }
+
         public Uczen Uczen { get; set; }
 
         public DateTime Data { get; set; }

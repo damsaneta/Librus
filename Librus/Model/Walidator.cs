@@ -17,12 +17,9 @@ namespace Librus.Model
 {
     public static class Walidator
     {
-        private static readonly IRepozytoriumUzytkownikow repozytorium;
-
         static Walidator()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
-            repozytorium = new RepozytoriumUzytkownikow(connectionString);
+
         }
 
         public static bool WalidacjaPolaNazwy(TextBox txt, Label lbl)
@@ -31,7 +28,7 @@ namespace Librus.Model
             {
                 if (!char.IsLetter(c))
                 {
-                    WyswietlBlad(txt, lbl, "Proszę podać poprawną wartość");
+                    WyswietlBlad(txt, lbl, BledyWalidacji.KomunikatProszeWybracPoprawnaWartosc);
                     return false;
                 }
             }
@@ -60,7 +57,7 @@ namespace Librus.Model
                 UsunBlad(txt, lbl);
                 return true;
             }
-            WyswietlBlad(txt, lbl, "Prosze podać poprawną wartość");
+            WyswietlBlad(txt, lbl, BledyWalidacji.KomunikatProszeWybracPoprawnaWartosc);
             return false;
         }
 
@@ -68,7 +65,7 @@ namespace Librus.Model
         {
             if (string.IsNullOrEmpty(kontrolka.Text))
             {
-                WyswietlBlad(kontrolka, lbl, "Pole jest wymagane.");
+                WyswietlBlad(kontrolka, lbl, BledyWalidacji.KomunikatPoleJestWymagane);
                 return false;
             }
             else
@@ -82,7 +79,7 @@ namespace Librus.Model
         {
             if (kontrolka.SelectedValue == null)
             {
-                WyswietlBlad(kontrolka, lbl, "Proszę wybrać.");
+                WyswietlBlad(kontrolka, lbl, BledyWalidacji.KomunikatProszeWybrac);
                 return false;
             }
             else
@@ -96,7 +93,7 @@ namespace Librus.Model
         {
             if (data.SelectedDate == null)
             {
-                WyswietlBlad(data, lbl, "Wybierz datę");
+                WyswietlBlad(data, lbl, BledyWalidacji.KomunikatWybierzDate);
                 return false;
             }
             else
@@ -150,7 +147,7 @@ namespace Librus.Model
         {
             if (string.IsNullOrEmpty(passwordBox.Password))
             {
-                WyswietlBlad(passwordBox, label, "Pole jest wymagane.");
+                WyswietlBlad(passwordBox, label, BledyWalidacji.KomunikatPoleJestWymagane);
                 return false;
             }
             else
@@ -159,39 +156,5 @@ namespace Librus.Model
                 return true;
             }
         }
-
-        public static string SprawdzanieIstnieniaDzieci(TextBox textBox)
-        {
-            string slowo = textBox.Text;
-            string brakDzieci = string.Empty;
-            string[] tab = slowo.Split(new char[] { ',' });
-            for (int i = 0; i < tab.Length; i++)
-            {
-                tab[i] = tab[i].Trim();
-            }
-            foreach (string s in tab)
-            {
-                string[] wynik = s.Split(new char[] { ' ' });
-                string imie = wynik[0];
-                string nazwisko = wynik[1];
-                Uzytkownik dziecko = repozytorium.WyszukajDziecka(imie, nazwisko);
-                if (dziecko == null)
-                {
-                    if (string.IsNullOrEmpty(brakDzieci))
-                    {
-                        brakDzieci = "Brak ucznia: " + imie + " " + nazwisko;
-                    }
-                    else
-                    {
-                        brakDzieci = ", " + imie + " " + nazwisko;
-                    }
-
-                }
-
-            }
-            return brakDzieci;
-
-        }
-
     }
 }
