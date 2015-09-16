@@ -12,7 +12,7 @@ namespace Librus.TestySQL
     [TestClass]
     public class TestyRepozytoriumKlas
     {
-        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+        private const string connectionString = @"Data Source=(LocalDB)\v12.0;AttachDbFilename=D:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
 
         [TestMethod]
         public void Test()
@@ -42,7 +42,7 @@ namespace Librus.TestySQL
             obe.Godzina10 = false;
             IList<ObecnoscUcznia> lista =  new List<ObecnoscUcznia>();
             lista.Add(obe);
-            repozytorium.EdytujObecnosci(lista);
+           // repozytorium.EdytujObecnosci(lista);
 
          //   repozytorium.Dodaj(new Uczen("Justyna", "Kowalska", "justyna@gmail.com", "JusKow",new Klasa("IA", "IA (mat - fiz)")));
            //repozytorium.Dodaj(new Uczen("Anna", "Kowalska", "das@gmail.com", "AnnKow", new Klasa("IA", "IA (mat - fiz)")));

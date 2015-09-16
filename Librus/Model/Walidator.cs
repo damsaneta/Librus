@@ -1,8 +1,10 @@
 ﻿using Librus.DostepDoDanych;
 using Librus.DostepDoDanych.BazaDanych;
 using Librus.DostepDoDanych.Pamiec;
+using Librus.Resources;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,15 +17,19 @@ namespace Librus.Model
 {
     public static class Walidator
     {
-        private const  string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+        private static readonly IRepozytoriumUzytkownikow repozytorium;
 
-        private static readonly IRepozytoriumUzytkownikow repozytorium = new RepozytoriumUzytkownikow(connectionString);
-       
+        static Walidator()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
+            repozytorium = new RepozytoriumUzytkownikow(connectionString);
+        }
+
         public static bool WalidacjaPolaNazwy(TextBox txt, Label lbl)
         {
             foreach (char c in txt.Text)
             {
-                if (char.IsLetter(c) == false)
+                if (!char.IsLetter(c))
                 {
                     WyswietlBlad(txt, lbl, "Proszę podać poprawną wartość");
                     return false;
@@ -38,12 +44,13 @@ namespace Librus.Model
             TypRoli typ = (TypRoli)box.SelectedIndex;
             if (typ == TypRoli.Nieznany)
             {
-                WyswietlBlad(box, lbl, "Proszę wybrać.");
+                WyswietlBlad(box, lbl, BledyWalidacji.KomunikatProszeWybrac);
                 return false;
             }
             UsunBlad(box, lbl);
             return true;
         }
+
         public static bool WalidacjaPolaEmail(TextBox txt, Label lbl)
         {
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
@@ -56,6 +63,7 @@ namespace Librus.Model
             WyswietlBlad(txt, lbl, "Prosze podać poprawną wartość");
             return false;
         }
+
         public static bool WalidacjaWymaganegoPolaTekstowego(TextBox kontrolka, Label lbl)
         {
             if (string.IsNullOrEmpty(kontrolka.Text))
@@ -69,9 +77,10 @@ namespace Librus.Model
                 return true;
             }
         }
+
         public static bool WalidacjaWymaganegoComboBoxa(ComboBox kontrolka, Label lbl)
         {
-            if (kontrolka.SelectedValue==null)
+            if (kontrolka.SelectedValue == null)
             {
                 WyswietlBlad(kontrolka, lbl, "Proszę wybrać.");
                 return false;
@@ -82,9 +91,10 @@ namespace Librus.Model
                 return true;
             }
         }
+
         public static bool WalidacjaWymaganegoPolaDaty(DatePicker data, Label lbl)
         {
-            if(data.SelectedDate==null)
+            if (data.SelectedDate == null)
             {
                 WyswietlBlad(data, lbl, "Wybierz datę");
                 return false;
@@ -95,6 +105,7 @@ namespace Librus.Model
                 return true;
             }
         }
+
         //public static bool WalidacjaIstnieniaUzytkownika(TextBox textBox, Label label)
         //{
         //    if(repozytorium.PobierzPoEmailu(textBox.Text)!=null)
@@ -114,6 +125,7 @@ namespace Librus.Model
             lbl.Visibility = Visibility.Visible;
             lbl.Content = komunikat;
         }
+
         public static void UsunBlad(Control kontrolka, Label lbl)
         {
             kontrolka.Background = Brushes.White;
@@ -132,10 +144,7 @@ namespace Librus.Model
                 WyswietlBlad(textBox, label, test);
                 return false;
             }
-
-
         }
-
 
         public static bool WalidacjaHasla(PasswordBox passwordBox, Label label)
         {
@@ -150,7 +159,6 @@ namespace Librus.Model
                 return true;
             }
         }
-
 
         public static string SprawdzanieIstnieniaDzieci(TextBox textBox)
         {
@@ -184,11 +192,6 @@ namespace Librus.Model
             return brakDzieci;
 
         }
-
-
-
-
-
 
     }
 }

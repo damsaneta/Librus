@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Librus.Model
 {
-    public class Rodzic:Uzytkownik
+    public class Rodzic : Uzytkownik
     {
         public Rodzic()
         {
 
         }
-        public Rodzic(string imie, string nazwisko, string mail, string haslo,IList<Uzytkownik> lista) :
-            base(imie, nazwisko, mail,Rola.Rodzic, haslo)
+
+        public Rodzic(string imie, string nazwisko, string mail, string haslo, IList<Uzytkownik> lista) :
+            base(imie, nazwisko, mail, Rola.Rodzic, haslo)
         {
             this.Dzieci = lista;
         }

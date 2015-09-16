@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace Librus.Model
 {
     public class Klasa
-    {   
-        public Klasa( string id, string nazwa)
+    {
+        public Klasa(string id, string nazwa)
         {
             this.Nazwa = nazwa;
             this.Id = id;

@@ -4,6 +4,7 @@ using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,12 @@ namespace Librus.Widoki
     /// </summary>
     public partial class WyswietlanieOcen : Window
     {
-        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+       // private const string connectionString = @"Data Source=(LocalDB)\v12.0;AttachDbFilename=D:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia;
         public WyswietlanieOcen(string m)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumOcenUcznia = new RepozytoriumOcenUcznia(connectionString);
             //TO DO: Pobieranie emaila z logowania ??

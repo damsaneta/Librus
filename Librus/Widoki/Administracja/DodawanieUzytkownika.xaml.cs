@@ -4,6 +4,7 @@ using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,11 @@ namespace Librus.Widoki.Administracja
     /// </summary>
     public partial class DodawanieUzytkownika : Window
     {
-        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
-        private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
+       private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumKlas repozytoriumKlas;
         public DodawanieUzytkownika()
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumKlas = new RepozytoriumKlas(connectionString);
             InitializeComponent();        
@@ -172,23 +173,8 @@ namespace Librus.Widoki.Administracja
                 if (result == true)
                 {
                     TypRoli typ = (TypRoli)this.comboRola.SelectedIndex;
-                    if (typ == TypRoli.Uczen)
-                    {
-                        this.comboKlasa.IsEnabled = true;
-                    }
-                    else if (typ != TypRoli.Uczen)
-                    {
-                        this.comboKlasa.IsEnabled = false;
-
-                    }
-                    if (typ == TypRoli.Rodzic)
-                    {
-                        this.txtDziecko.IsEnabled = true;
-                    }
-                    else if (typ != TypRoli.Rodzic)
-                    {
-                        this.txtDziecko.IsEnabled = false;
-                    }
+                    this.comboKlasa.IsEnabled = (typ == TypRoli.Uczen);
+                    this.txtDziecko.IsEnabled = (typ == TypRoli.Rodzic);
                 }
 
             }

@@ -4,6 +4,7 @@ using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,10 +24,10 @@ namespace Librus.Widoki.Administracja
     /// </summary>
     public partial class Uzytkownicy : Window
     {
-        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         public Uzytkownicy()
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             InitializeComponent();    
             this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();

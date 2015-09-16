@@ -12,7 +12,7 @@ namespace Librus.Model
         {
 
         }
-        public Administrator(string imie, string nazwisko, string mail,  string haslo) :
+        public Administrator(string imie, string nazwisko, string mail, string haslo) :
             base(imie, nazwisko, mail, Rola.Administrator, haslo)
         {
 

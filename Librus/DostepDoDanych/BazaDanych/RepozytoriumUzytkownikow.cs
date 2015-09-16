@@ -293,7 +293,8 @@ namespace Librus.DostepDoDanych.BazaDanych
             return wynik;
 
         }
-        public IList<Uzytkownik> WywolanieKomendy(SqlCommand cmd)
+        
+        private IList<Uzytkownik> WywolanieKomendy(SqlCommand cmd)
         {
             Uzytkownik uzytkownik = null;
             IList<Uzytkownik> wynik = new List<Uzytkownik>();

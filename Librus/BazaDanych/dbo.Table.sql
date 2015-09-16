@@ -1,5 +1,0 @@
-﻿CREATE TABLE Klasy
-(
-	[Id] VARCHAR(4) NOT NULL PRIMARY KEY, 
-    [Nazwa] NVARCHAR(100) NOT NULL
-)

@@ -4,6 +4,7 @@ using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,13 +24,13 @@ namespace Librus.Widoki
     /// </summary>
     public partial class DodawanieOcen : Window
     {
-        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow;
         private readonly IRepozytoriumKlas repozytoriumKlas;
         private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia;
         public DodawanieOcen()
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotow(connectionString);
             this.repozytoriumKlas = new RepozytoriumKlas(connectionString);
@@ -102,9 +103,9 @@ namespace Librus.Widoki
             {
                 var g = this.ocenyDataGrid;
                 IList<OcenyUcznia> v = g.Items.SourceCollection as IList<OcenyUcznia>;
-                foreach(OcenyUcznia w in v)
+                foreach (OcenyUcznia w in v)
                 {
-                    if(w.Oceny == null)
+                    if (w.Oceny == null)
                     {
                         w.Oceny = string.Empty;
                     }

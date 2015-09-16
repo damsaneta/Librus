@@ -4,6 +4,7 @@ using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,13 +24,14 @@ namespace Librus.Widoki
     /// </summary>
     public partial class SprawdzanieObecnosci : Window
     {
-        private const string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
+       // private const string connectionString = @"Data Source=(LocalDB)\v12.0;AttachDbFilename=D:\Users\aneta\Desktop\Librus\Librus\LibrusDatabase.mdf;Integrated Security=True";
         private readonly IRepozytoriumKlas repozytoriumKlas;
         private readonly IRepozytoriumObecnosci repozytoriumObecnosci;
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
 
         public SprawdzanieObecnosci()
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             repozytoriumKlas = new RepozytoriumKlas(connectionString);
             repozytoriumObecnosci = new RepozytoriumObecnosci(connectionString);
             repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
