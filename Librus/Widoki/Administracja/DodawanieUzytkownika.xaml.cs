@@ -1,21 +1,12 @@
 ﻿using Librus.DostepDoDanych;
 using Librus.DostepDoDanych.BazaDanych;
-using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Librus.Widoki.Administracja
 {
@@ -32,13 +23,18 @@ namespace Librus.Widoki.Administracja
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumKlas = new RepozytoriumKlas(connectionString);
-            InitializeComponent();
-            this.comboKlasa.ItemsSource = this.repozytoriumKlas.PobierzWszystkie();
+            this.InitializeComponent();
+            this.Inicjalizuj();
+        }
+
+        private async void Inicjalizuj()
+        {
+            this.comboKlasa.ItemsSource = await this.repozytoriumKlas.PobierzWszystkie();
             this.comboKlasa.DisplayMemberPath = "Nazwa";
             this.comboKlasa.SelectedValuePath = "Id";
         }
 
-        private void DodajClick(object sender, RoutedEventArgs e)
+        private async void DodajClick(object sender, RoutedEventArgs e)
         {
             bool result = true;
             IList<Uzytkownik> dzieci = new List<Uzytkownik>();
@@ -68,15 +64,15 @@ namespace Librus.Widoki.Administracja
             {
                 if (Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtDziecko, this.errDziecko))
                 {
-                    string test = this.SprawdzanieIstnieniaDzieci(this.txtDziecko.Text);
+                    string test = await this.SprawdzanieIstnieniaDzieci(this.txtDziecko.Text);
                     result &= Walidator.WalidacjaDzieci(this.txtDziecko, this.errDziecko, test);
-                    dzieci = repozytoriumUzytkownikow.WyszukiwanieDzieci(this.txtDziecko.Text);
+                    dzieci = await repozytoriumUzytkownikow.WyszukiwanieDzieci(this.txtDziecko.Text);
                 }
             }
 
             if (result == true)
             {
-                Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(this.txtEmail.Text);
+                Uzytkownik user = await repozytoriumUzytkownikow.PobierzPoEmailu(this.txtEmail.Text);
 
                 if (user == null)
                 {
@@ -106,7 +102,7 @@ namespace Librus.Widoki.Administracja
                             throw new InvalidOperationException();
                     }
 
-                    this.repozytoriumUzytkownikow.Dodaj(uzytkownik);
+                    await this.repozytoriumUzytkownikow.Dodaj(uzytkownik);
                     this.DialogResult = true;
                     this.Close();
                 }
@@ -176,7 +172,7 @@ namespace Librus.Widoki.Administracja
             Walidator.WalidacjaWymaganegoComboBoxa(this.comboKlasa, errKlasa);
         }
 
-        private string SprawdzanieIstnieniaDzieci(string slowo)
+        private async Task<string> SprawdzanieIstnieniaDzieci(string slowo)
         {
             string brakDzieci = string.Empty;
             string[] tab = slowo.Split(new char[] { ',' });
@@ -189,7 +185,7 @@ namespace Librus.Widoki.Administracja
                 string[] wynik = s.Split(new char[] { ' ' });
                 string imie = wynik[0];
                 string nazwisko = wynik[1];
-                Uzytkownik dziecko = repozytoriumUzytkownikow.WyszukajDziecka(imie, nazwisko);
+                Uzytkownik dziecko = await repozytoriumUzytkownikow.WyszukajDziecka(imie, nazwisko);
                 if (dziecko == null)
                 {
                     if (string.IsNullOrEmpty(brakDzieci))

@@ -17,45 +17,33 @@ namespace Librus.DostepDoDanych.BazaDanych
             this.connectionString = connectionString;
         }
 
-        public void Dodaj(Przedmiot przedmiot)
+        public Task<IList<Przedmiot>> PobierzWszystkie()
         {
-            using (var connection = new SqlConnection(connectionString))
+            return Task.Factory.StartNew(() =>
             {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
+                IList<Przedmiot> wynik = new List<Przedmiot>();
+                using (var connection = new SqlConnection(this.connectionString))
                 {
-                    cmd.CommandText = "INSERT INTO Przedmioty (Id, Nazwa) VALUES (@id,@nazwa)";
-                    cmd.Parameters.AddWithValue("@id", przedmiot.Id);
-                    cmd.Parameters.AddWithValue("@nazwa", przedmiot.Nazwa);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public IList<Przedmiot> PobierzWszystkie()
-        {
-            IList<Przedmiot> wynik = new List<Przedmiot>();
-            using (var connection = new SqlConnection(this.connectionString))
-            {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
-                {
-                    cmd.CommandText = "SELECT Id, Nazwa FROM Przedmioty";
-
-                    using (var reader = cmd.ExecuteReader())
+                    connection.Open();
+                    using (var cmd = connection.CreateCommand())
                     {
-                        while (reader.Read())
-                        {
-                            var id = reader["Id"].ToString();
-                            var nazwa = reader["Nazwa"].ToString();
-                            var przedmiot = new Przedmiot(id, nazwa);
-                            wynik.Add(przedmiot);
+                        cmd.CommandText = "SELECT Id, Nazwa FROM Przedmioty";
 
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var id = reader["Id"].ToString();
+                                var nazwa = reader["Nazwa"].ToString();
+                                var przedmiot = new Przedmiot(id, nazwa);
+                                wynik.Add(przedmiot);
+
+                            }
                         }
                     }
                 }
-            }
-            return wynik;
+                return wynik;
+            });
         }
 
         public Przedmiot ZnajdzPrzedmiot(string id)

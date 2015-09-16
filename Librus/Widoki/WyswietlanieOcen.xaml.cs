@@ -1,6 +1,5 @@
 ﻿using Librus.DostepDoDanych;
 using Librus.DostepDoDanych.BazaDanych;
-using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
@@ -26,14 +25,21 @@ namespace Librus.Widoki
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia;
+        private readonly string email;
 
         public WyswietlanieOcen(string email)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumOcenUcznia = new RepozytoriumOcenUcznia(connectionString);
-            InitializeComponent();
-            Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(email);
+            this.email = email;
+            this.InitializeComponent();
+            this.Inicjalizuj();
+        }
+
+        private async void Inicjalizuj()
+        {
+            Uzytkownik user = await repozytoriumUzytkownikow.PobierzPoEmailu(this.email);
             switch (user.Rola.Typ)
             {
                 case TypRoli.Rodzic:
@@ -48,15 +54,15 @@ namespace Librus.Widoki
                     Uczen uczen = user as Uczen;
                     this.uczenComboBox.Visibility = Visibility.Hidden;
                     this.uczenLbl.Visibility = Visibility.Hidden;
-                    this.ocenyDataGrid.ItemsSource = repozytoriumOcenUcznia.PobierzOcenyPoUczniu(uczen);
-                    break;      
+                    this.ocenyDataGrid.ItemsSource = await repozytoriumOcenUcznia.PobierzOcenyPoUczniu(uczen);
+                    break;
             }
         }
 
-        public void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        public async void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var uczen = this.uczenComboBox.SelectedItem as Uczen;
-            this.ocenyDataGrid.ItemsSource = repozytoriumOcenUcznia.PobierzOcenyPoUczniu(uczen);
+            this.ocenyDataGrid.ItemsSource = await repozytoriumOcenUcznia.PobierzOcenyPoUczniu(uczen);
         }
     }
 }

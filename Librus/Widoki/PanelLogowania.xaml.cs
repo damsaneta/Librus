@@ -1,22 +1,11 @@
 ﻿using Librus.DostepDoDanych;
 using Librus.DostepDoDanych.BazaDanych;
-using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using Librus.Widoki.Administracja;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Librus.Widoki
 {
@@ -34,12 +23,12 @@ namespace Librus.Widoki
             InitializeComponent();
         }
 
-        private void ZalogujClick(object sender, RoutedEventArgs e)
+        private async void ZalogujClick(object sender, RoutedEventArgs e)
         {
             bool result = true;
             result &= Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin);
             result &=Walidator.WalidacjaHasla(this.txtHaslo, this.errHaslo);
-            Uzytkownik uzytkownik = repozytoriumUzytkownikow.PobierzPoEmailu(this.txtLogin.Text);
+            Uzytkownik uzytkownik = await repozytoriumUzytkownikow.PobierzPoEmailu(this.txtLogin.Text);
             if(result==true)
             {
                 if(uzytkownik!=null)
@@ -70,11 +59,13 @@ namespace Librus.Widoki
                     }
                     else
                     {
+                        // TODO
                         Walidator.WyswietlBlad(this.txtHaslo, this.errHaslo, "Niepoprawne hasło!");
                     }
                 }
                 else
                 {
+                    // TODO
                     Walidator.WyswietlBlad(this.txtLogin, this.errLogin, "Uzytkownik o takim e-mailu nie istnieje!");
                 }
             }

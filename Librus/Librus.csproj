@@ -87,11 +87,6 @@
     <Compile Include="DostepDoDanych\IRepozytoriumKlas.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumPrzedmiotow.cs" />
     <Compile Include="DostepDoDanych\IRepozytoriumOcenUcznia.cs" />
-    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumKlasWPamieci.cs" />
-    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumObecnosciWPamieci.cs" />
-    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumOcenUczniaWPamieci.cs" />
-    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumPrzedmiotowWPamieci.cs" />
-    <Compile Include="DostepDoDanych\Pamiec\RepozytoriumUzytkownikowWPamieci.cs" />
     <Compile Include="Grafika\Grafika.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -18,45 +18,33 @@ namespace Librus.DostepDoDanych.BazaDanych
             this.connectionString = connectionString;
         }
 
-        public void Dodaj(Klasa klasa)
+        public Task<IList<Klasa>> PobierzWszystkie()
         {
-            using (var connection = new SqlConnection(this.connectionString))
+            return Task.Factory.StartNew(() =>
             {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
+                IList<Klasa> wynik = new List<Klasa>();
+                using (var connection = new SqlConnection(this.connectionString))
                 {
-                    cmd.CommandText = "INSERT INTO Klasy (Id, Nazwa) VALUES (@Id,@Nazwa)";
-                    cmd.Parameters.AddWithValue("@Id", klasa.Id);
-                    cmd.Parameters.AddWithValue("@Nazwa", klasa.Nazwa);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public IList<Klasa> PobierzWszystkie()
-        {
-            IList<Klasa> wynik = new List<Klasa>();
-            using (var connection = new SqlConnection(this.connectionString))
-            {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
-                {
-                    cmd.CommandText = "SELECT Id, Nazwa FROM Klasy";
-
-                    using (var reader = cmd.ExecuteReader())
+                    connection.Open();
+                    using (var cmd = connection.CreateCommand())
                     {
-                        while (reader.Read())
-                        {
-                            var id = reader["Id"].ToString();
-                            var nazwa = reader["Nazwa"].ToString();
-                            var klasa = new Klasa(id, nazwa);
-                            wynik.Add(klasa);
+                        cmd.CommandText = "SELECT Id, Nazwa FROM Klasy";
 
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var id = reader["Id"].ToString();
+                                var nazwa = reader["Nazwa"].ToString();
+                                var klasa = new Klasa(id, nazwa);
+                                wynik.Add(klasa);
+
+                            }
                         }
                     }
                 }
-            }
-            return wynik;
+                return wynik;
+            });
         }
 
         public Klasa ZnajdzKlase(string id)
@@ -77,11 +65,8 @@ namespace Librus.DostepDoDanych.BazaDanych
                             var idd = reader["Id"].ToString();
                             klasa = new Klasa(idd, nazwa);
                         }
-
                     }
-
                 }
-
             }
             return klasa;
         }

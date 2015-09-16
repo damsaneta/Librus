@@ -1,6 +1,5 @@
 ﻿using Librus.DostepDoDanych;
 using Librus.DostepDoDanych.BazaDanych;
-using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
@@ -30,21 +29,26 @@ namespace Librus.Widoki.Administracja
         {
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
-            InitializeComponent();
-            this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
+            this.InitializeComponent();
+            this.Inicjalizuj();
         }
 
-        private void DodajClick(object sender, RoutedEventArgs e)
+        private async void Inicjalizuj()
+        {
+            this.grid.ItemsSource = await this.repozytoriumUzytkownikow.PobierzWszystkich();
+        }
+
+        private async void DodajClick(object sender, RoutedEventArgs e)
         {
             var view = new DodawanieUzytkownika();
             bool? wynik = view.ShowDialog();
             if (wynik.HasValue && wynik.Value)
             {
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.PobierzWszystkich();
             }
         }
 
-        private void SzukajTextChanged(object sender, TextChangedEventArgs e)
+        private async void SzukajTextChanged(object sender, TextChangedEventArgs e)
         {
             string typ = "";
             TypRoli typ1 = TypRoli.Nieznany;
@@ -60,47 +64,47 @@ namespace Librus.Widoki.Administracja
             if (typ != "Szukaj po roli...") typ = typ1.ToString();
             if ((string.IsNullOrEmpty(this.txtSzukaj.Text) || this.txtSzukaj.Text == "Szukaj...") && (typ == "Szukaj po roli..." || typ == "Nieznany"))
             {
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.PobierzWszystkich();
                 // this.grid.Items.Refresh();
             }
             else if ((!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj...") && (typ == "Szukaj po roli..." || typ == "Nieznany"))
             {
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.WyszukajUzytkownikow(this.txtSzukaj.Text);
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.WyszukajUzytkownikow(this.txtSzukaj.Text);
                 //this.grid.ItemsSource = this.Lista;
             }
             else if ((!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj...") && (typ != "Szukaj po roli..." && typ != "Nieznany"))
             {
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ);
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ);
             }
 
         }
 
-        private void RolaSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void RolaSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TypRoli typ = (TypRoli)this.comboBox.SelectedIndex;
             if (typ.ToString() != "Nieznany" && (string.IsNullOrEmpty(this.txtSzukaj.Text) || this.txtSzukaj.Text == "Szukaj..."))
             {
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.WyszukajPoRoli(typ.ToString());
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.WyszukajPoRoli(typ.ToString());
                 //this.grid.Items.Refresh();
             }
             else if (typ.ToString() != "Nieznany" && (!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj..."))
             {
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ.ToString());
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.WyszukajPoRoliIWzorcu(this.txtSzukaj.Text, typ.ToString());
             }
             else if (typ.ToString() == "Nieznany" && (!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj..."))
             {
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.WyszukajUzytkownikow(this.txtSzukaj.Text);
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.WyszukajUzytkownikow(this.txtSzukaj.Text);
             }
             else
             {
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.PobierzWszystkich();
                 //this.grid.ItemsSource = this.Lista;
                 //this.grid.Items.Refresh();
             }
 
         }
 
-        private void TxtSzukajLostFocus(object sender, RoutedEventArgs e)
+        private async void TxtSzukajLostFocus(object sender, RoutedEventArgs e)
         {
             string typ = "";
             TypRoli typ1 = TypRoli.Nieznany;
@@ -117,12 +121,12 @@ namespace Librus.Widoki.Administracja
             if (string.IsNullOrEmpty(txtSzukaj.Text) && typ == "Szukaj po roli...")
             {
                 txtSzukaj.Text = "Szukaj...";
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.PobierzWszystkich();
             }
             if (string.IsNullOrEmpty(txtSzukaj.Text) && typ == "a")
             {
                 txtSzukaj.Text = "Szukaj...";
-                this.grid.ItemsSource = this.repozytoriumUzytkownikow.PobierzWszystkich();
+                this.grid.ItemsSource = await this.repozytoriumUzytkownikow.PobierzWszystkich();
             }
         }
 

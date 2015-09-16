@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Librus.Model;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 namespace Librus.DostepDoDanych
 {
     interface IRepozytoriumPrzedmiotow
     {
-        void Dodaj(Librus.Model.Przedmiot przedmiot);
-        System.Collections.Generic.IList<Librus.Model.Przedmiot> PobierzWszystkie();
-        Librus.Model.Przedmiot ZnajdzPrzedmiot(string id);
+        Task<IList<Przedmiot>> PobierzWszystkie();
+        Przedmiot ZnajdzPrzedmiot(string id);
     }
 }

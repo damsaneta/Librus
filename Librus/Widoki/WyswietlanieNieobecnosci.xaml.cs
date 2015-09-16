@@ -1,6 +1,5 @@
 ﻿using Librus.DostepDoDanych;
 using Librus.DostepDoDanych.BazaDanych;
-using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
@@ -26,16 +25,21 @@ namespace Librus.Widoki
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumObecnosci repozytoriumObecnosciUcznia;
+        private readonly string email;
 
-        public WyswietlanieNieobecnosci(string mail)
+        public WyswietlanieNieobecnosci(string email)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
             this.repozytoriumUzytkownikow = new RepozytoriumUzytkownikow(connectionString);
             this.repozytoriumObecnosciUcznia = new RepozytoriumObecnosci(connectionString);
-
+            this.email = email;
             InitializeComponent();
+            this.Inicjalizuj();
+        }
 
-            Uzytkownik user = repozytoriumUzytkownikow.PobierzPoEmailu(mail);
+        private async void Inicjalizuj()
+        {
+            Uzytkownik user = await repozytoriumUzytkownikow.PobierzPoEmailu(this.email);
             switch (user.Rola.Typ)
             {
                 case TypRoli.Rodzic:
@@ -50,15 +54,17 @@ namespace Librus.Widoki
                     Uczen uczen = user as Uczen;
                     this.uczenComboBox.Visibility = Visibility.Hidden;
                     this.uczenLbl.Visibility = Visibility.Hidden;
-                    this.nieobecnosciDataGrid.ItemsSource = repozytoriumObecnosciUcznia.PobierzObecnosciPoUczniu(uczen);
+                    this.nieobecnosciDataGrid.ItemsSource = await repozytoriumObecnosciUcznia.PobierzObecnosciPoUczniu(uczen);
                     break;
             }
         }
 
-        private void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+
+        private async void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var uczen = this.uczenComboBox.SelectedItem as Uczen;
-            this.nieobecnosciDataGrid.ItemsSource = repozytoriumObecnosciUcznia.PobierzObecnosciPoUczniu(uczen);
+            this.nieobecnosciDataGrid.ItemsSource = await repozytoriumObecnosciUcznia.PobierzObecnosciPoUczniu(uczen);
         }
     }
 }

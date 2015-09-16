@@ -10,10 +10,10 @@ namespace Librus.DostepDoDanych
 {
     public interface IRepozytoriumObecnosci
     {
-        IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasaId, DateTime data);
-        IList<ObecnoscUcznia> PobierzObecnosciPoUczniu(Uczen uczen);
+        Task<IList<ObecnoscUcznia>> PobierzPoKlasieIDacie(string klasaId, DateTime data);
+        Task<IList<ObecnoscUcznia>> PobierzObecnosciPoUczniu(Uczen uczen);
         IList<ObecnoscUcznia> PobierzObecnoscPoUczniuIDacie(Uczen uczen, DateTime data);
-        void Zapisz(IList<ObecnoscUcznia> obecnosci);
+        Task Zapisz(IList<ObecnoscUcznia> obecnosci);
 
     }
 }

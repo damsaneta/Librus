@@ -23,41 +23,47 @@ namespace Librus.DostepDoDanych.BazaDanych
             repozytoriumKlas = new RepozytoriumKlas(connectionString);
         }
 
-        public IList<ObecnoscUcznia> PobierzPoKlasieIDacie(string klasaId, DateTime data)
+        public Task<IList<ObecnoscUcznia>> PobierzPoKlasieIDacie(string klasaId, DateTime data)
         {
-            IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
-            using (var connection = new SqlConnection(this.connectionString))
+            return Task.Factory.StartNew(() =>
             {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
+                IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
+                using (var connection = new SqlConnection(this.connectionString))
                 {
-                    cmd.CommandText = @"SELECT o.Id, Data, Godzina8, Godzina9, Godzina10, Godzina11, Godzina12, Godzina13, Godzina14, Godzina15
+                    connection.Open();
+                    using (var cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = @"SELECT o.Id, Data, Godzina8, Godzina9, Godzina10, Godzina11, Godzina12, Godzina13, Godzina14, Godzina15
                     FROM Obecnosci o INNER JOIN Uzytkownicy u
                     ON o.Id = u.Id WHERE u.KlasaId = @klasaId AND o.Data = @data";
-                    cmd.Parameters.AddWithValue("@klasaId", klasaId);
-                    cmd.Parameters.AddWithValue("@data", data);
+                        cmd.Parameters.AddWithValue("@klasaId", klasaId);
+                        cmd.Parameters.AddWithValue("@data", data);
 
-                    obecnosci = this.WykonajKomende(cmd);
+                        obecnosci = this.WykonajKomende(cmd);
+                    }
                 }
-            }
-            return obecnosci;
+                return obecnosci;
+            });
         }
 
-        public IList<ObecnoscUcznia> PobierzObecnosciPoUczniu(Uczen uczen)
+        public Task<IList<ObecnoscUcznia>> PobierzObecnosciPoUczniu(Uczen uczen)
         {
-            IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
-            using (var connection = new SqlConnection(this.connectionString))
+            return Task.Factory.StartNew(() =>
             {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
+                IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
+                using (var connection = new SqlConnection(this.connectionString))
                 {
-                    cmd.CommandText = @"SELECT Id, Data, Godzina8, Godzina9, Godzina10, Godzina11, Godzina12, Godzina13, Godzina14, Godzina15
+                    connection.Open();
+                    using (var cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = @"SELECT Id, Data, Godzina8, Godzina9, Godzina10, Godzina11, Godzina12, Godzina13, Godzina14, Godzina15
                     FROM Obecnosci WHERE Id = @KlasaId ";
-                    cmd.Parameters.AddWithValue("@klasaId", uczen.Id);
-                    obecnosci = this.WykonajKomende(cmd);
+                        cmd.Parameters.AddWithValue("@klasaId", uczen.Id);
+                        obecnosci = this.WykonajKomende(cmd);
+                    }
                 }
-            }
-            return obecnosci;
+                return obecnosci;
+            });
         }
 
         private void EdytujObecnosci(ObecnoscUcznia obe)
@@ -104,40 +110,43 @@ namespace Librus.DostepDoDanych.BazaDanych
             return obecnosci;
         }
 
-        public void Zapisz(IList<ObecnoscUcznia> obecnosci)
+        public Task Zapisz(IList<ObecnoscUcznia> obecnosci)
         {
-            using (var connection = new SqlConnection(this.connectionString))
+            return Task.Factory.StartNew(() =>
             {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
+                using (var connection = new SqlConnection(this.connectionString))
                 {
-                    cmd.CommandText = @"INSERT INTO Obecnosci (Id, Data, Godzina8, Godzina9, Godzina10, Godzina11, Godzina12, Godzina13, Godzina14, Godzina15)
-                            VALUES (@Id, @Data, @Godzina8, @Godzina9, @Godzina10,  @Godzina11, @Godzina12, @Godzina13, @Godzina14, @Godzina15)";
-                    foreach (ObecnoscUcznia obe in obecnosci)
+                    connection.Open();
+                    using (var cmd = connection.CreateCommand())
                     {
-                        var c = PobierzObecnoscPoUczniuIDacie(obe.Uczen, obe.Data);
-                        if (c == null || c.Count == 0)
+                        cmd.CommandText = @"INSERT INTO Obecnosci (Id, Data, Godzina8, Godzina9, Godzina10, Godzina11, Godzina12, Godzina13, Godzina14, Godzina15)
+                            VALUES (@Id, @Data, @Godzina8, @Godzina9, @Godzina10,  @Godzina11, @Godzina12, @Godzina13, @Godzina14, @Godzina15)";
+                        foreach (ObecnoscUcznia obe in obecnosci)
                         {
-                            cmd.Parameters.AddWithValue("@Id", obe.Uczen.Id);
-                            cmd.Parameters.AddWithValue("@Data", obe.Data);
-                            cmd.Parameters.AddWithValue("@Godzina8", obe.Godzina8);
-                            cmd.Parameters.AddWithValue("@Godzina9", obe.Godzina9);
-                            cmd.Parameters.AddWithValue("@Godzina10", obe.Godzina10);
-                            cmd.Parameters.AddWithValue("@Godzina11", obe.Godzina11);
-                            cmd.Parameters.AddWithValue("@Godzina12", obe.Godzina12);
-                            cmd.Parameters.AddWithValue("@Godzina13", obe.Godzina13);
-                            cmd.Parameters.AddWithValue("@Godzina14", obe.Godzina14);
-                            cmd.Parameters.AddWithValue("@Godzina15", obe.Godzina15);
-                            cmd.ExecuteNonQuery();
-                            cmd.Parameters.Clear();
-                        }
-                        else
-                        {
-                            this.EdytujObecnosci(obe);
+                            var c = PobierzObecnoscPoUczniuIDacie(obe.Uczen, obe.Data); 
+                            if (c == null || c.Count == 0)
+                            {
+                                cmd.Parameters.AddWithValue("@Id", obe.Uczen.Id);
+                                cmd.Parameters.AddWithValue("@Data", obe.Data);
+                                cmd.Parameters.AddWithValue("@Godzina8", obe.Godzina8);
+                                cmd.Parameters.AddWithValue("@Godzina9", obe.Godzina9);
+                                cmd.Parameters.AddWithValue("@Godzina10", obe.Godzina10);
+                                cmd.Parameters.AddWithValue("@Godzina11", obe.Godzina11);
+                                cmd.Parameters.AddWithValue("@Godzina12", obe.Godzina12);
+                                cmd.Parameters.AddWithValue("@Godzina13", obe.Godzina13);
+                                cmd.Parameters.AddWithValue("@Godzina14", obe.Godzina14);
+                                cmd.Parameters.AddWithValue("@Godzina15", obe.Godzina15);
+                                cmd.ExecuteNonQuery();
+                                cmd.Parameters.Clear();
+                            }
+                            else
+                            {
+                                this.EdytujObecnosci(obe);
+                            }
                         }
                     }
                 }
-            }
+            });
         }
 
         private IList<ObecnoscUcznia> WykonajKomende(SqlCommand cmd)
@@ -157,7 +166,9 @@ namespace Librus.DostepDoDanych.BazaDanych
                     var godzina13 = (bool)reader["Godzina13"];
                     var godzina14 = (bool)reader["Godzina14"];
                     var godzina15 = (bool)reader["Godzina15"];
-                    var uczen = (Uczen)this.repozytoriumUzytkownikow.PobierzUzytkownikaPoId(id);
+                    var t = this.repozytoriumUzytkownikow.PobierzUzytkownikaPoId(id);
+                    t.Wait();
+                    var uczen = (Uczen)t.Result;
 
                     ObecnoscUcznia obecnosc = new ObecnoscUcznia(uczen, dataNieobecnosci);
                     obecnosc.Godzina8 = godzina8;

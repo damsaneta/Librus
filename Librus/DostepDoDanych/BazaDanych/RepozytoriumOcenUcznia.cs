@@ -21,39 +21,45 @@ namespace Librus.DostepDoDanych.BazaDanych
             this.repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotow(connectionString);
         }
 
-        public IList<OcenyUcznia> PobierzOcenyPoUczniu(Uczen uczen)
+        public Task<IList<OcenyUcznia>> PobierzOcenyPoUczniu(Uczen uczen)
         {
-            IList<OcenyUcznia> oceny = new List<OcenyUcznia>();
-            using (var connection = new SqlConnection(this.connectionString))
+            return Task.Factory.StartNew(() =>
             {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
+                IList<OcenyUcznia> oceny = new List<OcenyUcznia>();
+                using (var connection = new SqlConnection(this.connectionString))
                 {
-                    cmd.CommandText = "SELECT * FROM Oceny WHERE IdUcznia = @IdUcznia";
-                    cmd.Parameters.AddWithValue("@IdUcznia", uczen.Id);
-                    oceny = this.WykonajKomende(cmd);
+                    connection.Open();
+                    using (var cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = "SELECT * FROM Oceny WHERE IdUcznia = @IdUcznia";
+                        cmd.Parameters.AddWithValue("@IdUcznia", uczen.Id);
+                        oceny = this.WykonajKomende(cmd);
+                    }
                 }
-            }
-            return oceny;
+                return oceny;
+            });
         }
 
-        public IList<OcenyUcznia> PobierzPoKlasieIPrzedmiocie(string klasaId, string przedmiotId)
+        public Task<IList<OcenyUcznia>> PobierzPoKlasieIPrzedmiocie(string klasaId, string przedmiotId)
         {
-            IList<OcenyUcznia> oceny = new List<OcenyUcznia>();
-            using (var connection = new SqlConnection(this.connectionString))
+            return Task.Factory.StartNew(() =>
             {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
+                IList<OcenyUcznia> oceny = new List<OcenyUcznia>();
+                using (var connection = new SqlConnection(this.connectionString))
                 {
-                    cmd.CommandText = @"SELECT IdUcznia, IdPrzedmiotu, Oceny FROM Oceny o INNER JOIN Uzytkownicy u
+                    connection.Open();
+                    using (var cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = @"SELECT IdUcznia, IdPrzedmiotu, Oceny FROM Oceny o INNER JOIN Uzytkownicy u
                     ON o.IdUcznia = u.Id WHERE u.KlasaId = @klasaId AND o.IdPrzedmiotu = @przedmiotId";
-                    cmd.Parameters.AddWithValue("@klasaId", klasaId);
-                    cmd.Parameters.AddWithValue("@przedmiotId", przedmiotId);
+                        cmd.Parameters.AddWithValue("@klasaId", klasaId);
+                        cmd.Parameters.AddWithValue("@przedmiotId", przedmiotId);
 
-                    oceny = this.WykonajKomende(cmd);
+                        oceny = this.WykonajKomende(cmd);
+                    }
                 }
-            }
-            return oceny;
+                return oceny;
+            });
         }
 
         public IList<OcenyUcznia> PobierzOcenyPoUczniuIPrzedmiocie(Uczen uczen, string przedmiotId)
@@ -75,32 +81,35 @@ namespace Librus.DostepDoDanych.BazaDanych
             return oceny;
         }
 
-        public void Zapisz(IList<OcenyUcznia> oceny)
+        public Task Zapisz(IList<OcenyUcznia> oceny)
         {
-            using (var connection = new SqlConnection(this.connectionString))
+            return Task.Factory.StartNew(() =>
             {
-                connection.Open();
-                using (var cmd = connection.CreateCommand())
+                using (var connection = new SqlConnection(this.connectionString))
                 {
-                    cmd.CommandText = "INSERT INTO Oceny (IdUcznia, IdPrzedmiotu, Oceny) VALUES (@IdUcznia, @IdPrzedmiotu, @Oceny)";
-                    foreach (OcenyUcznia o in oceny)
+                    connection.Open();
+                    using (var cmd = connection.CreateCommand())
                     {
-                        var c = this.PobierzOcenyPoUczniuIPrzedmiocie(o.Uczen, o.Przedmiot.Id);
-                        if (c == null || c.Count == 0)
+                        cmd.CommandText = "INSERT INTO Oceny (IdUcznia, IdPrzedmiotu, Oceny) VALUES (@IdUcznia, @IdPrzedmiotu, @Oceny)";
+                        foreach (OcenyUcznia o in oceny)
                         {
-                            cmd.Parameters.AddWithValue("@IdUcznia", o.Uczen.Id);
-                            cmd.Parameters.AddWithValue("@IdPrzedmiotu", o.Przedmiot.Id);
-                            cmd.Parameters.AddWithValue("@Oceny", o.Oceny);
-                            cmd.ExecuteNonQuery();
-                            cmd.Parameters.Clear();
-                        }
-                        else
-                        {
-                            this.EdytujOceny(o);
+                            var c = this.PobierzOcenyPoUczniuIPrzedmiocie(o.Uczen, o.Przedmiot.Id);
+                            if (c == null || c.Count == 0)
+                            {
+                                cmd.Parameters.AddWithValue("@IdUcznia", o.Uczen.Id);
+                                cmd.Parameters.AddWithValue("@IdPrzedmiotu", o.Przedmiot.Id);
+                                cmd.Parameters.AddWithValue("@Oceny", o.Oceny);
+                                cmd.ExecuteNonQuery();
+                                cmd.Parameters.Clear();
+                            }
+                            else
+                            {
+                                this.EdytujOceny(o);
+                            }
                         }
                     }
                 }
-            }
+            });
         }
 
         private void EdytujOceny(OcenyUcznia oceny)
@@ -132,7 +141,9 @@ namespace Librus.DostepDoDanych.BazaDanych
                     var idUcznia = (int)reader["IdUcznia"];
                     var idPrzedmiotu = (string)reader["IdPrzedmiotu"];
                     var oceny = (string)reader["Oceny"];
-                    Uczen uczen = (Uczen)this.repozytoriumUzytkownikow.PobierzUzytkownikaPoId(idUcznia);
+                    var t = this.repozytoriumUzytkownikow.PobierzUzytkownikaPoId(idUcznia);
+                    t.Wait();
+                    Uczen uczen = (Uczen)t.Result;
                     Przedmiot przedmiot = this.repozytoriumPrzedmiotow.ZnajdzPrzedmiot(idPrzedmiotu);
                     ocenyUcznia = new OcenyUcznia(uczen, przedmiot);
                     ocenyUcznia.Oceny = oceny;

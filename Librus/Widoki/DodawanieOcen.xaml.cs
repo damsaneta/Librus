@@ -1,6 +1,5 @@
 ﻿using Librus.DostepDoDanych;
 using Librus.DostepDoDanych.BazaDanych;
-using Librus.DostepDoDanych.Pamiec;
 using Librus.Model;
 using System;
 using System.Collections.Generic;
@@ -36,15 +35,21 @@ namespace Librus.Widoki
             this.repozytoriumKlas = new RepozytoriumKlas(connectionString);
             this.repozytoriumOcenUcznia = new RepozytoriumOcenUcznia(connectionString);
             InitializeComponent();
-            this.klasaComboBox.ItemsSource = repozytoriumKlas.PobierzWszystkie();
+            this.Inicjalizuj();
+        }
+
+        private async void Inicjalizuj()
+        {
+            this.klasaComboBox.ItemsSource = await repozytoriumKlas.PobierzWszystkie();
             this.klasaComboBox.DisplayMemberPath = "Nazwa";
             this.klasaComboBox.SelectedValuePath = "Id";
 
-            this.przedmiotComboBox.ItemsSource = repozytoriumPrzedmiotow.PobierzWszystkie();
+            this.przedmiotComboBox.ItemsSource = await repozytoriumPrzedmiotow.PobierzWszystkie();
             this.przedmiotComboBox.DisplayMemberPath = "Nazwa";
             this.przedmiotComboBox.SelectedValuePath = "Id";
         }
-        private void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private async void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool test = true;
             test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, this.errKlasa);
@@ -53,10 +58,10 @@ namespace Librus.Widoki
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                 Przedmiot przedmiot = this.przedmiotComboBox.SelectedItem as Przedmiot;
-                var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Id, przedmiot.Id);
+                var oceny = await this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Id, przedmiot.Id);
                 if (oceny == null || oceny.Count == 0)
                 {
-                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Id);
+                    var uczniowie = await repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Id);
                     oceny = uczniowie.Select(x => new OcenyUcznia(x, przedmiot)).ToList();
                     this.ocenyDataGrid.ItemsSource = oceny;
                 }
@@ -69,7 +74,7 @@ namespace Librus.Widoki
 
         }
 
-        private void PrzedmiotComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void PrzedmiotComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool test = true;
             test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, this.errKlasa);
@@ -78,10 +83,10 @@ namespace Librus.Widoki
             {
                 Klasa klasa = this.klasaComboBox.SelectedItem as Klasa;
                 Przedmiot przedmiot = this.przedmiotComboBox.SelectedItem as Przedmiot;
-                var oceny = this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Id, przedmiot.Id);
+                var oceny = await this.repozytoriumOcenUcznia.PobierzPoKlasieIPrzedmiocie(klasa.Id, przedmiot.Id);
                 if (oceny == null || oceny.Count == 0)
                 {
-                    var uczniowie = repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Id);
+                    var uczniowie = await repozytoriumUzytkownikow.WyszukajPoKlasie(klasa.Id);
                     oceny = uczniowie.Select(x => new OcenyUcznia(x, przedmiot)).ToList();
                     this.ocenyDataGrid.ItemsSource = oceny;
                 }
@@ -94,7 +99,7 @@ namespace Librus.Widoki
 
         }
 
-        private void BtnZapiszClick(object sender, RoutedEventArgs e)
+        private async void BtnZapiszClick(object sender, RoutedEventArgs e)
         {
             bool test = true;
             test &= Walidator.WalidacjaWymaganegoComboBoxa(this.przedmiotComboBox, this.errPrzedmiot);
@@ -110,7 +115,7 @@ namespace Librus.Widoki
                         w.Oceny = string.Empty;
                     }
                 }
-                this.repozytoriumOcenUcznia.Zapisz(v);
+                await this.repozytoriumOcenUcznia.Zapisz(v);
                 MessageBox.Show("Oceny zostały poprawnie zapisane.", "Dodawanie ocen", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
