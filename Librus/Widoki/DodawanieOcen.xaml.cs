@@ -18,15 +18,13 @@ using System.Windows.Shapes;
 
 namespace Librus.Widoki
 {
-    /// <summary>
-    /// Interaction logic for DodawanieOcen.xaml
-    /// </summary>
     public partial class DodawanieOcen : Window
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow;
         private readonly IRepozytoriumKlas repozytoriumKlas;
         private readonly IRepozytoriumOcenUcznia repozytoriumOcenUcznia;
+
         public DodawanieOcen()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
@@ -38,6 +36,9 @@ namespace Librus.Widoki
             this.Inicjalizuj();
         }
 
+        /// <summary>
+        /// Inicjalizacja nowego okna.
+        /// </summary>
         private async void Inicjalizuj()
         {
             this.klasaComboBox.ItemsSource = await repozytoriumKlas.PobierzWszystkie();
@@ -49,6 +50,11 @@ namespace Librus.Widoki
             this.przedmiotComboBox.SelectedValuePath = "Id";
         }
 
+        /// <summary>
+        /// Wczytywanie Ocen na podstawie wybranej klasy oraz przedmiotu.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private async void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool test = true;
@@ -69,11 +75,14 @@ namespace Librus.Widoki
                 {
                     this.ocenyDataGrid.ItemsSource = oceny;
                 }
-
             }
-
         }
 
+        /// <summary>
+        /// Wczytywanie ocen na podstawie wybranej klasy oraz przedmiotu.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private async void PrzedmiotComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool test = true;
@@ -94,11 +103,14 @@ namespace Librus.Widoki
                 {
                     this.ocenyDataGrid.ItemsSource = oceny;
                 }
-
             }
-
         }
 
+        /// <summary>
+        /// Zapisywanie ocen uczniów.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void BtnZapiszClick(object sender, RoutedEventArgs e)
         {
             bool test = true;
@@ -121,4 +133,3 @@ namespace Librus.Widoki
         }
     }
 }
-

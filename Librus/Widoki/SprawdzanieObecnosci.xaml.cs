@@ -29,6 +29,9 @@ namespace Librus.Widoki
             this.Inicjalizuj();
         }
 
+        /// <summary>
+        /// Inicjalizacja nowego okna.
+        /// </summary>
         private async void Inicjalizuj()
         {
             this.wyborDaty.SelectedDate = DateTime.Now.Date;
@@ -37,6 +40,11 @@ namespace Librus.Widoki
             this.klasaComboBox.SelectedValuePath = "Id";
         }
 
+        /// <summary>
+        /// Zmiana klasy i zaladowanie obecnosci.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private async void KlasaComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool test = true;
@@ -57,11 +65,14 @@ namespace Librus.Widoki
                 {
                     this.nieobecnosciDataGrid.ItemsSource = obecnosci;
                 }
-
             }
-
         }
 
+        /// <summary>
+        /// Zapis obecnosci.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void ZapiszClick(object sender, RoutedEventArgs e)
         {
             bool test = true;
@@ -76,10 +87,15 @@ namespace Librus.Widoki
             }
         }
 
+        /// <summary>
+        /// Ładowanie obecności po zmianie daty. 
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private async void ZmianaDaty(object sender, SelectionChangedEventArgs e)
         {
             bool test = true;
-            test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, errData);//walidaxja daty
+            test &= Walidator.WalidacjaWymaganegoPolaDaty(this.wyborDaty, errData);
             test &= Walidator.WalidacjaWymaganegoComboBoxa(this.klasaComboBox, errKlasa);
             if (this.klasaComboBox.SelectedValue != null)
             {
@@ -97,7 +113,6 @@ namespace Librus.Widoki
                     {
                         this.nieobecnosciDataGrid.ItemsSource = obecnosci;
                     }
-
                 }
             }
         }
