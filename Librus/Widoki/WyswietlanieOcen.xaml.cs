@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace Librus.Widoki
 {
-    /// <summary>
-    /// Interaction logic for WyswietlanieOcen.xaml
-    /// </summary>
     public partial class WyswietlanieOcen : Window
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
@@ -37,6 +34,9 @@ namespace Librus.Widoki
             this.Inicjalizuj();
         }
 
+        /// <summary>
+        /// Inicjalizacja nowego okna, w zależności od roli.
+        /// </summary>
         private async void Inicjalizuj()
         {
             Uzytkownik user = await repozytoriumUzytkownikow.PobierzPoEmailu(this.email);
@@ -59,6 +59,11 @@ namespace Librus.Widoki
             }
         }
 
+        /// <summary>
+        /// Wyswietlanie ocen ucznia.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         public async void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var uczen = this.uczenComboBox.SelectedItem as Uczen;

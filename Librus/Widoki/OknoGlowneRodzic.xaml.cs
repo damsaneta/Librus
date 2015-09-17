@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace Librus.Widoki
 {
-    /// <summary>
-    /// Interaction logic for OknoGlowneRodzic.xaml
-    /// </summary>
     public partial class OknoGlowneRodzic : Window
     {
         public OknoGlowneRodzic()
@@ -24,18 +21,33 @@ namespace Librus.Widoki
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Tworzy nowe okno WyswietlanieObecnosci po wciśnięciu przycisku.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ObecnosciBtnClick(object sender, RoutedEventArgs e)
         {
             var obecnosci = new WyswietlanieNieobecnosci(this.nazwaLbl.Content.ToString());
             obecnosci.Show();
         }
 
+        /// <summary>
+        /// Tworzy nowe okno WyswietlanieOcen po wciśnięciu przycisku.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void OcenyBtnClick(object sender, RoutedEventArgs e)
         {
             var oceny = new WyswietlanieOcen(this.nazwaLbl.Content.ToString());
             oceny.Show();
         }
 
+        /// <summary>
+        /// Wylogowywanie.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void WylogujBtnClick(object sender, RoutedEventArgs e)
         {
             var panelLogowania = new PanelLogowania();

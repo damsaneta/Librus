@@ -6,25 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/// <summary>
-/// BazaDanych namespace.
-/// </summary>
 namespace Librus.DostepDoDanych.BazaDanych
 {
-    /// <summary>
-    /// Class RepozytoriumPrzedmiotow.
-    /// </summary>
     public class RepozytoriumPrzedmiotow : IRepozytoriumPrzedmiotow
     {
-        /// <summary>
-        /// The connection string
-        /// </summary>
         private readonly string connectionString;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RepozytoriumPrzedmiotow"/> class.
-        /// </summary>
-        /// <param name="connectionString">The connection string.</param>
         public RepozytoriumPrzedmiotow(string connectionString)
         {
             this.connectionString = connectionString;

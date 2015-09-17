@@ -7,25 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/// <summary>
-///  BazaDanych namespace.
-/// </summary>
 namespace Librus.DostepDoDanych.BazaDanych
 {
-    /// <summary>
-    /// Klasa RepozytoriumKlas.
-    /// </summary>
     public class RepozytoriumKlas : IRepozytoriumKlas
     {
-        /// <summary>
-        /// Connection string
-        /// </summary>
         private readonly string connectionString;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RepozytoriumKlas"/> class.
-        /// </summary>
-        /// <param name="connectionString">Connection string.</param>
         public RepozytoriumKlas(string connectionString)
         {
             this.connectionString = connectionString;

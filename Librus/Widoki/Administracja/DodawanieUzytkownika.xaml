@@ -44,7 +44,6 @@
 
             <ComboBoxItem >
                 <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="C:/Users/aneta/Desktop/profile.jpg" />-->
                     <TextBlock Margin="5,0,0,0">Administrator</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
@@ -62,7 +61,6 @@
             </ComboBoxItem>
             <ComboBoxItem>
                 <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="C:/Users/aneta/Desktop/profile.jpg" />-->
                     <TextBlock Margin="5,0,0,0">Uczen</TextBlock>
                 </StackPanel>
             </ComboBoxItem>

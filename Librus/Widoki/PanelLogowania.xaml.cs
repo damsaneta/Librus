@@ -23,6 +23,11 @@ namespace Librus.Widoki
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Odpowiada za utworzenie nowego na podstawie roli użytkownika.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void ZalogujClick(object sender, RoutedEventArgs e)
         {
             bool result = true;
@@ -59,18 +64,21 @@ namespace Librus.Widoki
                     }
                     else
                     {
-                        // TODO
                         Walidator.WyswietlBlad(this.txtHaslo, this.errHaslo, "Niepoprawne hasło!");
                     }
                 }
                 else
                 {
-                    // TODO
                     Walidator.WyswietlBlad(this.txtLogin, this.errLogin, "Uzytkownik o takim e-mailu nie istnieje!");
                 }
             }
         }
 
+        /// <summary>
+        /// Walidacja loginu.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void TextBoxLoginTextChanged(object sender, TextChangedEventArgs e)
         {
            if( Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtLogin, this.errLogin))

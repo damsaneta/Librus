@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace Librus.Widoki.Administracja
 {
-    /// <summary>
-    /// Interaction logic for Uzytkownicy.xaml
-    /// </summary>
     public partial class Uzytkownicy : Window
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
@@ -38,6 +35,11 @@ namespace Librus.Widoki.Administracja
             this.grid.ItemsSource = await this.repozytoriumUzytkownikow.PobierzWszystkich();
         }
 
+        /// <summary>
+        /// Tworzony jest nowy widok DodawanieUzywkownika.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void DodajClick(object sender, RoutedEventArgs e)
         {
             var view = new DodawanieUzytkownika();
@@ -48,6 +50,11 @@ namespace Librus.Widoki.Administracja
             }
         }
 
+        /// <summary>
+        /// Wyszukiwanie użytkowników na podstawie fragmentu imienia, nazwiska lub maila.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private async void SzukajTextChanged(object sender, TextChangedEventArgs e)
         {
             string typ = "";
@@ -65,12 +72,10 @@ namespace Librus.Widoki.Administracja
             if ((string.IsNullOrEmpty(this.txtSzukaj.Text) || this.txtSzukaj.Text == "Szukaj...") && (typ == "Szukaj po roli..." || typ == "Nieznany"))
             {
                 this.grid.ItemsSource = await this.repozytoriumUzytkownikow.PobierzWszystkich();
-                // this.grid.Items.Refresh();
             }
             else if ((!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj...") && (typ == "Szukaj po roli..." || typ == "Nieznany"))
             {
                 this.grid.ItemsSource = await this.repozytoriumUzytkownikow.WyszukajUzytkownikow(this.txtSzukaj.Text);
-                //this.grid.ItemsSource = this.Lista;
             }
             else if ((!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj...") && (typ != "Szukaj po roli..." && typ != "Nieznany"))
             {
@@ -79,13 +84,17 @@ namespace Librus.Widoki.Administracja
 
         }
 
+        /// <summary>
+        /// Wybieranie użytkowników na podstawie wybranej roli przez administratora.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private async void RolaSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TypRoli typ = (TypRoli)this.comboBox.SelectedIndex;
             if (typ.ToString() != "Nieznany" && (string.IsNullOrEmpty(this.txtSzukaj.Text) || this.txtSzukaj.Text == "Szukaj..."))
             {
                 this.grid.ItemsSource = await this.repozytoriumUzytkownikow.WyszukajPoRoli(typ.ToString());
-                //this.grid.Items.Refresh();
             }
             else if (typ.ToString() != "Nieznany" && (!string.IsNullOrEmpty(this.txtSzukaj.Text) && this.txtSzukaj.Text != "Szukaj..."))
             {
@@ -98,12 +107,15 @@ namespace Librus.Widoki.Administracja
             else
             {
                 this.grid.ItemsSource = await this.repozytoriumUzytkownikow.PobierzWszystkich();
-                //this.grid.ItemsSource = this.Lista;
-                //this.grid.Items.Refresh();
             }
 
         }
 
+        /// <summary>
+        /// Przywracanie tekstu "Szukaj..." w textBoxie.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void TxtSzukajLostFocus(object sender, RoutedEventArgs e)
         {
             string typ = "";

@@ -99,7 +99,6 @@
     <Compile Include="Model\Przedmiot.cs" />
     <Compile Include="Model\Rodzic.cs" />
     <Compile Include="Model\Rola.cs" />
-    <Compile Include="Model\SerwisAplikacyjny.cs" />
     <Compile Include="Model\TypRoli.cs" />
     <Compile Include="Model\Uczen.cs" />
     <Compile Include="Model\Uzytkownik.cs" />

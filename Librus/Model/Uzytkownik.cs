@@ -24,17 +24,17 @@ namespace Librus.Model
 
         public string PelnaNazwa { get { return this.Imie + " " + this.Nazwisko; } }
 
-        public string Email { get; set; }
+        public string Email { get; private set; }
 
-        public Rola Rola { get; set; }
+        public Rola Rola { get; private set; }
 
-        public string Imie { get; set; }
+        public string Imie { get; private set; }
 
-        public string Nazwisko { get; set; }
+        public string Nazwisko { get; private set; }
 
         public int Id { get; set; }
 
-        public string Haslo { get; set; }
+        public string Haslo { get; private set; }
 
     }
 }

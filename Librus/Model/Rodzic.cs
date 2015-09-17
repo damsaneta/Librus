@@ -19,6 +19,6 @@ namespace Librus.Model
             this.Dzieci = lista;
         }
 
-        public IList<Uzytkownik> Dzieci { get; set; }
+        public IList<Uzytkownik> Dzieci { get; private set; }
     }
 }

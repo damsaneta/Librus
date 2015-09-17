@@ -10,9 +10,6 @@ using System.Windows.Controls;
 
 namespace Librus.Widoki.Administracja
 {
-    /// <summary>
-    /// Interaction logic for DodawanieUzytkownika.xaml
-    /// </summary>
     public partial class DodawanieUzytkownika : Window
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
@@ -34,6 +31,12 @@ namespace Librus.Widoki.Administracja
             this.comboKlasa.SelectedValuePath = "Id";
         }
 
+        /// <summary>
+        /// DDodawanie nowego użytkownika.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="InvalidOperationException"></exception>
         private async void DodajClick(object sender, RoutedEventArgs e)
         {
             bool result = true;
@@ -54,6 +57,7 @@ namespace Librus.Widoki.Administracja
             {
                 result &= Walidator.WalidacjaPolaEmail(this.txtEmail, this.errEmail);
             }
+
             result &= Walidator.WalidacjaComboBox(this.comboRola, this.errRola);
 
             if (TypRoli.Uczen == (TypRoli)this.comboRola.SelectedIndex)
@@ -113,6 +117,11 @@ namespace Librus.Widoki.Administracja
             }
         }
 
+        /// <summary>
+        /// Walidcja imienia.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void TextBoxImieTextChanged(object sender, TextChangedEventArgs e)
         {
             if (Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtImie, this.errImie))
@@ -121,6 +130,11 @@ namespace Librus.Widoki.Administracja
             }
         }
 
+        /// <summary>
+        /// Walidacja nazwiska.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void TextBoxNazwiskoTextChanged(object sender, TextChangedEventArgs e)
         {
             if (Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtNazwisko, this.errNazwisko))
@@ -129,6 +143,11 @@ namespace Librus.Widoki.Administracja
             }
         }
 
+        /// <summary>
+        /// Walidacja emaila.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void TextBoxEmailTextChanged(object sender, TextChangedEventArgs e)
         {
             if (Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtEmail, this.errEmail))
@@ -137,6 +156,11 @@ namespace Librus.Widoki.Administracja
             }
         }
 
+        /// <summary>
+        /// Walidacja pola dzieci.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void txtDzieckoTextChanged(object sender, TextChangedEventArgs e)
         {
             Walidator.WalidacjaWymaganegoPolaTekstowego(this.txtDziecko, this.errDziecko);
@@ -147,6 +171,11 @@ namespace Librus.Widoki.Administracja
             this.Close();
         }
 
+        /// <summary>
+        /// Aktywowanie odpowiednich pól w zależności od wybranej roli.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void ComboRolaSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool result = true;
@@ -167,11 +196,21 @@ namespace Librus.Widoki.Administracja
             }
         }
 
+        /// <summary>
+        /// Walidacja ComboBoxa.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void ComboKlasaSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Walidator.WalidacjaWymaganegoComboBoxa(this.comboKlasa, errKlasa);
         }
 
+        /// <summary>
+        /// Sprawdzanie czy wybrane dzieci istnieją w bazie. Wykorzystywana przy tworzeniu rodzica
+        /// </summary>
+        /// <param name="slowo">The slowo.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         private async Task<string> SprawdzanieIstnieniaDzieci(string slowo)
         {
             string brakDzieci = string.Empty;

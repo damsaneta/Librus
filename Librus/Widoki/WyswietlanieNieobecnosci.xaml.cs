@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace Librus.Widoki
 {
-    /// <summary>
-    /// Interaction logic for Wyswietlanie_nieobecnosci.xaml
-    /// </summary>
     public partial class WyswietlanieNieobecnosci : Window
     {
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
@@ -37,6 +34,9 @@ namespace Librus.Widoki
             this.Inicjalizuj();
         }
 
+        /// <summary>
+        /// Inicjalizacja nowego okna, w zależności od roli.
+        /// </summary>
         private async void Inicjalizuj()
         {
             Uzytkownik user = await repozytoriumUzytkownikow.PobierzPoEmailu(this.email);
@@ -59,8 +59,11 @@ namespace Librus.Widoki
             }
         }
 
-
-
+        /// <summary>
+        /// Dostosowuje wyświetlaną zawartośc w zależności od wybranego ucznia.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private async void UczenComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var uczen = this.uczenComboBox.SelectedItem as Uczen;

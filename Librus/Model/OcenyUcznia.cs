@@ -15,9 +15,9 @@ namespace Librus.Model
             this.Przedmiot = przedmiot;
         }
 
-        public Uczen Uczen { get; set; }
+        public Uczen Uczen { get; private set; }
 
-        public Przedmiot Przedmiot { get; set; }
+        public Przedmiot Przedmiot { get; private set; }
 
         public string Oceny { get; set; }
     }

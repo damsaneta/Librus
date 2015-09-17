@@ -19,6 +19,6 @@ namespace Librus.Model
             this.Klasa = klasa;
         }
 
-        public Klasa Klasa { get; set; }
+        public Klasa Klasa { get; private set; }
     }
 }

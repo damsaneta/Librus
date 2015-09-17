@@ -22,7 +22,7 @@ namespace Librus.DostepDoDanych.BazaDanych
         }
 
         /// <summary>
-        /// Metoda pobierająca oceny ucznia z bazy.
+        /// Metoda pobierająca oceny ucznia z bazy na podstawie id.
         /// </summary>
         /// <param name="uczen">Obiekt klasy Uczen uczen.</param>
         /// <returns>Task<IList<OcenyUcznia>>.</returns>

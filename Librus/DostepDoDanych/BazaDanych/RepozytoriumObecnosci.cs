@@ -23,7 +23,7 @@ namespace Librus.DostepDoDanych.BazaDanych
         }
 
         /// <summary>
-        /// Pobiera z bazy obecności na podstawie id klasy oraz daty.
+        /// Pobiera z bazy obecności na podstawie id klasy oraz daty aby sprawdzić czy obecności już istnieja.
         /// </summary>
         /// <param name="klasaId">The klasa identifier.</param>
         /// <param name="data">The data.</param>

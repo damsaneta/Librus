@@ -14,9 +14,9 @@ namespace Librus.Widoki
             this.Data = data;
         }
 
-        public Uczen Uczen { get; set; }
+        public Uczen Uczen { get; private set; }
 
-        public DateTime Data { get; set; }
+        public DateTime Data { get; private set; }
 
         public bool Godzina8 { get; set; }
 

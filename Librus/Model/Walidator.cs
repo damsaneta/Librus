@@ -14,6 +14,12 @@ namespace Librus.Model
 
         }
 
+        /// <summary>
+        /// Testowanie czy użytkownik wpisał tylko litery czy tez liczby w miejscach gdzie wymagane sa litery
+        /// </summary>
+        /// <param name="txt">The text.</param>
+        /// <param name="lbl">The label.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool WalidacjaPolaNazwy(TextBox txt, Label lbl)
         {
             foreach (char c in txt.Text)
@@ -28,6 +34,12 @@ namespace Librus.Model
             return true;
         }
 
+        /// <summary>
+        /// Walidacja czy została wybrana rola nowego użytkownika.
+        /// </summary>
+        /// <param name="box">The box.</param>
+        /// <param name="lbl">The label.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool WalidacjaComboBox(ComboBox box, Label lbl)
         {
             TypRoli typ = (TypRoli)box.SelectedIndex;
@@ -40,6 +52,12 @@ namespace Librus.Model
             return true;
         }
 
+        /// <summary>
+        /// Walidacja podanego emaila przez użytkownika
+        /// </summary>
+        /// <param name="txt">The text.</param>
+        /// <param name="lbl">The label.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool WalidacjaPolaEmail(TextBox txt, Label lbl)
         {
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
@@ -53,6 +71,12 @@ namespace Librus.Model
             return false;
         }
 
+        /// <summary>
+        /// Walidacja czy użytkownik wypełnij wymagane pola.
+        /// </summary>
+        /// <param name="kontrolka">The kontrolka.</param>
+        /// <param name="lbl">The label.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool WalidacjaWymaganegoPolaTekstowego(TextBox kontrolka, Label lbl)
         {
             if (string.IsNullOrEmpty(kontrolka.Text))
@@ -60,13 +84,16 @@ namespace Librus.Model
                 WyswietlBlad(kontrolka, lbl, BledyWalidacji.KomunikatPoleJestWymagane);
                 return false;
             }
-            else
-            {
-                UsunBlad(kontrolka, lbl);
-                return true;
-            }
+            UsunBlad(kontrolka, lbl);
+            return true;
         }
 
+        /// <summary>
+        /// Testowanie czy użytkownik wybrał opcję w comboBoxie.
+        /// </summary>
+        /// <param name="kontrolka">The kontrolka.</param>
+        /// <param name="lbl">The label.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool WalidacjaWymaganegoComboBoxa(ComboBox kontrolka, Label lbl)
         {
             if (kontrolka.SelectedValue == null)
@@ -74,13 +101,16 @@ namespace Librus.Model
                 WyswietlBlad(kontrolka, lbl, BledyWalidacji.KomunikatProszeWybrac);
                 return false;
             }
-            else
-            {
-                UsunBlad(kontrolka, lbl);
-                return true;
-            }
+            UsunBlad(kontrolka, lbl);
+            return true;
         }
 
+        /// <summary>
+        /// Walidacja czy użytkownik wybrał datę.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="lbl">The label.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool WalidacjaWymaganegoPolaDaty(DatePicker data, Label lbl)
         {
             if (data.SelectedDate == null)
@@ -88,14 +118,16 @@ namespace Librus.Model
                 WyswietlBlad(data, lbl, BledyWalidacji.KomunikatWybierzDate);
                 return false;
             }
-            else
-            {
-                UsunBlad(data, lbl);
-                return true;
-            }
+            UsunBlad(data, lbl);
+            return true;
         }
 
-
+        /// <summary>
+        /// Wyswietlanie komunikatu o błedzie.
+        /// </summary>
+        /// <param name="kontrolka">The kontrolka.</param>
+        /// <param name="lbl">The label.</param>
+        /// <param name="komunikat">The komunikat.</param>
         public static void WyswietlBlad(Control kontrolka, Label lbl, string komunikat)
         {
             kontrolka.Background = Brushes.Yellow;
@@ -103,12 +135,24 @@ namespace Librus.Model
             lbl.Content = komunikat;
         }
 
+        /// <summary>
+        /// Usuwanie komunikatu o błędzie.
+        /// </summary>
+        /// <param name="kontrolka">The kontrolka.</param>
+        /// <param name="lbl">The label.</param>
         public static void UsunBlad(Control kontrolka, Label lbl)
         {
             kontrolka.Background = Brushes.White;
             lbl.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Walidacja istnienia uczniów, przy tworzeniu nowego rodzica.
+        /// </summary>
+        /// <param name="textBox">The text box.</param>
+        /// <param name="label">The label.</param>
+        /// <param name="test">The test.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool WalidacjaDzieci(TextBox textBox, Label label, string test)
         {
             if (String.IsNullOrEmpty(test))
@@ -116,13 +160,16 @@ namespace Librus.Model
                 UsunBlad(textBox, label);
                 return true;
             }
-            else
-            {
-                WyswietlBlad(textBox, label, test);
-                return false;
-            }
+            WyswietlBlad(textBox, label, test);
+            return false;
         }
 
+        /// <summary>
+        /// Walidacja czy zostało wpisane hasło uzytkownika podczas logowania.
+        /// </summary>
+        /// <param name="passwordBox">The password box.</param>
+        /// <param name="label">The label.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool WalidacjaHasla(PasswordBox passwordBox, Label label)
         {
             if (string.IsNullOrEmpty(passwordBox.Password))
@@ -130,11 +177,8 @@ namespace Librus.Model
                 WyswietlBlad(passwordBox, label, BledyWalidacji.KomunikatPoleJestWymagane);
                 return false;
             }
-            else
-            {
-                UsunBlad(passwordBox, label);
-                return true;
-            }
+            UsunBlad(passwordBox, label);
+            return true;
         }
     }
 }
