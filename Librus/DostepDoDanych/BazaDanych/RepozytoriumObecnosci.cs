@@ -12,7 +12,6 @@ namespace Librus.DostepDoDanych.BazaDanych
     public class RepozytoriumObecnosci : IRepozytoriumObecnosci
     {
         private readonly string connectionString;
-
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
         private readonly IRepozytoriumKlas repozytoriumKlas;
 
@@ -23,6 +22,12 @@ namespace Librus.DostepDoDanych.BazaDanych
             repozytoriumKlas = new RepozytoriumKlas(connectionString);
         }
 
+        /// <summary>
+        /// Pobiera z bazy obecności na podstawie id klasy oraz daty.
+        /// </summary>
+        /// <param name="klasaId">The klasa identifier.</param>
+        /// <param name="data">The data.</param>
+        /// <returns>Task&lt;IList&lt;ObecnoscUcznia&gt;&gt;.</returns>
         public Task<IList<ObecnoscUcznia>> PobierzPoKlasieIDacie(string klasaId, DateTime data)
         {
             return Task.Factory.StartNew(() =>
@@ -46,6 +51,11 @@ namespace Librus.DostepDoDanych.BazaDanych
             });
         }
 
+        /// <summary>
+        /// Pobiera wszystkie obecnosci ucznia.
+        /// </summary>
+        /// <param name="uczen">Obiekt klasy Uczen.</param>
+        /// <returns>Task<IList<ObecnoscUcznia>>.</returns>
         public Task<IList<ObecnoscUcznia>> PobierzObecnosciPoUczniu(Uczen uczen)
         {
             return Task.Factory.StartNew(() =>
@@ -66,6 +76,10 @@ namespace Librus.DostepDoDanych.BazaDanych
             });
         }
 
+        /// <summary>
+        /// Edycja już istniejącej obecnosci ucznia.
+        /// </summary>
+        /// <param name="obe">Obiekt klasy ObecnoscUcznia.</param>
         private void EdytujObecnosci(ObecnoscUcznia obe)
         {
             using (var connection = new SqlConnection(this.connectionString))
@@ -92,6 +106,12 @@ namespace Librus.DostepDoDanych.BazaDanych
             }
         }
 
+        /// <summary>
+        /// Pobiera obecnosci po uczniu oraz dacie.
+        /// </summary>
+        /// <param name="uczen">Obiekt klasy Uczen</param>
+        /// <param name="data">Data.</param>
+        /// <returns>IList&lt;ObecnoscUcznia&gt;.</returns>
         public IList<ObecnoscUcznia> PobierzObecnoscPoUczniuIDacie(Uczen uczen, DateTime data)
         {
             IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();
@@ -110,6 +130,11 @@ namespace Librus.DostepDoDanych.BazaDanych
             return obecnosci;
         }
 
+        /// <summary>
+        /// Zapis obecnosci do bazy.
+        /// </summary>
+        /// <param name="obecnosci">Lista obiektów ObecnoscUcznia.</param>
+        /// <returns>Task.</returns>
         public Task Zapisz(IList<ObecnoscUcznia> obecnosci)
         {
             return Task.Factory.StartNew(() =>
@@ -149,6 +174,11 @@ namespace Librus.DostepDoDanych.BazaDanych
             });
         }
 
+        /// <summary>
+        /// Wykonuje komendę SQL.
+        /// </summary>
+        /// <param name="cmd">TKomenda.</param>
+        /// <returns>IList<ObecnoscUcznia>.</returns>
         private IList<ObecnoscUcznia> WykonajKomende(SqlCommand cmd)
         {
             IList<ObecnoscUcznia> obecnosci = new List<ObecnoscUcznia>();

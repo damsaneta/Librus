@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Librus.DostepDoDanych.BazaDanych
 {
     public class RepozytoriumOcenUcznia : IRepozytoriumOcenUcznia
-    {
+    {       
         private readonly string connectionString;
         private readonly IRepozytoriumPrzedmiotow repozytoriumPrzedmiotow;
         private readonly IRepozytoriumUzytkownikow repozytoriumUzytkownikow;
@@ -21,6 +21,11 @@ namespace Librus.DostepDoDanych.BazaDanych
             this.repozytoriumPrzedmiotow = new RepozytoriumPrzedmiotow(connectionString);
         }
 
+        /// <summary>
+        /// Metoda pobierająca oceny ucznia z bazy.
+        /// </summary>
+        /// <param name="uczen">Obiekt klasy Uczen uczen.</param>
+        /// <returns>Task<IList<OcenyUcznia>>.</returns>
         public Task<IList<OcenyUcznia>> PobierzOcenyPoUczniu(Uczen uczen)
         {
             return Task.Factory.StartNew(() =>
@@ -40,6 +45,12 @@ namespace Librus.DostepDoDanych.BazaDanych
             });
         }
 
+        /// <summary>
+        /// Metoda pobierająca z bazy oceny na podstawie identyfikatora klasy oraz identyfikatora przedmiotu.
+        /// </summary>
+        /// <param name="klasaId">Identyfikator klasy.</param>
+        /// <param name="przedmiotId">Identyfikaro przedmiotu.</param>
+        /// <returns>Tas<IList<OcenyUcznia>>.</returns>
         public Task<IList<OcenyUcznia>> PobierzPoKlasieIPrzedmiocie(string klasaId, string przedmiotId)
         {
             return Task.Factory.StartNew(() =>
@@ -62,6 +73,12 @@ namespace Librus.DostepDoDanych.BazaDanych
             });
         }
 
+        /// <summary>
+        /// Pobieranie ocen ucznia na podstawie ucznia oraz identyfikatora przedmiotu.
+        /// </summary>
+        /// <param name="uczen">Obiekt klasy Uczen.</param>
+        /// <param name="przedmiotId">Identyfikator przedmiotu.</param>
+        /// <returns> IList<OcenyUcznia>.</returns>
         public IList<OcenyUcznia> PobierzOcenyPoUczniuIPrzedmiocie(Uczen uczen, string przedmiotId)
         {
             IList<OcenyUcznia> oceny = new List<OcenyUcznia>();
@@ -81,6 +98,11 @@ namespace Librus.DostepDoDanych.BazaDanych
             return oceny;
         }
 
+        /// <summary>
+        /// Zapis ocen uczniów do bazy.
+        /// </summary>
+        /// <param name="oceny">Lista OceenUzytkownika</param>
+        /// <returns>Task.</returns>
         public Task Zapisz(IList<OcenyUcznia> oceny)
         {
             return Task.Factory.StartNew(() =>
@@ -112,6 +134,10 @@ namespace Librus.DostepDoDanych.BazaDanych
             });
         }
 
+        /// <summary>
+        /// Edycja ocen ucznia.
+        /// </summary>
+        /// <param name="oceny">Obiekt klasy OcenyUcznia</param>
         private void EdytujOceny(OcenyUcznia oceny)
         {
             using (var connection = new SqlConnection(this.connectionString))
@@ -130,6 +156,11 @@ namespace Librus.DostepDoDanych.BazaDanych
             }
         }
 
+        /// <summary>
+        /// Metoda odpowiedzialna za wykonywanie komend SQL.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <returns>IList<OcenyUcznia>.</returns>
         private IList<OcenyUcznia> WykonajKomende(SqlCommand cmd)
         {
             IList<OcenyUcznia> wynik = new List<OcenyUcznia>();

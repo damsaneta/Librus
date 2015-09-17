@@ -95,19 +95,7 @@ namespace Librus.Model
             }
         }
 
-        //public static bool WalidacjaIstnieniaUzytkownika(TextBox textBox, Label label)
-        //{
-        //    if(repozytorium.PobierzPoEmailu(textBox.Text)!=null)
-        //    {
-        //        WyswietlBlad(textBox, label, "Użytkownik o takim e-mailu istnieje.");
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        UsunBlad(textBox, label);
-        //        return true;
-        //    }
-        //}
+
         public static void WyswietlBlad(Control kontrolka, Label lbl, string komunikat)
         {
             kontrolka.Background = Brushes.Yellow;

@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Librus", "Librus\Librus.csproj", "{D42F00CC-87EE-43BF-BFB1-1AEE6B3E9EC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Librus.TestySQL", "Librus.TestySQL\Librus.TestySQL.csproj", "{DDD7DEE4-C72A-43C8-A3FC-D0A1B0BC7B20}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{D42F00CC-87EE-43BF-BFB1-1AEE6B3E9EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D42F00CC-87EE-43BF-BFB1-1AEE6B3E9EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D42F00CC-87EE-43BF-BFB1-1AEE6B3E9EC5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDD7DEE4-C72A-43C8-A3FC-D0A1B0BC7B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDD7DEE4-C72A-43C8-A3FC-D0A1B0BC7B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDD7DEE4-C72A-43C8-A3FC-D0A1B0BC7B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDD7DEE4-C72A-43C8-A3FC-D0A1B0BC7B20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

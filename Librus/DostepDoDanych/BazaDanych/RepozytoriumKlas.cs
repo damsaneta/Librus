@@ -7,17 +7,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+///  BazaDanych namespace.
+/// </summary>
 namespace Librus.DostepDoDanych.BazaDanych
 {
+    /// <summary>
+    /// Klasa RepozytoriumKlas.
+    /// </summary>
     public class RepozytoriumKlas : IRepozytoriumKlas
     {
+        /// <summary>
+        /// Connection string
+        /// </summary>
         private readonly string connectionString;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RepozytoriumKlas"/> class.
+        /// </summary>
+        /// <param name="connectionString">Connection string.</param>
         public RepozytoriumKlas(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
+        /// <summary>
+        /// Pobiera wszystkie klasy z bazy.
+        /// </summary>
+        /// <returns>Task<IList<Klasa>>.</returns>
         public Task<IList<Klasa>> PobierzWszystkie()
         {
             return Task.Factory.StartNew(() =>
@@ -47,6 +64,11 @@ namespace Librus.DostepDoDanych.BazaDanych
             });
         }
 
+        /// <summary>
+        /// Wyszukiwanie klasy w bazie na podstawie identyfikatora klasy. 
+        /// </summary>
+        /// <param name="id">Identyfikator.</param>
+        /// <returns>Klasa.</returns>
         public Klasa ZnajdzKlase(string id)
         {
             Klasa klasa = null;
